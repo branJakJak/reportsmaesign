@@ -14,6 +14,11 @@ return [
         'gii' => 'yii\gii\Module',
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['normal_user'],
+        ],
+    
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

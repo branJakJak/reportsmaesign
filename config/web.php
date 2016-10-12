@@ -8,14 +8,10 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
-        // 'view' => [
-        //     'theme' => [
-        //         'pathMap' => [
-        //             'class' => \yii\base\Theme::className(),
-        //             '@app/views' => '@app/themes/dashgum'
-        //          ],
-        //      ],
-        // ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['normal_user'],
+        ],
         'pdfEsign' =>[
             'class'=>'app\components\PdfEsign',
         ],
