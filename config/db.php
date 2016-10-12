@@ -7,7 +7,7 @@ $dbConfiguration = [
 	    'password' => 'hitman052529',
 	    'charset' => 'utf8',
 	];
-if (defined('YII_DEBUG') && defined('YII_ENV') == 'dev') {
+if (YII_DEBUG && YII_ENV == 'dev') {
 	$dbConfiguration =  [
 	    'class' => 'yii\db\Connection',
 	    'dsn' => 'mysql:host=localhost;dbname=reportsma_esign',
