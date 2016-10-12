@@ -54,6 +54,7 @@ $config = [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'rules' => array(
+                '/pdf/<leadId:\d+>' => 'site/pdf',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
@@ -76,5 +77,8 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
     ];
 }
+$config['modules']['gridview']= [
+  'class' => '\kartik\grid\Module'
+  ];
 
 return $config;

@@ -1,10 +1,10 @@
 <?php
 
 /* @var $this yii\web\View */
-
+use kartik\growl\Growl;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\widgets\Menu;
 $this->title = 'My Yii Application';
 
 $this->registerJsFile('js/jSignature/flashcanvas.js',['position'=>\yii\web\View::POS_END,'depends'=>\yii\web\JqueryAsset::className()]);
@@ -20,8 +20,10 @@ $("#signaturePanel").bind('change',function(event) {
 SCRIPT;
 $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
 
-
 ?>
+
+
+
 <script type="text/javascript">
     function resetSignature () {
         $("#signaturePanel").jSignature('reset');
@@ -32,8 +34,41 @@ $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
     <div class="body-content">
         <h3 class="text-center">Sample Form</h3>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Lead Panel</h3>
+                </div>
+                <div class="panel-body">
+
+                    <?php 
+                        echo Menu::widget([
+                            'items' => [
+                                ['label' => 'Create New Lead', 'url' => ['site/index']],
+                                ['label' => 'Manage Leads', 'url' => ['site/lead']],
+                            ],
+                            'options'=>[
+                                'class'=>'nav  nav-stacked nav-pills'
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
         </div>
+
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <?php if(Yii::$app->session->hasFlash('success')): ?>
+                <?php
+                echo Growl::widget([
+                    'type' => 'success',
+                    'title' => '',
+                    'icon' => 'fa fa-check',
+                    'body' => Yii::$app->session->getFlash('success'),
+                    'showSeparator' => true,
+                    'delay' => 1,
+                ]);
+                ?>
+            <?php endif; ?>
+
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
                 'options' => ['class' => 'form-horizontal'],

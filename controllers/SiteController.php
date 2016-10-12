@@ -2,14 +2,18 @@
 
 namespace app\controllers;
 
+use app\models\LeadEsign;
 use app\models\NewLeadForm;
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use kartik\mpdf\Pdf;
+use yii\web\HttpException;
 
 class SiteController extends Controller
 {
@@ -48,28 +52,54 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function actionLead()
+    {
+        $faker = \Faker\Factory::create();
+        $dataProvider = new ActiveDataProvider([
+            'query'=>LeadEsign::find()
+        ]);
+        return $this->render('lead', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     public function actionIndex()
     {
         $newLeadForm = new NewLeadForm();
         if ($newLeadForm->load(Yii::$app->request->post()) && $newLeadForm->validate()) {
-//            $pdfEsign = Yii::$app->pdfEsign;
-//            $pdfEsign->leadData = $newLeadForm->attributes;
-//            $exportedPdfFile = $pdfEsign->export();
-//            Yii::$app->response->xSendFile($exportedPdfFile);
             $imageSignatureTempContainer = $newLeadForm->prepareData();
             /*publish the image to asset folder and get url */
+            $newLead = new LeadEsign();
+            $newLead->attributes = $newLeadForm->attributes;
+            $newLead->client_signature_image= $imageSignatureTempContainer;
             $retArr = \Yii::$app->assetManager->publish($imageSignatureTempContainer);
             $publishedSignatureImage = $retArr[0];
-            $content = $this->renderPartial("_pdf_template", compact('newLeadForm', 'publishedSignatureImage'));
-
-            $mpdf = new \mPDF();
-            $mpdf->WriteHTML($content);
-            $mpdf->Output();
+            $newLead->save(false);
+            Yii::$app->getSession()->setFlash('success', "New lead added");
+            $this->redirect(Yii::$app->homeUrl);
         }
         return $this->render('index', ['model' => $newLeadForm]);
     }
-
+    public function actionPdf($leadId)
+    {
+        /**
+         * @var $leadObj LeadEsign
+         */
+        $leadObj = null;
+        if(LeadEsign::find()->where(['id' => $leadId])->exists()){
+            $leadObj = LeadEsign::find()->where(['id' => $leadId])->one();
+        }else{
+            throw new HttpException(404);
+        }
+        $newLeadForm = new NewLeadForm();
+        $newLeadForm->attributes = $leadObj->attributes;
+        $retArr = \Yii::$app->assetManager->publish($leadObj->client_signature_image);
+        $publishedSignatureImage = $retArr[0];
+        $content = $this->renderPartial("_pdf_template", compact('newLeadForm', 'publishedSignatureImage'));
+        $mpdf = new \mPDF();
+        $mpdf->WriteHTML($content);
+        $mpdf->Output();
+    }
     public function actionTest()
     {
         echo Yii::getAlias('@app/signatures/');
