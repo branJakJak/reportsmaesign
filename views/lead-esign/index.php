@@ -13,19 +13,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Lead Esign', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'salutation',
             'firstname',
-            'middlename',
             'lastname',
+            [
+                'header'=>'Something',
+                'value'=>function($model){
+                    return "wee";
+                }
+            ],
             // 'account_provider',
             // 'monthly_account_charge',
             // 'client_signature_image',

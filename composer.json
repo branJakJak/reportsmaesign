@@ -23,7 +23,9 @@
         "fzaninotto/faker": "^1.6",
         "kartik-v/yii2-export": "@dev",
         "mpdf/mpdf": "^6.1",
-        "kartik-v/yii2-widget-growl": "*"
+        "kartik-v/yii2-widget-growl": "*",
+         "yiisoft/yii2-jui":"*",
+        "kartik-v/yii2-widgets": "*" 
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

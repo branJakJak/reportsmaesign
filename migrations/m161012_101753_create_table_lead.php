@@ -36,6 +36,7 @@ class m161012_101753_create_table_lead extends Migration
             'understanding_of_features_and_benefits'=> $this->text(),//show this if registered_benefits_by_packaged_account is yes
             'address_while_bank_opened'=> $this->text(),//[non uk address, uk address]
             'bank_account_status'=> $this->text(),//[account in Arrears , Account in Debt Management , Account in IVA , Bankrupt]
+            'bank_account_status_comment'=> $this->text(),//[account in Arrears , Account in Debt Management , Account in IVA , Bankrupt]
             'has_account_upgraded_downgraded'=> $this->string(),//[yes,no]
             'upgrade_comment'=> $this->text(),//[yes,no]
             'how_packaged_bank_account_sold' => $this->string(),//
@@ -48,7 +49,13 @@ class m161012_101753_create_table_lead extends Migration
             'actually_take_out_other_prodcuts'=> $this->string(),
             'actually_take_out_other_prodcuts_details'=> $this->string(),
             'did_they_give_advice' => $this->string(),
+
+            'discuss_not_involed_packaged' => $this->string(),
+            'discuss_not_involed_packaged_details' => $this->text(),
+
             'did_they_give_advice_clarify' => $this->text(),
+            'did_they_give_advice_clarify_details' => $this->text(),
+
             'felt_under_pressure' => $this->string(),//[yes,no]
             'felt_under_pressure_details' => $this->string(),
             'had_free_bank' => $this->string(),
@@ -62,8 +69,23 @@ class m161012_101753_create_table_lead extends Migration
             'often_go_holiday_in_europe' => $this->string(),
             'often_go_holiday_outside_europe' => $this->string(),
             'often_go_holiday_and_winter_sports' => $this->string(),
+
             'has_health_problems_during_upgrade' => $this->string(),
+            'has_health_problems_during_upgrade_details' => $this->string(),
+            'did_rep_explain_eligibility' => $this->string(),
+
             'has_registered_doctor_during_upgrade' => $this->string(),
+            'further_details_help_evidence' => $this->string(),
+
+            'did_kept_insurance_after_sale' => $this->string(),
+            'did_kept_insurance_after_sale_details' => $this->string(),
+            'reason_kept_existing_cover' => $this->string(),
+
+            'when_opened_account_has_other_account' => $this->string(),
+            'when_opened_account_has_other_account_details' => $this->string(),
+
+
+
             'products_owned_during_upgrade' => $this->string(),
             'has_packaged_account_during_upgrade' => $this->string(),//[yes,no]
             'reason_why_unhappy' => $this->text(),

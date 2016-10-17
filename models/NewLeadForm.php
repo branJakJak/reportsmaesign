@@ -51,7 +51,6 @@ class NewLeadForm extends Model
                 .sprintf("%s_%s_%s", $this->firstname,$this->middlename,$this->lastname)
                 .uniqid()
                 .'.png';
-        Yii::warning($outputfile . ' - debug');
         touch($outputfile);
         file_put_contents($outputfile, base64_decode($this->client_signature));
         /*set to client_signature_output_image */

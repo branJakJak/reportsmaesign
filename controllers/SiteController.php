@@ -65,20 +65,17 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $newLeadForm = new NewLeadForm();
-        if ($newLeadForm->load(Yii::$app->request->post()) && $newLeadForm->validate()) {
-            $imageSignatureTempContainer = $newLeadForm->prepareData();
-            /*publish the image to asset folder and get url */
-            $newLead = new LeadEsign();
-            $newLead->attributes = $newLeadForm->attributes;
-            $newLead->client_signature_image= $imageSignatureTempContainer;
-            $retArr = \Yii::$app->assetManager->publish($imageSignatureTempContainer);
-            $publishedSignatureImage = $retArr[0];
-            $newLead->save(false);
+        $model = new LeadEsign();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
             Yii::$app->getSession()->setFlash('success', "New lead added");
             $this->redirect(Yii::$app->homeUrl);
+            Yii::$app->end();
         }
-        return $this->render('index', ['model' => $newLeadForm]);
+        return $this->render('//lead-esign/create', [
+            'model' => $model,
+        ]);
+
     }
     public function actionPdf($leadId)
     {

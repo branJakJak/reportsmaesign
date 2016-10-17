@@ -7,12 +7,11 @@ use yii\helpers\Html;
 /* @var $model app\models\LeadEsign */
 
 $this->title = 'Create Lead Esign';
-$this->params['breadcrumbs'][] = ['label' => 'Lead Esigns', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Lead Esigns', 'url' => ['/lead-esign/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="lead-esign-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="lead-esign-create">
 
     <?= $this->render('_form', [
         'model' => $model,
