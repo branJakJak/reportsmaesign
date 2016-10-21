@@ -2,15 +2,15 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\LeadEsign */
 
-$this->title = 'Create Lead Esign';
+$this->title = 'Update Lead Esign: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Lead Esigns', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="lead-esign-create">
+<div class="lead-esign-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

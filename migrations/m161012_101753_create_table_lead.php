@@ -117,7 +117,7 @@ class m161012_101753_create_table_lead extends Migration
             'account_number'=>$this->string(),
             'sort_code'=>$this->string(),
             /*appointment*/
-            'appointment_date'=>$this->date(),
+            'appointment_date'=>$this->string(),
             'appointment_time'=>$this->string(),
             'notes'=>$this->text(),
 
@@ -131,4 +131,5 @@ class m161012_101753_create_table_lead extends Migration
     {
         $this->dropTable('{{%lead_esign}}');
     }
+    
 }

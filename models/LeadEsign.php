@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "lead_esign".
@@ -230,4 +232,35 @@ class LeadEsign extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord) {
+            if (isset($this->client_signature_image)) {
+                $outputfile = Yii::getAlias('@app/signatures/')
+                    .DIRECTORY_SEPARATOR
+                    .sprintf("%s_%s_%s", $this->firstname,$this->lastname,uniqid())
+                    .'.png';
+                touch($outputfile);
+                file_put_contents($outputfile, base64_decode($this->client_signature_image));
+                $this->client_signature_image = $outputfile;
+            }
+        }
+        return parent::beforeSave($insert);
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression("NOW()"),
+            ],        
+        ];
+    }
+
+
 }
