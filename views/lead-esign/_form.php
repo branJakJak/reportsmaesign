@@ -950,24 +950,25 @@ $this->registerCss($customCss);
                             <tbody>
                                 <tr>
                                     <td>in Europe (including the UK)</td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['value' => 'Never']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['value' => 'Occasionally but not every year']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['value' => '1-3 times a year']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['value' => '3+ times a year']); ?>   </td>
+                                    <!-- @TODo -possibly radio list here -->
+                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['label'=>'','uncheck'=>null,'value' => 'Never']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['label'=>'','uncheck'=>null,'value' => 'Occasionally but not every year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['label'=>'','uncheck'=>null,'value' => '1-3 times a year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_in_europe')->radio(['label'=>'','uncheck'=>null,'value' => '3+ times a year']); ?>   </td>
                                 </tr>
                                 <tr>
                                     <td>outside of Europe</td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['value' => 'Never']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['value' => 'Occasionally but not every year']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['value' => '1-3 times a year']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['value' => '3+ times a year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['label'=>'','uncheck'=>null,'value' => 'Never']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['label'=>'','uncheck'=>null,'value' => 'Occasionally but not every year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['label'=>'','uncheck'=>null,'value' => '1-3 times a year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_outside_europe')->radio(['label'=>'','uncheck'=>null,'value' => '3+ times a year']); ?>   </td>
                                 </tr>
                                 <tr>
                                     <td>and did winter sports</td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['value' => 'Never']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['value' => 'Occasionally but not every year']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['value' => '1-3 times a year']); ?>   </td>
-                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['value' => '3+ times a year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['label'=>'','uncheck'=>null,'value' => 'Never']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['label'=>'','uncheck'=>null,'value' => 'Occasionally but not every year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['label'=>'','uncheck'=>null,'value' => '1-3 times a year']); ?>   </td>
+                                    <td>   <?= $form->field($model, 'often_go_holiday_and_winter_sports')->radio(['label'=>'','uncheck'=>null,'value' => '3+ times a year']); ?>   </td>
                                 </tr>
                             </tbody>
                         </table>

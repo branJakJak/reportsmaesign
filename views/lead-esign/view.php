@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\LeadEsign */
 
-$this->title = $model->id;
+$this->title = "$model->firstname $model->lastname";
 $this->params['breadcrumbs'][] = ['label' => 'Lead Esigns', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lead-esign-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?> ,</h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-default pull-right']) ?>
     </p>
 
     <?= DetailView::widget([
