@@ -14,12 +14,13 @@ class m161012_101753_create_table_lead extends Migration
         }
         $this->createTable('{{%lead_esign}}', [
             'id' => $this->primaryKey(),
-            'salutation' => $this->string()->notNull(),
-            'firstname' => $this->string()->notNull(),
-            'lastname' => $this->string()->notNull(),
+            'hotkey' => $this->string(),
+            'salutation' => $this->string(),
+            'firstname' => $this->string(),
+            'lastname' => $this->string(),
             'account_type' => $this->string(),//[joint,single]
             'account_provider' => $this->string(),
-            'monthly_account_charge' => $this->float()->notNull(),
+            'monthly_account_charge' => $this->float(),
             'account_start_date' => $this->dateTime(),
             'account_end_date' => $this->dateTime(),
             'is_ongoing' => $this->boolean(),//if yes , account end date is not required
@@ -47,17 +48,17 @@ class m161012_101753_create_table_lead extends Migration
             'noticed_account_fees'=>$this->string(),
             'noticed_account_fees_details'=>$this->text(),
             'actually_take_out_other_prodcuts'=> $this->string(),
-            'actually_take_out_other_prodcuts_details'=> $this->string(),
+            'actually_take_out_other_prodcuts_details'=> $this->text(),
             'did_they_give_advice' => $this->string(),
 
             'discuss_not_involed_packaged' => $this->string(),
             'discuss_not_involed_packaged_details' => $this->text(),
 
-            'did_they_give_advice_clarify' => $this->text(),
+            'did_they_give_advice_clarify' => $this->string(),
             'did_they_give_advice_clarify_details' => $this->text(),
 
             'felt_under_pressure' => $this->string(),//[yes,no]
-            'felt_under_pressure_details' => $this->string(),
+            'felt_under_pressure_details' => $this->text(),
             'had_free_bank' => $this->string(),
             'did_representative_explain_main_exclusions' => $this->string(),
             'did_representative_explain_receive_written_info' => $this->string(),
@@ -65,30 +66,32 @@ class m161012_101753_create_table_lead extends Migration
             'explain_changes_effect_elligibility' => $this->string(),
             'explain_pay_excess_claim_on_insurance' => $this->string(),
             'has_uk_driving_license_during_upgrade' => $this->string(),
+
+            'own_a_car' => $this->string(),
+
             'has_mobile_phone_during_upgrade' => $this->string(),
+            'has_mobile_phone_during_upgrade_has_internet_connection' => $this->string(),
+
             'often_go_holiday_in_europe' => $this->string(),
             'often_go_holiday_outside_europe' => $this->string(),
             'often_go_holiday_and_winter_sports' => $this->string(),
 
             'has_health_problems_during_upgrade' => $this->string(),
-            'has_health_problems_during_upgrade_details' => $this->string(),
+            'has_health_problems_during_upgrade_details' => $this->text(),
             'did_rep_explain_eligibility' => $this->string(),
 
             'has_registered_doctor_during_upgrade' => $this->string(),
             'further_details_help_evidence' => $this->string(),
 
             'did_kept_insurance_after_sale' => $this->string(),
-            'did_kept_insurance_after_sale_details' => $this->string(),
+            'did_kept_insurance_after_sale_details' => $this->text(),
             'reason_kept_existing_cover' => $this->string(),
 
             'when_opened_account_has_other_account' => $this->string(),
-            'when_opened_account_has_other_account_details' => $this->string(),
+            'when_opened_account_has_other_account_details' => $this->text(),
 
-
-
-            'products_owned_during_upgrade' => $this->string(),
-            'has_packaged_account_during_upgrade' => $this->string(),//[yes,no]
             'reason_why_unhappy' => $this->text(),
+            
             /*Contact Information*/
             'landline'=>$this->string(),
             'mobile'=>$this->string(),
@@ -118,8 +121,7 @@ class m161012_101753_create_table_lead extends Migration
             'appointment_time'=>$this->string(),
             'notes'=>$this->text(),
 
-
-            'client_signature_image' => $this->string()->notNull(),
+            'client_signature_image' => $this->string(),
             'created_at' => $this->dateTime(),
             'updated_at' => $this->dateTime()
         ], $tableOptions);

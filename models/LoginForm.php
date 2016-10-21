@@ -42,10 +42,19 @@ class LoginForm extends Model
     public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $user = $this->getUser();
+            /**
+             * @var $accountFound AccountUser
+             */
+            $accountFound = AccountUser::find()->where([
+                'username' => $this->username,
+            ])->one();
 
-            if (!$user || !$user->validatePassword($this->password)) {
+            if ( !$accountFound ) {
                 $this->addError($attribute, 'Incorrect username or password.');
+            }else{
+                if (!Yii::$app->security->validatePassword($this->password, $accountFound->password)) {
+                    $this->addError($attribute, 'Incorrect username or password.');
+                }
             }
         }
     }
@@ -62,17 +71,11 @@ class LoginForm extends Model
         return false;
     }
 
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
-    public function getUser()
+    private function getUser()
     {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
-        }
-
-        return $this->_user;
+        return AccountUser::find()->where([
+            'username'=>$this->username
+        ])->one();
     }
+
 }

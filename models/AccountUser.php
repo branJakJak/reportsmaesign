@@ -19,7 +19,7 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  */
-class AccountUser extends \yii\db\ActiveRecord
+class AccountUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * @inheritdoc
@@ -78,5 +78,49 @@ class AccountUser extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentity($id)
+    {
+        return AccountUser::find()->where([
+                'id'=>$id
+            ])->one();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return AccountUser::find()->where([
+                'accessToken'=>$token
+            ])->one();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey()
+    {
+        return $this->authKey;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->authKey === $authKey;
+    }    
 
 }
