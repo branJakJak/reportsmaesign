@@ -4,7 +4,6 @@ namespace app\modules\api\controllers;
 
 use app\models\AccountUser;
 use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 use yii\rest\ActiveController;
 
 
@@ -20,7 +19,7 @@ class V1Controller extends ActiveController
      */
     public function behaviors()
     {
-    	$customBehaviors = [
+        $customBehaviors = [
             'basicAuth' => [
                 'class' => \yii\filters\auth\HttpBasicAuth::className(),
                 'auth' => function ($username, $password) {
@@ -34,17 +33,19 @@ class V1Controller extends ActiveController
                         return null;
                     },
             ]
-    	];
-        return ArrayHelper::merge($customBehaviors , parent::behaviors());
+        ];
+        return ArrayHelper::merge($customBehaviors, parent::behaviors());
     }
-	protected function verbs()
-	{
-	    return [
-	        'index' => ['GET', 'HEAD'],
-	        'view' => ['GET', 'HEAD'],
-	        'create' => ['POST'],
-	        'update' => ['PUT', 'PATCH'],
-	        'delete' => ['DELETE'],
-	    ];
-	}   
+
+    protected function verbs()
+    {
+        return [
+            'index' => ['GET', 'POST','HEAD'],
+            'view' => ['GET', 'HEAD'],
+            'create' => ['POST'],
+            'update' => ['PUT', 'PATCH'],
+            'delete' => ['DELETE'],
+        ];
+    }
+
 }

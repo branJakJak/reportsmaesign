@@ -1,6 +1,7 @@
 /**
- * Simple quick documentation.
- *
+ * http://esign.site8.co/api/v1
+ * 
+ * 
  * @field string $hotkey
  * @field string $salutation
  * @field string $firstname

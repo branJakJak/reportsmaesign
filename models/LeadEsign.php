@@ -121,6 +121,7 @@ class LeadEsign extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['firstname','lastname','email_address'], 'required'],
             [['monthly_account_charge'], 'number'],
             [['account_start_date', 'account_end_date', 'date_of_birth', 'appointment_date', 'created_at', 'updated_at'], 'safe'],
             [['is_ongoing'], 'integer'],
