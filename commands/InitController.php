@@ -37,7 +37,6 @@ class InitController extends Controller
        /* create api user role*/
         $authManager = \Yii::$app->authManager;
         $apiUserRole = $authManager->createRole("api_user");
-        $apiUserRole = $authManager->getRole("api_user");
         $authManager->add($apiUserRole);
         echo "role added \r\n";
 
