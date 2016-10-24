@@ -36,8 +36,9 @@ class InitController extends Controller
         echo "Creating api_user role \r\n";
        /* create api user role*/
         $authManager = \Yii::$app->authManager;
-        $apiUser = $authManager->createRole("api_user");
-        $authManager->add($apiUser);
+        $apiUserRole = $authManager->createRole("api_user");
+        $apiUserRole = $authManager->getRole("api_user");
+        $authManager->add($apiUserRole);
         echo "role added \r\n";
 
         $apiUser = new AccountUser();
@@ -47,7 +48,7 @@ class InitController extends Controller
         $apiUser->accessToken = 'PjiIpU#duF^z1$oh/9xY';
         echo "API User saved \r\n";
         if ($apiUser->save()) {
-            $authManager->assign($apiUser, $apiUser->id);
+            $authManager->assign($apiUserRole, $apiUser->id);
             /*assign the role */
         }
     }
