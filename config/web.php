@@ -18,6 +18,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'E2DGY70bFe1ozqjcXB95',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]            
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -47,9 +50,11 @@ $config = [
         ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
-            'showScriptName' => false,
             'enablePrettyUrl' => true,
+            // 'enableStrictParsing' => true,
+            'showScriptName' => false,
             'rules' => array(
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1','pluralize' => false],
                 '/pdf/<leadId:\d+>' => 'site/pdf',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
@@ -58,6 +63,14 @@ $config = [
         ],        
         'db' => require(__DIR__ . '/db.php'),
     ],
+    'modules' => [
+        'api' => [
+            'class' => 'app\modules\api\v1',
+        ],
+        'gridview' => [
+          'class' => '\kartik\grid\Module'
+        ],
+    ],    
     'params' => $params,
 ];
 
@@ -73,8 +86,6 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
     ];
 }
-$config['modules']['gridview']= [
-  'class' => '\kartik\grid\Module'
-  ];
+
 
 return $config;

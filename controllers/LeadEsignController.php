@@ -26,6 +26,17 @@ class LeadEsignController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['view','index','create','update'],
+                'rules' => [
+                    [
+                        'actions' => ['view','index','create','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],            
         ];
     }
 

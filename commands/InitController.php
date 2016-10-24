@@ -20,6 +20,7 @@ class InitController extends Controller
         $authManager = \Yii::$app->authManager;
         $adminRole = $authManager->createRole("admin");
         $authManager->add($adminRole);
+
         $adminUser = new AccountUser();
         $adminUser->username = "admin";
         $adminUser->password = "pf3Zt49nsgoPFbr";
@@ -27,6 +28,26 @@ class InitController extends Controller
         $adminUser->accessToken = uniqid();
         if ($adminUser->save()) {
             $authManager->assign($adminRole, $adminUser->id);
+            /*assign the role */
+        }
+    }
+    public function actionApiUser()
+    {
+        echo "Creating api_user role \r\n";
+       /* create api user role*/
+        $authManager = \Yii::$app->authManager;
+        $apiUser = $authManager->createRole("api_user");
+        $authManager->add($apiUser);
+        echo "role added \r\n";
+
+        $apiUser = new AccountUser();
+        $apiUser->username = "api";
+        $apiUser->password = "RlI1FOWCkuGLKEdNBi9j";
+        $apiUser->authKey= 'l;!SUCFZx<sGOcgoA$vQ';
+        $apiUser->accessToken = 'PjiIpU#duF^z1$oh/9xY';
+        echo "API User saved \r\n";
+        if ($apiUser->save()) {
+            $authManager->assign($apiUser, $apiUser->id);
             /*assign the role */
         }
     }

@@ -237,7 +237,7 @@ class LeadEsign extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if ($this->isNewRecord) {
-            if (isset($this->client_signature_image)) {
+            if (isset($this->client_signature_image) && !is_null($this->client_signature_image) && !empty($this->client_signature_image)) {
                 $outputfile = Yii::getAlias('@app/signatures/')
                     .DIRECTORY_SEPARATOR
                     .sprintf("%s_%s_%s", $this->firstname,$this->lastname,uniqid())
