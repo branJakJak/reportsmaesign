@@ -48,7 +48,7 @@ $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
                 ]);
             ?>
 
-            <div id="signaturePanel"></div>
+            <div id="signaturePanel" style='border: 1px solid black'></div>
             <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
             <div class="text-center">
                 <?= Html::button('Reset signature panel', ['class' => 'btn btn-default', 'onclick' => 'resetSignature()']) ?>
