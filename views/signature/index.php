@@ -30,11 +30,7 @@ $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
 </script>
 <div class="site-index">
     <div class="body-content">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        </div>
-
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
+    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <?php if (Yii::$app->session->hasFlash('success')): ?>
             	<div class="alert alert-success">
             		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -62,8 +58,6 @@ $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
                 <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
             </div>
             <?php ActiveForm::end(); ?>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         </div>
     </div>
 </div>
