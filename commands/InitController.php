@@ -51,5 +51,35 @@ class InitController extends Controller
             /*assign the role */
         }
     }
+    public function actionAgents()
+    {
+        echo "Creating agent role \r\n";
+       /* create api user role*/
+        $authManager = \Yii::$app->authManager;
+        $agentRole = $authManager->createRole("agent");
+        $authManager->add($agentRole);
+        echo "agent role added \r\n";
+
+        $hduk_staff = new AccountUser();
+        $hduk_staff->username = "hduk_staff";
+        $hduk_staff->password = "DaJAMj2hn5it0m8ZvQNb";
+        $hduk_staff->authKey= uniqid();
+        $hduk_staff->accessToken = uniqid();
+        echo "API User saved \r\n";
+        if ($hduk_staff->save()) {
+            echo "hduk_staff saved ".PHP_EOL;
+            $authManager->assign($agentRole, $hduk_staff->id);
+        }
+        $ma_staff = new AccountUser();
+        $ma_staff->username = "ma_staff";
+        $ma_staff->password = "XFhuB6CepDSPAUyni4Vg";
+        $ma_staff->authKey= uniqid();
+        $ma_staff->accessToken = uniqid();
+        echo "API User saved \r\n";
+        if ($ma_staff->save()) {
+            $authManager->assign($agentRole, $ma_staff->id);
+        }
+
+    }
 
 } 

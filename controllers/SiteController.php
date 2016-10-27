@@ -67,7 +67,7 @@ class SiteController extends Controller
     {
         $model = new LeadEsign();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', "New lead created");
+            Yii::$app->session->setFlash('success', "New lead created. Reference id : ".$model->security_key);
             return $this->redirect("/");
         }
         return $this->render('//lead-esign/create', [
