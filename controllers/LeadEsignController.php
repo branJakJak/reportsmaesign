@@ -33,7 +33,7 @@ class LeadEsignController extends Controller
                     [
                         'actions' => ['view','index','create','update'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],            
@@ -53,6 +53,11 @@ class LeadEsignController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
+    }
+    public function actionPdf($leadId)
+    {
+        echo $leadId;
+        die();
     }
 
     /**

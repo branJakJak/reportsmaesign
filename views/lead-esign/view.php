@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-default pull-right']) ?>
+        <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/pdf/'.$model->id,], ['class' => 'btn btn-default pull-right']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -122,6 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'appointment_time',
             'notes:ntext',
             'client_signature_image',
+            'security_key',
             'created_at',
             'updated_at',
         ],

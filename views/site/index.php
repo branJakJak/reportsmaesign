@@ -28,7 +28,6 @@ $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
     function resetSignature () {
         $("#signaturePanel").jSignature('reset');
     }
-
 </script>
 <div class="site-index">
     <div class="body-content">

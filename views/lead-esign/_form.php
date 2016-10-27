@@ -54,6 +54,21 @@ $this->registerCss($customCss);
 
 
 <div class="container">
+    <?php if (Yii::$app->session->hasFlash('success')): ?>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Saved!</strong> <?= Yii::$app->session->getFlash('success') ?>
+            </div>            
+        </div>
+    </div>
+    <?php endif ?>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <?= Html::errorSummary($model); ?>
+        </div>
+    </div>
     <div class="row">
         <div class="form">
             <?php $form = ActiveForm::begin(); ?>
@@ -175,7 +190,7 @@ $this->registerCss($customCss);
                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                    'format' => 'dd/MM/yyyy'
+                                    'format' => 'dd/mm/yyyy'
                                 ]
                             ])
                             ->label("")
@@ -1485,7 +1500,7 @@ $this->registerCss($customCss);
                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                    'format' => 'dd/MM/yyyy'
+                                    'format' => 'dd/mm/yyyy'
                                 ]
                             ])
                         ->label("");
@@ -1779,6 +1794,9 @@ $this->registerCss($customCss);
                                     $appointment_time_options = array();
                                     foreach (range(8, 20) as $currentHour) {
                                         foreach (range(0, 45 , 15) as $currentMinute) {
+                                            if ($currentMinute === 0) {
+                                                $currentMinute = "00";
+                                            }
                                             $appointment_time_options["$currentHour:$currentMinute"] = "$currentHour:$currentMinute";
                                         }
                                     }

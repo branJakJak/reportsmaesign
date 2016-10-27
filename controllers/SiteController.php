@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\PdfEsign;
 use app\models\LeadEsign;
 use app\models\NewLeadForm;
 use Yii;
@@ -25,16 +26,15 @@ class SiteController extends Controller
                 'only' => ['logout','index'],
                 'rules' => [
                     [
-                        'actions' => ['logout','index'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
                 ],
             ],
         ];
@@ -66,11 +66,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new LeadEsign();
-        if ($model->load(Yii::$app->request->post())) {
-            $model->save();
-            Yii::$app->getSession()->setFlash('success', "New lead created");
-            $this->redirect(Yii::$app->homeUrl);
-            Yii::$app->end();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', "New lead created");
+            return $this->redirect("/");
         }
         return $this->render('//lead-esign/create', [
             'model' => $model,
@@ -99,6 +97,15 @@ class SiteController extends Controller
     }
     public function actionTest()
     {
+        /**
+         * @var $esignPdf PdfEsign
+         */
+        $this->layout = "blank";
+        $esignPdf = Yii::$app->pdfEsign;
+        $leadDataObj = LeadEsign::find()->one();
+        $htmlContents = $this->render("//lead-esign/pdf_template",compact('leadDataObj'));
+        $esignPdf->setContent($htmlContents);
+        $esignPdf->export();
         echo Yii::getAlias('@app/signatures/');
     }
 

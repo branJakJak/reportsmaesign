@@ -4,6 +4,7 @@
 
 
 @TODO - allow create only , block other actions
+@DONE
 
 @TODO - client view
 

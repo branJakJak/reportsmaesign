@@ -40,10 +40,10 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Leads', 'url' => ['/lead-esign']],
+            ['label' => 'Home', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'Leads', 'url' => ['/lead-esign'],'visible'=>!Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
+                ['label' => 'Login', 'url' => ['/site/login'],'visible'=>!Yii::$app->user->isGuest] :
                 [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
