@@ -28,7 +28,7 @@ $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
         $("#signaturePanel").jSignature('reset');
     }
 </script>
-<div class="site-index">
+<div class="site-index " style="margin-top: 100px;">
     <div class="body-content">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <?php if (Yii::$app->session->hasFlash('success')): ?>
