@@ -12,6 +12,7 @@ use Yii;
 use app\models\LeadEsign;
 use yii\base\Event;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 class NewLeadEventHandler extends Event{
     /**
@@ -23,7 +24,7 @@ class NewLeadEventHandler extends Event{
          * @var $currentLeadData LeadEsign
          */
         $currentLeadData = $event->data;
-        $signaturelinkUrl = Html::a("final step",'/signature/'.$currentLeadData->security_key);
+        $signaturelinkUrl ="<a href='".Url::toRoute(['/signature/'.$currentLeadData->security_key])."'> Final step </a>";
          
         /*send the email*/           
         Yii::$app->mailer->compose()
