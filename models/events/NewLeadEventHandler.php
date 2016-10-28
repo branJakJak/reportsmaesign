@@ -8,7 +8,7 @@
 
 namespace app\models\events;
 
-
+use Yii;
 use app\models\LeadEsign;
 use yii\base\Event;
 use yii\helpers\Html;
