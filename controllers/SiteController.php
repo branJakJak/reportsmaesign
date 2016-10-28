@@ -17,6 +17,8 @@ use app\models\ContactForm;
 use kartik\mpdf\Pdf;
 use yii\web\HttpException;
 use Dompdf\Dompdf;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 class SiteController extends Controller
 {
@@ -78,6 +80,14 @@ class SiteController extends Controller
             'model' => $model,
         ]);
 
+    }
+
+    public function actionTest()
+    {
+        echo Url::home(true).Url::to("signature/something");
+        echo "<br>";
+        echo Html::a("something nice", ['asdasd/asdas']);
+        die();
     }
     public function actionPdf($leadId)
     {
