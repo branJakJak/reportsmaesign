@@ -24,7 +24,7 @@ class NewLeadEventHandler extends Event{
          * @var $currentLeadData LeadEsign
          */
         $currentLeadData = $event->data;
-        $signaturelinkUrl ="<a href='".Url::home(true).Url::to(['signature/'.$currentLeadData->security_key])."'> Final step </a>";
+        $signaturelinkUrl ="<a href='".Url::home(true).'signature/'.$currentLeadData->security_key."'> Final step </a>";
          
         /*send the email*/           
         Yii::$app->mailer->compose()
