@@ -108,6 +108,8 @@ use yii\db\Expression;
  */
 class LeadEsign extends \yii\db\ActiveRecord
 {
+    const LEAD_ESIGN_NEW_LEAD = 0x1;
+
     /**
      * @inheritdoc
      */
@@ -246,6 +248,7 @@ class LeadEsign extends \yii\db\ActiveRecord
             $this->account_end_date = date("Y-m-d H:i:s", strtotime($this->account_end_date));
             $this->date_of_birth= date("Y-m-d H:i:s", strtotime($this->date_of_birth));
             $this->security_key = uniqid();
+            $this->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);
         }
         return parent::beforeSave($insert);
     }

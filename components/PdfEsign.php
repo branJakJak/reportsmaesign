@@ -51,7 +51,7 @@ class PdfEsign extends Component
         // $pdf->setSignature($certificate, $certificate, 'esign.site8', '', 2, []);
 
         $pdf->SetFont('helvetica', '', 12);
-        $pdf->AddPage();
+        $pdf->AddPage(18);
         $pdf->writeHTML($this->htmlContents, true, 0, true, 0);
         // $pdf->setSignatureAppearance(180, 60, 15, 15);
         $pdf->addEmptySignatureAppearance(180, 80, 15, 15);

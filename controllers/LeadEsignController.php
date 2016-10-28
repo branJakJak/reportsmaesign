@@ -54,11 +54,6 @@ class LeadEsignController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    public function actionPdf($leadId)
-    {
-        echo $leadId;
-        die();
-    }
 
     /**
      * Displays a single LeadEsign model.

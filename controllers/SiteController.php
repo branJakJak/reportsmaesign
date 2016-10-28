@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\components\PdfEsign;
 use app\models\LeadEsign;
 use app\models\NewLeadForm;
+use FPDI;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
@@ -15,6 +16,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use kartik\mpdf\Pdf;
 use yii\web\HttpException;
+use Dompdf\Dompdf;
 
 class SiteController extends Controller
 {
@@ -66,9 +68,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new LeadEsign();
+        $model->on(LeadEsign::LEAD_ESIGN_NEW_LEAD, ['app\models\events\NewLeadEventHandler', 'handle'],$model);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', "New lead created. Reference id : ".$model->security_key);
-            return $this->redirect("/");
+            return $this-view>redirect("/");
         }
         return $this->render('//lead-esign/create', [
             'model' => $model,
@@ -95,21 +99,7 @@ class SiteController extends Controller
         $mpdf->WriteHTML($content);
         $mpdf->Output();
     }
-    public function actionTest()
-    {
-        /**
-         * @var $esignPdf PdfEsign
-         */
-        $this->layout = "blank";
-        $esignPdf = Yii::$app->pdfEsign;
-        $leadDataObj = LeadEsign::find()->one();
-        $htmlContents = $this->render("//lead-esign/pdf_template",compact('leadDataObj'));
-        $esignPdf->setContent($htmlContents);
-        $esignPdf->export();
-        echo Yii::getAlias('@app/signatures/');
-    }
-
-    public function actionLogin()
+   public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -148,4 +138,7 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+
+
 }

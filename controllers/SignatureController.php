@@ -15,7 +15,7 @@ class SignatureController extends \yii\web\Controller
         if($requestedLead && $requestedLead->load(\Yii::$app->request->post()) ){
             $requestedLead->saveClientSignature();
             $requestedLead->save();
-            \Yii::$app->session->setFlash('success',"Signature saved! . Thank you for signing , we will contact you shortly");
+            \Yii::$app->session->setFlash('success',"Signature saved! . Thank you for signing , we will send you your pdf copy within 4 hours.");
             return $this->redirect(\Yii::$app->request->referrer);
         }
         return $this->render('index',['model'=>$requestedLead]);

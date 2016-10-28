@@ -55,8 +55,8 @@ $config = [
             'showScriptName' => false,
             'rules' => array(
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1','pluralize' => false],
-                '/pdf/<leadId:\d+>' => 'lead-esign/pdf',
                 '/signature/<securityKey:\w+>' => 'signature/index',
+                '/export/<securityKey:\w+>' => 'export/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
