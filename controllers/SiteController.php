@@ -81,34 +81,6 @@ class SiteController extends Controller
         ]);
 
     }
-
-    public function actionTest()
-    {
-        echo Url::home(true).Url::to("signature/something");
-        echo "<br>";
-        echo Html::a("something nice", ['asdasd/asdas']);
-        die();
-    }
-    public function actionPdf($leadId)
-    {
-        /**
-         * @var $leadObj LeadEsign
-         */
-        $leadObj = null;
-        if(LeadEsign::find()->where(['id' => $leadId])->exists()){
-            $leadObj = LeadEsign::find()->where(['id' => $leadId])->one();
-        }else{
-            throw new HttpException(404);
-        }
-        $newLeadForm = new NewLeadForm();
-        $newLeadForm->attributes = $leadObj->attributes;
-        $retArr = \Yii::$app->assetManager->publish($leadObj->client_signature_image);
-        $publishedSignatureImage = $retArr[0];
-        $content = $this->renderPartial("_pdf_template", compact('newLeadForm', 'publishedSignatureImage'));
-        $mpdf = new \mPDF();
-        $mpdf->WriteHTML($content);
-        $mpdf->Output();
-    }
    public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -130,25 +102,6 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
-
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
 
 
 }
