@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/pdf/'.$model->id,], ['class' => 'btn btn-default pull-right']) ?>
+        <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/export/'.$model->security_key,], ['class' => 'btn btn-default pull-right']) ?>
     </p>
 
     <?= DetailView::widget([

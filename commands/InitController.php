@@ -80,6 +80,16 @@ class InitController extends Controller
             $authManager->assign($agentRole, $ma_staff->id);
         }
 
+        $ma_staff = new AccountUser();
+        $ma_staff->username = "administrator";
+        $ma_staff->password = "rh5SgPe2t8oJQWk3bGOx";
+        $ma_staff->authKey= uniqid();
+        $ma_staff->accessToken = uniqid();
+        echo "$ma_staff->username User saved \r\n";
+        if ($ma_staff->save()) {
+            $authManager->assign($agentRole, $ma_staff->id);
+        }
+
     }
 
 } 
