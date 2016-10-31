@@ -73,12 +73,24 @@ class AccountUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInter
     {
         if($this->isNewRecord || $this->scenario == 'update')
         {
+            $this->authKey =  isset($this->authKey) ? $this->authKey:uniqid();
+            $this->accessToken = isset($this->accessToken) ? $this->accessToken:uniqid();            
             $this->password = Yii::$app->security->generatePasswordHash($this->password);
         }
         return parent::beforeSave($insert);
     }
-
-
+    public function afterSave($insert ,$changeAttrs)
+    {
+        $authManager = \Yii::$app->authManager;
+        $agentRole = $authManager->getRole("agent");
+        if (!$agentRole) {
+            $agentRole = $authManager->createRole("agent");
+            $authManager->add($agentRole);
+            $agentRole = $authManager->getRole("agent");
+        }
+        $authManager->assign($agentRole, $this->id);
+        return parent::beforeSave($insert);
+    }
     /**
      * @inheritdoc
      */

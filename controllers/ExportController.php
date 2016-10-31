@@ -104,8 +104,8 @@ class ExportController extends \yii\web\Controller
 
 
         $this->writeToPdf($pdf,$tplIdx , 30 , 204 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 55 , 204 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 48 , 197 ,$leadObj->lastname);
+        $this->writeToPdf($pdf,$tplIdx , 70 , 204 ,$leadObj->firstname);
+        $this->writeToPdf($pdf,$tplIdx , 38 , 210 ,$leadObj->lastname);
         $this->writeToPdf($pdf,$tplIdx , 64 , 204 ,$leadObj->date_of_birth);
         $fullAddress = sprintf(
                 "%s %s %s %s" , 
