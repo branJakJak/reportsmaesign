@@ -33,7 +33,7 @@ class LeadEsignController extends Controller
                     [
                         'actions' => ['view','index','create','update'],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['admin','agent'],
                     ],
                 ],
             ],            
