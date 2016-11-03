@@ -34,7 +34,7 @@ $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
             <?php if (Yii::$app->session->hasFlash('success')): ?>
             	<div class="alert alert-success">
             		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            		<strong>Done!</strong> <?= Yii::$app->session->getFlash('success') ?>
+            		<strong> <?= Yii::$app->session->getFlash('success') ?></strong>
             	</div>
 
             <?php endif; ?>
