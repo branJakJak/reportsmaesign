@@ -36,8 +36,11 @@ class AccountUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInter
     {
         return [
             [['username', 'password', 'authKey', 'accessToken'], 'required'],
+            [['username', 'password', 'authKey', 'accessToken'], 'required','on' => 'update'],
             [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at'], 'safe','on' => 'update'],
             [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 255],
+            [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 255,'on' => 'update'],
         ];
     }
 
@@ -81,14 +84,16 @@ class AccountUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInter
     }
     public function afterSave($insert ,$changeAttrs)
     {
-        $authManager = \Yii::$app->authManager;
-        $agentRole = $authManager->getRole("agent");
-        if (!$agentRole) {
-            $agentRole = $authManager->createRole("agent");
-            $authManager->add($agentRole);
+        if ($this->isNewRecord ) {
+            $authManager = \Yii::$app->authManager;
             $agentRole = $authManager->getRole("agent");
+            if (!$agentRole) {
+                $agentRole = $authManager->createRole("agent");
+                $authManager->add($agentRole);
+                $agentRole = $authManager->getRole("agent");
+            }
+            $authManager->assign($agentRole, $this->id);
         }
-        $authManager->assign($agentRole, $this->id);
         return parent::beforeSave($insert);
     }
     /**

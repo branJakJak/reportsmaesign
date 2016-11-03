@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 
@@ -24,6 +25,11 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <style type="text/css">
+	body > div.wrap > div > div > div > div > div.panel-body > ul > li.list-group-item.active > a {
+		color: white;
+	}
+</style>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -40,8 +46,8 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Dashboard', 'url' => ['/dashboard/index'],'visible'=>Yii::$app->user->can('admin')],
-            ['label' => Yii::$app->user->can('admin') ? 'Form':'Home', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'Home', 'url' => ['/dashboard/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'Form', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
             ['label' => 'Leads', 'url' => ['/lead-esign'],'visible'=>!Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login'],'visible'=>!Yii::$app->user->isGuest] :
@@ -59,7 +65,39 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= $content ?>
+
+		<div class="row">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard</h3>
+					</div>
+					<div class="panel-body">
+					<?=
+						Menu::widget([
+							'itemOptions'=>[
+								'class'=>'list-group-item',
+							],
+							'options'=>[
+								'class'=>'list-group'
+							],					
+						    'items' => [
+							        ['label' => 'Home', 'url' => ['/dashboard/index']],
+							        ['label' => 'Leads', 'url' => ['/lead-esign/index']],
+							        ['label' => 'Users', 'url' => ['/system-account/index'] ],
+							    ],
+							]
+						);
+					?>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 well">
+        		<?= $content ?>
+				</div>
+		</div>
+
+
     </div>
 </div>
 

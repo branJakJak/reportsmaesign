@@ -54,10 +54,10 @@ class ExportController extends \yii\web\Controller
         $this->writeToPdf($pdf,$tplIdx , 72 , 156  ,date("d/m/Y",strtotime($leadObj->account_start_date)));
         $this->writeToPdf($pdf,$tplIdx , 160 , 156  ,date("d/m/Y",strtotime($leadObj->account_end_date)));
         $this->writeToPdf($pdf,$tplIdx , 60, 247 , date("d/m/Y",time()));
-        $this->writeToPdf($pdf,$tplIdx , 130, 247 , date("d/m/Y",time()));
+        // $this->writeToPdf($pdf,$tplIdx , 130, 247 , date("d/m/Y",time()));
         // $this->writeToPdf($pdf,$tplIdx , 130, 430 , date("d/m/Y",time()) );
         $pdf->Image($leadObj->client_signature_image, 10, 230, 100,18);
-        $pdf->Image($leadObj->client_signature_image, 120, 230, 100,18);
+        // $pdf->Image($leadObj->client_signature_image, 120, 230, 100,18);
 
         /*page 2*/
         $pdf->addPage();
@@ -87,9 +87,9 @@ class ExportController extends \yii\web\Controller
         $this->writeToPdf($pdf,$tplIdx , 43 , 210 , $fullAddress);
         $this->writeToPdf($pdf,$tplIdx , 43 , 217 , $leadObj->postcode);
         $this->writeToPdf($pdf,$tplIdx , 115, 240 , date("d/m/Y",time()));
-        $this->writeToPdf($pdf,$tplIdx , 30, 240 , date("d/m/Y",time()));
+        // $this->writeToPdf($pdf,$tplIdx , 30, 240 , date("d/m/Y",time()));
         $pdf->Image($leadObj->client_signature_image, 15, 225, 100,18);
-        $pdf->Image($leadObj->client_signature_image, 123, 225, 100,18);
+        // $pdf->Image($leadObj->client_signature_image, 123, 225, 100,18);
 
         /*page 4*/
         $pdf->addPage();
@@ -117,9 +117,9 @@ class ExportController extends \yii\web\Controller
         $this->writeToPdf($pdf,$tplIdx , 38 , 230 , $leadObj->postcode);
         $this->writeToPdf($pdf,$tplIdx , 43 , 217 ,$leadObj->date_of_birth);
         $this->writeToPdf($pdf,$tplIdx , 115, 247 , date("d/m/Y",time()));
-        $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
+        // $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
         $pdf->Image($leadObj->client_signature_image, 15, 233, 100,18);
-        $pdf->Image($leadObj->client_signature_image, 123, 233, 100,18);
+        // $pdf->Image($leadObj->client_signature_image, 123, 233, 100,18);
 
 
         /*page 5*/
@@ -149,9 +149,9 @@ class ExportController extends \yii\web\Controller
         $this->writeToPdf($pdf,$tplIdx , 38 , 230 , $leadObj->postcode);
         $this->writeToPdf($pdf,$tplIdx , 43 , 217 ,$leadObj->date_of_birth);
         $this->writeToPdf($pdf,$tplIdx , 115, 247 , date("d/m/Y",time()));
-        $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
+        // $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
         $pdf->Image($leadObj->client_signature_image, 15, 233, 100,18);
-        $pdf->Image($leadObj->client_signature_image, 123, 233, 100,18);
+        // $pdf->Image($leadObj->client_signature_image, 123, 233, 100,18);
 
         /*page 6*/
         $pdf->addPage();
@@ -584,20 +584,66 @@ class ExportController extends \yii\web\Controller
         $fullname = "$leadObj->salutation . $leadObj->firstname $leadObj->lastname";
         $this->writeToPdf($pdf,$tplIdx , 20 , 88 ,$fullname);
         $pdf->Image($leadObj->client_signature_image, 50, 78, 100,18);
+        $dateStr = sprintf("%02d", date("d"));
+        $monthStr = sprintf("%02d", date("m"));
+        $yearStr = sprintf("%02d", date("Y"));
+        $this->writeToPdf($pdf,$tplIdx, 134 ,90 ,$dateStr[0]);
+        $this->writeToPdf($pdf,$tplIdx, 140 ,90 ,$dateStr[1]);
+        $this->writeToPdf($pdf,$tplIdx, 148 , 90 ,$monthStr[0]);
+        $this->writeToPdf($pdf,$tplIdx, 155 , 90 ,$monthStr[1]);
+        $this->writeToPdf($pdf,$tplIdx, 162 , 90 ,$yearStr[0]);
+        $this->writeToPdf($pdf,$tplIdx, 170 , 90 ,$yearStr[1]);
+        $this->writeToPdf($pdf,$tplIdx, 178 , 90 ,$yearStr[2]);
+        $this->writeToPdf($pdf,$tplIdx, 185 , 90 ,$yearStr[3]);
+
+        $this->writeToPdf($pdf,$tplIdx , 20 , 111 ,$fullname);
+        $pdf->Image($leadObj->client_signature_image, 50, 101, 100,18);
+        $dateStr = sprintf("%02d", date("d"));
+        $monthStr = sprintf("%02d", date("m"));
+        $yearStr = sprintf("%02d", date("Y"));
+        $this->writeToPdf($pdf,$tplIdx, 134 ,109 ,$dateStr[0]);
+        $this->writeToPdf($pdf,$tplIdx, 140 ,109 ,$dateStr[1]);
+        $this->writeToPdf($pdf,$tplIdx, 148 , 109 ,$monthStr[0]);
+        $this->writeToPdf($pdf,$tplIdx, 155 , 109 ,$monthStr[1]);
+        $this->writeToPdf($pdf,$tplIdx, 162 , 109 ,$yearStr[0]);
+        $this->writeToPdf($pdf,$tplIdx, 170 , 109 ,$yearStr[1]);
+        $this->writeToPdf($pdf,$tplIdx, 178 , 109 ,$yearStr[2]);
+        $this->writeToPdf($pdf,$tplIdx, 185 , 109 ,$yearStr[3]);
+
+
         /*page 16*/
         $pdf->addPage();
         $tplIdx = $pdf->importPage(16);
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20); 
-        /*page 17*/
+        $this->writeToPdf($pdf,$tplIdx, 115 ,94 ,$leadObj->salutation);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,94 ,$leadObj->firstname);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,100 ,$leadObj->lastname);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,117 ,$leadObj->date_of_birth);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,127 ,$leadObj->address1);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,131 ,$leadObj->address2);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,135 ,$leadObj->address3);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,139 ,$leadObj->address4);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,144 ,$leadObj->postcode);
+
+        $this->writeToPdf($pdf,$tplIdx, 150 ,160 ,$leadObj->mobile);
+        $this->writeToPdf($pdf,$tplIdx, 150 ,167 ,$leadObj->email_address);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,167 ,$leadObj->landline);
+
+        // /*page 17*/
         $pdf->addPage();
         $tplIdx = $pdf->importPage(17);
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20); 
 
-
+        // /*page 18*/
+        $pdf->addPage();
+        $tplIdx = $pdf->importPage(18);
+        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetXY(20, 20);         
 
         $pdf->Output('gift_coupon_generated.pdf', 'I');
         Yii::$app->end();

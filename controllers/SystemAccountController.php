@@ -15,6 +15,7 @@ use yii\filters\AccessControl;
  */
 class SystemAccountController extends Controller
 {
+    public $layout = 'dashboard';
     /**
      * @inheritdoc
      */
@@ -98,7 +99,9 @@ class SystemAccountController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->scenario = "update";
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

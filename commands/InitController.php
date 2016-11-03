@@ -56,7 +56,7 @@ class InitController extends Controller
         echo "Creating agent role \r\n";
        /* create api user role*/
         $authManager = \Yii::$app->authManager;
-        $agentRole = $authManager->createRole("agent");
+        $agentRole = $authManager->createRole("1");
         $authManager->add($agentRole);
         echo "agent role added \r\n";
 
