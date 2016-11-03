@@ -80,6 +80,7 @@ class m161012_101753_create_table_lead extends Migration
             'did_rep_explain_eligibility' => $this->string(),
 
             'has_registered_doctor_during_upgrade' => $this->string(),
+
             'further_details_help_evidence' => $this->string(),
 
             'did_kept_insurance_after_sale' => $this->string(),

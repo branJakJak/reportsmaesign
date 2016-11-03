@@ -88,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'has_health_problems_during_upgrade_details:ntext',
             'did_rep_explain_eligibility',
             'has_registered_doctor_during_upgrade',
+            'after_upgrade_already_has_products',
             'further_details_help_evidence',
             'did_kept_insurance_after_sale',
             'did_kept_insurance_after_sale_details:ntext',

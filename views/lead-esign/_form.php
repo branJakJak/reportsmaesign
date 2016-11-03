@@ -492,6 +492,7 @@ $this->registerCss($customCss);
                                 'By post'=>'By post',
                                 'I filled in a leaflet'=>'I filled in a leaflet',
                                 'Over the counter'=>'Over the counter',
+                                'Can\'t remember'=>'Can\'t remember',
                                 'Other'=>'Other',
                             ],['onchange'=>'toggleField(this,"how_packaged_bank_account_sold_details_container","Other")'])
                         ?>
@@ -1071,7 +1072,7 @@ $this->registerCss($customCss);
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
                         <?= 
                             $form
-                            ->field($model, 'has_registered_doctor_during_upgrade')
+                            ->field($model, 'after_upgrade_already_has_products')
                             ->label("")
                             ->checkboxList([
                                     "Car breakdown cover"=>"Car breakdown cover",

@@ -68,6 +68,7 @@ use yii\db\Expression;
  * @property string $has_health_problems_during_upgrade_details
  * @property string $did_rep_explain_eligibility
  * @property string $has_registered_doctor_during_upgrade
+ * @property string $after_upgrade_already_has_products
  * @property string $further_details_help_evidence
  * @property string $did_kept_insurance_after_sale
  * @property string $did_kept_insurance_after_sale_details
@@ -126,10 +127,10 @@ class LeadEsign extends \yii\db\ActiveRecord
         return [
             [['firstname','lastname','email_address'], 'required'],
             [['monthly_account_charge'], 'number'],
-            [['security_key','account_start_date', 'account_end_date', 'date_of_birth', 'appointment_date', 'created_at', 'updated_at'], 'safe'],
+            [['after_upgrade_already_has_products','security_key','account_start_date', 'account_end_date', 'date_of_birth', 'appointment_date', 'created_at', 'updated_at'], 'safe'],
             [['is_ongoing'], 'integer'],
             [['client_signature_image','has_registered_doctor_during_upgrade'], 'safe'],
-            [['tried_to_claim_for_package_details', 'tried_to_claim_for_insurance_products_rejection_reason', 'used_benefits_packaged_bank_details', 'registered_benefits_by_packaged_account_details', 'understanding_of_features_and_benefits', 'address_while_bank_opened', 'bank_account_status', 'bank_account_status_comment', 'upgrade_comment', 'how_packaged_bank_account_sold_details', 'reason_to_takeout_packaged_account_reason_of_speaking', 'noticed_account_fees_details', 'actually_take_out_other_prodcuts_details', 'discuss_not_involed_packaged_details', 'did_they_give_advice_clarify_details', 'felt_under_pressure_details', 'has_health_problems_during_upgrade_details', 'did_kept_insurance_after_sale_details', 'when_opened_account_has_other_account_details', 'reason_why_unhappy', 'notes'], 'string'],
+            [['tried_to_claim_for_package_details', 'tried_to_claim_for_insurance_products_rejection_reason', 'used_benefits_packaged_bank_details', 'registered_benefits_by_packaged_account_details', 'understanding_of_features_and_benefits', 'address_while_bank_opened', 'bank_account_status', 'bank_account_status_comment', 'upgrade_comment', 'how_packaged_bank_account_sold_details', 'reason_to_takeout_packaged_account_reason_of_speaking', 'noticed_account_fees_details', 'actually_take_out_other_prodcuts_details', 'discuss_not_involed_packaged_details', 'did_they_give_advice_clarify_details', 'felt_under_pressure_details', 'has_health_problems_during_upgrade_details', 'did_kept_insurance_after_sale_details', 'when_opened_account_has_other_account_details', 'reason_why_unhappy','notes'], 'string'],
             [['hotkey', 'salutation', 'firstname', 'lastname', 'account_type', 'account_provider', 'tried_to_claim_for_package', 'tried_to_claim_for_insurance_products', 'tried_to_claim_for_insurance_products_is_rejected', 'used_benefits_packaged_bank', 'know_benefit', 'registered_benefits_by_packaged_account', 'has_account_upgraded_downgraded', 'how_packaged_bank_account_sold', 'reason_to_takeout_packaged_account', 'noticed_account_fees', 'actually_take_out_other_prodcuts', 'did_they_give_advice', 'discuss_not_involed_packaged', 'did_they_give_advice_clarify', 'felt_under_pressure', 'had_free_bank', 'did_representative_explain_main_exclusions', 'did_representative_explain_receive_written_info', 'receive_any_mailing_post', 'explain_changes_effect_elligibility', 'explain_pay_excess_claim_on_insurance', 'has_uk_driving_license_during_upgrade', 'own_a_car', 'has_mobile_phone_during_upgrade', 'has_mobile_phone_during_upgrade_has_internet_connection', 'often_go_holiday_in_europe', 'often_go_holiday_outside_europe', 'often_go_holiday_and_winter_sports', 'has_health_problems_during_upgrade', 'did_rep_explain_eligibility', 'further_details_help_evidence', 'did_kept_insurance_after_sale', 'reason_kept_existing_cover', 'when_opened_account_has_other_account', 'landline', 'mobile', 'work_number', 'email_address', 'preferred_method_of_contact', 'best_time_to_call', 'client_contact_notes', 'address1', 'address2', 'address3', 'address4', 'postcode', 'previous_name', 'previous_address1', 'previous_address2', 'previous_address3', 'previous_address4', 'previous_postcode', 'other_previous_address', 'other_previous_address_details', 'account_number', 'sort_code', 'appointment_time'], 'string', 'max' => 255],
         ];
     }
@@ -199,6 +200,7 @@ class LeadEsign extends \yii\db\ActiveRecord
             'has_health_problems_during_upgrade_details' => 'Has Health Problems During Upgrade Details',
             'did_rep_explain_eligibility' => 'Did Rep Explain Eligibility',
             'has_registered_doctor_during_upgrade' => 'Has Registered Doctor During Upgrade',
+            'after_upgrade_already_has_products' => 'After upgrade already has products',
             'further_details_help_evidence' => 'Further Details Help Evidence',
             'did_kept_insurance_after_sale' => 'Did Kept Insurance After Sale',
             'did_kept_insurance_after_sale_details' => 'Did Kept Insurance After Sale Details',
@@ -242,8 +244,8 @@ class LeadEsign extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if ($this->isNewRecord) {
-            $tempContainer = array_values($this->has_registered_doctor_during_upgrade);
-            $this->has_registered_doctor_during_upgrade = implode(",", $tempContainer);
+            $tempContainer = array_values($this->after_upgrade_already_has_products);
+            $this->after_upgrade_already_has_products = implode(",", $tempContainer);
             $this->account_start_date = date("Y-m-d H:i:s", strtotime($this->account_start_date));
             $this->account_end_date = date("Y-m-d H:i:s", strtotime($this->account_end_date));
             $this->date_of_birth= date("Y-m-d H:i:s", strtotime($this->date_of_birth));
