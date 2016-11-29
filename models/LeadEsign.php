@@ -244,7 +244,10 @@ class LeadEsign extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if ($this->isNewRecord) {
-            $tempContainer = array_values($this->after_upgrade_already_has_products);
+            $tempContainer = [];
+            if (isset($this->after_upgrade_already_has_products)) {
+                $tempContainer = array_values($this->after_upgrade_already_has_products);
+            }
             $this->after_upgrade_already_has_products = implode(",", $tempContainer);
             $this->account_start_date = date("Y-m-d H:i:s", strtotime($this->account_start_date));
             $this->account_end_date = date("Y-m-d H:i:s", strtotime($this->account_end_date));
