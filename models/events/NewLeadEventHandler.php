@@ -26,7 +26,7 @@ class NewLeadEventHandler extends Event{
         $signaturelinkUrl ="<a href='".Url::home(true).'signature/'.$currentLeadData->security_key."'> Final step </a>";
          
         /*send the email*/           
-        Yii::$app->mailer->compose()
+        \Yii::$app->mailer->compose()
             ->setFrom('esign@site8.co')
             // ->setTo($currentLeadData->email_address)
             ->setTo("hellsing357@gmail.com")
