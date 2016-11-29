@@ -6,7 +6,7 @@ class m161102_181534_create_after_upgrade_already_has_products_col extends Migra
 {
     public function up()
     {
-        $this->addColumn('{{%lead_esign}}', 'after_upgrade_already_has_products', $this->string());
+        $this->addColumn('{{%lead_esign}}', 'after_upgrade_already_has_products', $this->text());
     }
 
     public function down()
