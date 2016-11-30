@@ -244,8 +244,10 @@ class LeadEsign extends \yii\db\ActiveRecord
     {
         if ($this->isNewRecord) {
             $tempContainer = [];
-            if (isset($this->after_upgrade_already_has_products)) {
+            if (isset($this->after_upgrade_already_has_products) && is_array($this->after_upgrade_already_has_products)) {
                 $tempContainer = array_values($this->after_upgrade_already_has_products);
+            }else if( !is_array($this->after_upgrade_already_has_products) && is_string($this->after_upgrade_already_has_products)){
+                $tempContainer[] = $this->after_upgrade_already_has_products;
             }
             $this->after_upgrade_already_has_products = implode(",", $tempContainer);
             $this->account_start_date = date("Y-m-d H:i:s", strtotime($this->account_start_date));
