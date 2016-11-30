@@ -11,7 +11,6 @@ namespace app\models\events;
 use app\models\LeadEsign;
 use yii\base\Event;
 use yii\helpers\Url;
-use Yii;
 
 class NewLeadEventHandler extends Event{
     /**
@@ -28,8 +27,8 @@ class NewLeadEventHandler extends Event{
         /*send the email*/           
         \Yii::$app->mailer->compose()
             ->setFrom('esign@site8.co')
-            // ->setTo($currentLeadData->email_address)
-            ->setTo("hellsing357@gmail.com")
+            ->setTo($currentLeadData->email_address)
+            // ->setTo("hellsing357@gmail.com")
             ->setSubject('Final Step : Signature')
             ->setHtmlBody("Please finalize your claim $signaturelinkUrl.")
             ->send();      
