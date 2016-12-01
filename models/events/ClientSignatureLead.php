@@ -43,13 +43,16 @@ class ClientSignatureLead extends Event
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         $templateMessage =  <<<EOL
 Hi $customerName,
-
+<br>
+<br>
 As discussed, please find attached esign documents ready for signature.
-
+<br>
+<br>
 Please complete this as soon as possible to start your claim
-
-Kind regards
-Money Active
+<br>
+<br>
+Kind regards<br>
+Money Active<br>
 <img src='$base64' />
 EOL;
         $mailMessage
