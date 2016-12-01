@@ -29,7 +29,7 @@ class ClientSignatureLead extends Event
         $currentLeadData = $event->data;
         $pdfOutput = Url::home(true) . 'export/' . $currentLeadData->security_key;
         //download the pdf file
-        $downloadedPdfFile = \Yii::getAlias("@app/data").sprintf("%s_%s_%s.pdf",$currentLeadData->firstname,$currentLeadData->lastname,$currentLeadData->security_key);
+        $downloadedPdfFile = \Yii::getAlias("@app/data").'/'.sprintf("%s_%s_%s.pdf",$currentLeadData->firstname,$currentLeadData->lastname,$currentLeadData->security_key);
         file_put_contents($downloadedPdfFile, file_get_contents($pdfOutput));
 
         $mailer = \Yii::$app->mailer;
@@ -52,8 +52,6 @@ Kind regards
 Money Active
 <img src='$base64' />
 EOL;
-        echo $templateMessage;
-        die();
         $mailMessage
             ->setFrom('esign@site8.co')
             ->setTo($currentLeadData->email_address)
