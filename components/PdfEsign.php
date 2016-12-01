@@ -656,7 +656,6 @@ class PdfEsign extends Component
         }else {
             $pdf->Output('peek.pdf', 'I');
         }
-        Yii::$app->end();
     }
 
     public function getExportedFile()
