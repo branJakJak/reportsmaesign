@@ -9,10 +9,12 @@
 namespace app\models\events;
 
 
+use app\components\PdfEsign;
 use app\models\LeadEsign;
 use yii\base\Event;
 use yii\helpers\Url;
 use yii\swiftmailer\Mailer;
+use Yii;
 
 class ClientSignatureLead extends Event
 {
@@ -27,14 +29,19 @@ class ClientSignatureLead extends Event
          * @var $mailer Mailer
          */
         $currentLeadData = $event->data;
-        $pdfOutput = Url::home(true) . 'export/' . $currentLeadData->security_key;
-        //download the pdf file
         $downloadedPdfFile = \Yii::getAlias("@app/data").'/'.sprintf("%s_%s_%s.pdf",$currentLeadData->firstname,$currentLeadData->lastname,$currentLeadData->security_key);
-        file_put_contents($downloadedPdfFile, file_get_contents($pdfOutput));
+        $pdfTemplte = Yii::getAlias("@app/documentation/clean_pdf_template/PrintPack_65605.pdf");
+        $pdfEsign = new PdfEsign();
+        $pdfEsign->setTemplate($pdfTemplte);
+        $pdfEsign->setLeadObject($currentLeadData);
+        $pdfEsign->setDestinationFile($downloadedPdfFile);
+        $pdfEsign->export();
+        $exportedFile = $pdfEsign->getExportedFile();
+
 
         $mailer = \Yii::$app->mailer;
         $mailMessage = $mailer->compose();
-        $mailMessage->attach($downloadedPdfFile);
+        $mailMessage->attach($exportedFile);
         $customerName = sprintf("%s %s %s", $currentLeadData->salutation, $currentLeadData->firstname, $currentLeadData->lastname);
         $customerName = strtoupper($customerName);
         $logoPath = \Yii::getAlias("@app/web/images/moneyactive.JPG");
