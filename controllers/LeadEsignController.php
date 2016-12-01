@@ -29,10 +29,10 @@ class LeadEsignController extends Controller
             ],
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
-                'only' => ['view','index','create','update'],
+                'only' => ['view','index','create','update','resend'],
                 'rules' => [
                     [
-                        'actions' => ['view','index','create','update'],
+                        'actions' => ['view','index','create','update','resend'],
                         'allow' => true,
                         'roles' => ['admin','agent'],
                     ],
@@ -40,6 +40,7 @@ class LeadEsignController extends Controller
             ],            
         ];
     }
+
 
     /**
      * Lists all LeadEsign models.
@@ -116,6 +117,22 @@ class LeadEsignController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionResend($id)
+    {
+        $model = LeadEsign::find()
+            ->where(['id'=>$id])
+            ->one();
+        if (!$model) {
+            throw new NotFoundHttpException("Sorry that lead doesnt exists");
+        }else {
+            $model->on(LeadEsign::LEAD_ESIGN_NEW_LEAD, ['app\models\events\NewLeadEventHandler', 'handle'],$model);
+            $model->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);
+            Yii::$app->session->setFlash('success', 'Confirmation link sent');
+        }
+        
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

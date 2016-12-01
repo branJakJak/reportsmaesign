@@ -57,10 +57,10 @@ $this->registerCss($customCss);
     <?php if (Yii::$app->session->hasFlash('success')): ?>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="alert alert-info">
+            <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <strong>Saved!</strong> <?= Yii::$app->session->getFlash('success') ?>
-            </div>            
+                <strong>Success!</strong> <?= Yii::$app->session->getFlash('success') ?>
+            </div>
         </div>
     </div>
     <?php endif ?>
