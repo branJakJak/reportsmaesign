@@ -4,10 +4,28 @@ namespace app\controllers;
 use Yii;
 use FPDI;
 use app\models\LeadEsign;
+use yii\filters\AccessControl;
 
 
 class ExportController extends \yii\web\Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index'],
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'ips' => ['149.202.206.140','127.0.0.1', '::1'],
+                    ],
+                ],
+            ],
+        ];
+    }
     /**
      * @param $pdf FPDI
      * @param $tplIdx

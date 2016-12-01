@@ -190,7 +190,7 @@ $this->registerCss($customCss);
                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                    'format' => 'dd/mm/yyyy'
+                                    'format' => 'dd-mm-yyyy'
                                 ]
                             ])
                             ->label("")
@@ -210,7 +210,7 @@ $this->registerCss($customCss);
                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                    'format' => 'dd/MM/yyyy'
+                                    'format' => 'dd-MM-yyyy'
                                 ]
                             ])
                             ->label("")
@@ -240,7 +240,7 @@ $this->registerCss($customCss);
                             $form
                                 ->field($model, 'tried_to_claim_for_package_details')
                                 ->label("") 
-                                ->textarea(['class'=>'hidden col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;'])
+                                ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;'])
                             ?>
                         </div>
 
@@ -257,6 +257,8 @@ $this->registerCss($customCss);
                         <?= 
                         $form
                             ->field($model, 'tried_to_claim_for_insurance_products')
+                            ->label("") 
+
                             ->radioList(['Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"wasClaimRejectedMoreInfo","Yes")'])
                         ?>
                     </div>
@@ -270,7 +272,7 @@ $this->registerCss($customCss);
                             </label>
                         </div>
                         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?= $form->field($model, 'tried_to_claim_for_insurance_products_is_rejected')->radioList(['Yes'=>'Yes','No'=>'No']) ?>
+                            <?= $form->field($model, 'tried_to_claim_for_insurance_products_is_rejected')->radioList(['Yes'=>'Yes','No'=>'No'])->label("") ?>
                         </div>
                     </div>
                     <div class="row">
@@ -1501,7 +1503,7 @@ $this->registerCss($customCss);
                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                    'format' => 'dd/mm/yyyy'
+                                    'format' => 'dd-mm-yyyy'
                                 ]
                             ])
                         ->label("");
@@ -1780,7 +1782,7 @@ $this->registerCss($customCss);
                                         'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                         'pluginOptions' => [
                                             'autoclose'=>true,
-                                            'format' => 'dd/MM/yyyy'
+                                            'format' => 'dd-mm-yyyy'
                                         ]
                                     ]);
                                 ?>                                

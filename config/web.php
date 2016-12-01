@@ -52,6 +52,7 @@ $config = [
             'showScriptName' => false,
             'rules' => array(
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1','pluralize' => false],
+                '/success' => 'site/success',
                 '/signature/<securityKey:\w+>' => 'signature/index',
                 '/export/<securityKey:\w+>' => 'export/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

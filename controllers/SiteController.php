@@ -56,6 +56,11 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function actionSuccess()
+    {
+        
+        return $this->render('success');
+    }
     public function actionLead()
     {
         $faker = \Faker\Factory::create();
