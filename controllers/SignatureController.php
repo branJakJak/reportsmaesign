@@ -27,7 +27,7 @@ class SignatureController extends \yii\web\Controller
             $requestedLead->account_start_date = date("d-m-Y", strtotime($requestedLead->account_start_date));
             $requestedLead->account_end_date = date("d-m-Y", strtotime($requestedLead->account_end_date));
             $requestedLead->date_of_birth = date("d-m-Y", strtotime($requestedLead->date_of_birth));
-
+            $requestedLead->after_upgrade_already_has_products = explode(",", $requestedLead->after_upgrade_already_has_products);
             return $this->render('index', ['model' => $requestedLead]);
         } else {
             throw new NotFoundHttpException("Record doesn't exists.");
