@@ -243,21 +243,22 @@ class LeadEsign extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
+        $tempContainer = [];
         if ($this->isNewRecord) {
-            $tempContainer = [];
-            if (isset($this->after_upgrade_already_has_products) && is_array($this->after_upgrade_already_has_products)) {
-                $tempContainer = array_values($this->after_upgrade_already_has_products);
-            } else if (!is_array($this->after_upgrade_already_has_products) && is_string($this->after_upgrade_already_has_products)) {
-                $tempContainer[] = $this->after_upgrade_already_has_products;
-            }
-            $this->after_upgrade_already_has_products = implode(",", $tempContainer);
             $this->security_key = uniqid();
             $this->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);
         }
-        $this->account_start_date = date("Y-m-d H:i:s", strtotime($this->account_start_date));
-        $this->account_end_date = date("Y-m-d H:i:s", strtotime($this->account_end_date));
-        $this->date_of_birth = date("Y-m-d H:i:s", strtotime($this->date_of_birth));
-
+        if (isset($this->after_upgrade_already_has_products) && is_array($this->after_upgrade_already_has_products)) {
+            $tempContainer = array_values($this->after_upgrade_already_has_products);
+        } else if (!is_array($this->after_upgrade_already_has_products) && is_string($this->after_upgrade_already_has_products)) {
+            $tempContainer[] = $this->after_upgrade_already_has_products;
+        }
+        $this->after_upgrade_already_has_products = implode(",", $tempContainer);
+        $this->account_start_date = date("Y-m-d H:i:s",strtotime($this->account_start_date));
+        $this->account_end_date = date("y-m-d H:i:s",strtotime($this->account_end_date));
+        $this->date_of_birth = date("Y-m-d H:i:s",strtotime($this->date_of_birth));
+        $this->monthly_account_charge = floatval($this->monthly_account_charge);
+        $this->is_ongoing = intval($this->is_ongoing);
 
         return parent::beforeSave($insert);
     }

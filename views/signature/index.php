@@ -230,8 +230,7 @@ $this->registerCss($customCss);
                         ?>
                         <br>
                         <br>
-                        <div id="tried_to_claim_for_package_details" class="hidden">asd
-
+                        <div id="tried_to_claim_for_package_details" class="hidden">
                             <?= 
                             $form
                                 ->field($model, 'tried_to_claim_for_package_details')
@@ -1517,32 +1516,20 @@ $this->registerCss($customCss);
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="signaturePanel" style='border: 1px solid black'></div>
+                        <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
+                        <div class="text-center">
+                            <?= Html::button('Reset signature panel', ['class' => 'btn btn-default', 'onclick' => 'resetSignature()']) ?>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                        </div>
+                    </div>
+                </div>  
             <?php ActiveForm::end(); ?>
         </div><!-- _form -->
     </div>
 
-<div class="site-index " style="margin-top: 100px;">
-    <div class="body-content">
-    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <?php
-                $form = ActiveForm::begin([
-                    'id' => 'login-form',
-                    'options' => ['class' => 'form-horizontal'],
-                    'fieldConfig' => [
-                    ],
-                ]);
-            ?>
-
-            <div id="signaturePanel" style='border: 1px solid black'></div>
-            <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
-            <div class="text-center">
-                <?= Html::button('Reset signature panel', ['class' => 'btn btn-default', 'onclick' => 'resetSignature()']) ?>
-            </div>
-            <hr>
-            <div class="form-group">
-                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-</div>

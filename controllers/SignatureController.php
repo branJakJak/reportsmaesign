@@ -16,6 +16,7 @@ class SignatureController extends \yii\web\Controller
         if ($requestedLead) {
             //load and save
             if ($requestedLead->load(\Yii::$app->request->post())) {
+                // $requestedLead->after_upgrade_already_has_products = $_POST['LeadEsign']['after_upgrade_already_has_products'];
                 $requestedLead->on(LeadEsign::SIGNATURE_FINAL_STEP, ['app\models\events\ClientSignatureLead', 'handle'],$requestedLead);
                 $requestedLead->saveClientSignature();
                 if ($requestedLead->save()) {
