@@ -4,7 +4,7 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'Reports MA Esign',
-    'name' => 'Reports MA Esign',
+    'name' => 'MoneyActive',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [

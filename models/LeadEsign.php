@@ -104,6 +104,46 @@ use yii\db\Expression;
  * @property string $notes
  * @property string $client_signature_image
  * @property string $security_key
+ * @property string $complaint_reference
+ * @property string $financial_business_name
+ * @property string $last_3_digit_account_num
+ * @property string $is_complain_about_sale_packaged_bank_account
+ * @property string $is_complain_about_sale_packaged_bank_account_details
+ * @property string $notice_account_fees_on_statements
+ * @property string $notice_account_fees_on_statements_details
+ * @property string $current_situation_packaged_bank_account
+ * @property string $current_situation_packaged_bank_account_explanation
+ * @property string $is_address_outside_UK_at_package_upgrade
+ * @property string $has_registered_doctor_during_upgrade_details
+ * @property string $after_upgrade_already_has_products_details
+ * @property string $complaint_whole_details
+ * @property string $declaration_confirmed_tick
+ * @property string $occupation
+ * @property string salutation_complain_with
+ * @property string firstname_complain_with
+ * @property string lastname_complain_with
+ * @property string occupation_complain_with
+ * @property string date_of_birth_complain_with
+ * @property string postcode_complain_with
+ * @property string address1_complain_with
+ * @property string address2_complain_with
+ * @property string address3_complain_with
+ * @property string address4_complain_with
+ * @property string mobile_complain_with 
+ * @property string behalf_of_charity_official_name
+ * @property string behalf_of_charity_num_of_employees
+ * @property string behalf_of_charity_num_of_partners
+ * @property string behalf_of_charity_annual_income 
+ * @property string business_responsible_details_name
+ * @property string business_responsible_details_address
+ * @property string business_responsible_details_phone
+ * @property string adviser_detail_name
+ * @property string adviser_detail_phone
+ * @property string adviser_detail_address
+ * @property string kind_of_service_complain
+ * @property string kind_of_service_complain_reference
+ * @property string when_trasaction_happen
+ * @property string when_first_complain_business
  * @property string $created_at
  * @property string $updated_at
  */
@@ -125,13 +165,17 @@ class LeadEsign extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+
+
+
         return [
             [['firstname', 'lastname', 'email_address'], 'required'],
             [['monthly_account_charge'], 'number'],
             [['after_upgrade_already_has_products', 'security_key', 'account_start_date', 'account_end_date', 'date_of_birth', 'appointment_date', 'created_at', 'updated_at'], 'safe'],
             [['is_ongoing'], 'integer'],
-            [['hotkey', 'salutation', 'firstname', 'lastname', 'account_type', 'account_provider', 'tried_to_claim_for_package', 'tried_to_claim_for_insurance_products', 'tried_to_claim_for_insurance_products_is_rejected', 'used_benefits_packaged_bank', 'know_benefit', 'registered_benefits_by_packaged_account', 'has_account_upgraded_downgraded', 'how_packaged_bank_account_sold', 'reason_to_takeout_packaged_account', 'noticed_account_fees', 'actually_take_out_other_prodcuts', 'did_they_give_advice', 'discuss_not_involed_packaged', 'did_they_give_advice_clarify', 'felt_under_pressure', 'had_free_bank', 'did_representative_explain_main_exclusions', 'did_representative_explain_receive_written_info', 'receive_any_mailing_post', 'explain_changes_effect_elligibility', 'explain_pay_excess_claim_on_insurance', 'has_uk_driving_license_during_upgrade', 'own_a_car', 'has_mobile_phone_during_upgrade', 'has_mobile_phone_during_upgrade_has_internet_connection', 'often_go_holiday_in_europe', 'often_go_holiday_outside_europe', 'often_go_holiday_and_winter_sports', 'has_health_problems_during_upgrade', 'did_rep_explain_eligibility', 'further_details_help_evidence', 'did_kept_insurance_after_sale', 'reason_kept_existing_cover', 'when_opened_account_has_other_account', 'landline', 'mobile', 'work_number', 'email_address', 'preferred_method_of_contact', 'best_time_to_call', 'client_contact_notes', 'address1', 'address2', 'address3', 'address4', 'postcode', 'previous_name', 'previous_address1', 'previous_address2', 'previous_address3', 'previous_address4', 'previous_postcode', 'other_previous_address', 'other_previous_address_details', 'account_number', 'sort_code', 'appointment_time', 'client_signature_image', 'has_registered_doctor_during_upgrade'], 'safe'],
-            [['tried_to_claim_for_package_details', 'tried_to_claim_for_insurance_products_rejection_reason', 'used_benefits_packaged_bank_details', 'registered_benefits_by_packaged_account_details', 'understanding_of_features_and_benefits', 'address_while_bank_opened', 'bank_account_status', 'bank_account_status_comment', 'upgrade_comment', 'how_packaged_bank_account_sold_details', 'reason_to_takeout_packaged_account_reason_of_speaking', 'noticed_account_fees_details', 'actually_take_out_other_prodcuts_details', 'discuss_not_involed_packaged_details', 'did_they_give_advice_clarify_details', 'felt_under_pressure_details', 'has_health_problems_during_upgrade_details', 'did_kept_insurance_after_sale_details', 'when_opened_account_has_other_account_details', 'reason_why_unhappy', 'notes'], 'string'],
+            [['behalf_of_charity_num_of_employees','behalf_of_charity_num_of_partners','behalf_of_charity_annual_income','salutation_complain_with' ,'firstname_complain_with' ,'lastname_complain_with' ,'occupation_complain_with' ,'date_of_birth_complain_with','postcode_complain_with','address1_complain_with','address2_complain_with','address3_complain_with','address4_complain_with','mobile_complain_with','occupation','declaration_confirmed_tick','complaint_whole_details','after_upgrade_already_has_products_details','has_registered_doctor_during_upgrade_details','is_address_outside_UK_at_package_upgrade','current_situation_packaged_bank_account','current_situation_packaged_bank_account_explanation','notice_account_fees_on_statements','notice_account_fees_on_statements_details','is_complain_about_sale_packaged_bank_account','is_complain_about_sale_packaged_bank_account_details','complaint_reference','financial_business_name','last_3_digit_account_num','tried_to_claim_for_package_details', 'tried_to_claim_for_insurance_products_rejection_reason', 'used_benefits_packaged_bank_details', 'registered_benefits_by_packaged_account_details', 'understanding_of_features_and_benefits', 'address_while_bank_opened', 'bank_account_status', 'bank_account_status_comment', 'upgrade_comment', 'how_packaged_bank_account_sold_details', 'reason_to_takeout_packaged_account_reason_of_speaking', 'noticed_account_fees_details', 'actually_take_out_other_prodcuts_details', 'discuss_not_involed_packaged_details', 'did_they_give_advice_clarify_details', 'felt_under_pressure_details', 'has_health_problems_during_upgrade_details', 'did_kept_insurance_after_sale_details', 'when_opened_account_has_other_account_details', 'reason_why_unhappy', 'notes'], 'string'],
+            /*safe*/            
+            [['when_trasaction_happen','when_first_complain_business','kind_of_service_complain_reference','kind_of_service_complain','business_responsible_details_name','business_responsible_details_address','business_responsible_details_phone','adviser_detail_name','adviser_detail_address','adviser_detail_phone','behalf_of_charity_num_of_employees','behalf_of_charity_num_of_partners','behalf_of_charity_annual_income','salutation_complain_with' ,'firstname_complain_with' ,'lastname_complain_with' ,'occupation_complain_with' ,'date_of_birth_complain_with','postcode_complain_with','address1_complain_with','address2_complain_with','address3_complain_with','address4_complain_with','mobile_complain_with','occupation','declaration_confirmed_tick','complaint_whole_details','after_upgrade_already_has_products_details','has_registered_doctor_during_upgrade_details','is_address_outside_UK_at_package_upgrade','current_situation_packaged_bank_account','current_situation_packaged_bank_account_explanation','notice_account_fees_on_statements','notice_account_fees_on_statements_details','is_complain_about_sale_packaged_bank_account','is_complain_about_sale_packaged_bank_account_details','complaint_reference','financial_business_name','last_3_digit_account_num','hotkey', 'salutation', 'firstname', 'lastname', 'account_type', 'account_provider', 'tried_to_claim_for_package', 'tried_to_claim_for_insurance_products', 'tried_to_claim_for_insurance_products_is_rejected', 'used_benefits_packaged_bank', 'know_benefit', 'registered_benefits_by_packaged_account', 'has_account_upgraded_downgraded', 'how_packaged_bank_account_sold', 'reason_to_takeout_packaged_account', 'noticed_account_fees', 'actually_take_out_other_prodcuts', 'did_they_give_advice', 'discuss_not_involed_packaged', 'did_they_give_advice_clarify', 'felt_under_pressure', 'had_free_bank', 'did_representative_explain_main_exclusions', 'did_representative_explain_receive_written_info', 'receive_any_mailing_post', 'explain_changes_effect_elligibility', 'explain_pay_excess_claim_on_insurance', 'has_uk_driving_license_during_upgrade', 'own_a_car', 'has_mobile_phone_during_upgrade', 'has_mobile_phone_during_upgrade_has_internet_connection', 'often_go_holiday_in_europe', 'often_go_holiday_outside_europe', 'often_go_holiday_and_winter_sports', 'has_health_problems_during_upgrade', 'did_rep_explain_eligibility', 'further_details_help_evidence', 'did_kept_insurance_after_sale', 'reason_kept_existing_cover', 'when_opened_account_has_other_account', 'landline', 'mobile', 'work_number', 'email_address', 'preferred_method_of_contact', 'best_time_to_call', 'client_contact_notes', 'address1', 'address2', 'address3', 'address4', 'postcode', 'previous_name', 'previous_address1', 'previous_address2', 'previous_address3', 'previous_address4', 'previous_postcode', 'other_previous_address', 'other_previous_address_details', 'account_number', 'sort_code', 'appointment_time', 'client_signature_image', 'has_registered_doctor_during_upgrade'], 'safe'],
         ];
     }
 
@@ -235,6 +279,30 @@ class LeadEsign extends \yii\db\ActiveRecord
             'appointment_time' => 'Appointment Time',
             'notes' => 'Notes',
             'client_signature_image' => 'Client Signature Image',
+            'complaint_reference' => 'Complaint Reference',
+            'financial_business_name' => 'Financial Business Name',
+            'last_3_digit_account_num' => 'Last 3 Digit Account Number',
+            'is_complain_about_sale_packaged_bank_account' => 'Is complain about sale packaged bank account',
+            'is_complain_about_sale_packaged_bank_account_details' => 'Complain about sale packaged bank account (details)',
+            'current_situation_packaged_bank_account' => 'Current situation of packaged bank account',
+            'current_situation_packaged_bank_account_explanation' => 'Current situation of packaged bank account (details)',
+            'is_address_outside_UK_at_package_upgrade' => 'Is address outside UK during package bank open or upgrade',
+            'has_registered_doctor_during_upgrade_details' => 'Registered for any of the benefits provided by your packaged bank account (details)',
+            'after_upgrade_already_has_products_details' => 'After upgrade already has products (details)',
+            'complaint_whole_details' => 'Whole complain (details)',
+            'declaration_confirmed_tick' => 'Declaration confirmed tick',
+            'salutation_complain_with' => 'Title',
+            'firstname_complain_with' => 'Firstname',
+            'lastname_complain_with' => 'Lastname',
+            'occupation_complain_with' => 'Occupation',
+            'date_of_birth_complain_with' => 'Date of birth',
+            'postcode_complain_with'=>'Postcode',
+            'address1_complain_with'=>'Address1',
+            'address2_complain_with'=>'Address2',
+            'address3_complain_with'=>'Address3',
+            'address4_complain_with'=>'Address4',
+            'mobile_complain_with'=>'Mobile',
+            'occupation' => 'Occupation',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
