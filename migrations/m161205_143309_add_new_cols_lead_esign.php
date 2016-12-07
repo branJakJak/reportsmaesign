@@ -54,6 +54,13 @@ class m161205_143309_add_new_cols_lead_esign extends Migration
         $this->addColumn('{{%lead_esign}}', 'when_trasaction_happen', $this->date());
         $this->addColumn('{{%lead_esign}}', 'when_first_complain_business', $this->date());
 
+        $this->addColumn('{{%lead_esign}}', 'has_business_complaining_sent_letter', $this->string());
+        $this->addColumn('{{%lead_esign}}', 'has_court_action_to_complain', $this->string());
+        $this->addColumn('{{%lead_esign}}', 'settlement_with_business_details', $this->text());
+        $this->addColumn('{{%lead_esign}}', 'is_ineed_of_practical_help', $this->string());
+        $this->addColumn('{{%lead_esign}}', 'is_ineed_of_practical_help_details', $this->text());
+        $this->addColumn('{{%lead_esign}}', 'final_tick_checklist', $this->text());
+
     }
 
     public function safeDown()
@@ -102,11 +109,16 @@ class m161205_143309_add_new_cols_lead_esign extends Migration
 
         $this->dropColumn('{{%lead_esign}}', 'kind_of_service_complain');
         $this->dropColumn('{{%lead_esign}}', 'kind_of_service_complain_reference');
-        
+
         $this->dropColumn('{{%lead_esign}}', 'when_trasaction_happen');
         $this->dropColumn('{{%lead_esign}}', 'when_first_complain_business');
 
-
+        $this->dropColumn('{{%lead_esign}}','has_business_complaining_sent_letter');
+        $this->dropColumn('{{%lead_esign}}','has_court_action_to_complain');
+        $this->dropColumn('{{%lead_esign}}','settlement_with_business_details');
+        $this->dropColumn('{{%lead_esign}}','is_ineed_of_practical_help');
+        $this->dropColumn('{{%lead_esign}}','is_ineed_of_practical_help_details');
+        $this->dropColumn('{{%lead_esign}}','final_tick_checklist');
 
     }
 }

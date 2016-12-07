@@ -1237,10 +1237,10 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             <br>
                             <br>
 
-                            <strong class="sub-section-header">
+                            <h3 class="sub-section-header">
                                 Please use this form to tell us about your complaint – so we can see if we’re able to help you.
                                 If you’re not sure about anything – or have difficulties filling in this form – just phone us on <i>0300 123 9 123.</i>
-                            </strong>
+                            </h3>
                             <br>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -1260,6 +1260,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                                     </div>
                                 </div>
                             </div>
+                            <!-- todo styling here -->
                             <hr>
                             <h3>
                                 <div class="pull-left">
@@ -1318,10 +1319,6 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                                        {error}{hint}
                                     '])
                                     ?>
-
-
-
-
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                     <legend>Details of anyone complaining with you</legend>
@@ -1377,9 +1374,9 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             </div>
                             <br>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <strong class="sub-section-header">
+                                <h3 class="sub-section-header">
                                     if someone is complaining on your behalf (eg a solicitor or relative) please give us their details
-                                </strong>
+                                </h3>
                                 <table class="table table-bordered table-hover">
                                     <tbody>
                                         <tr>
@@ -1415,94 +1412,99 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                                 </table>
                             </div>
                             <br>
-                            <strong class="sub-section-header">
+                            <h3 class="sub-section-header">
                                 if you’re complaining on behalf of a business, charity or trust please fill in these details
-                            </strong>
-                            <table class="table table-bordered table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td>Full Official Name</td>
-                                        <td><?= $form->field($model, 'behalf_of_charity_official_name')->textInput()->label(""); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Number of employees</td>
-                                         <td><?= $form->field($model, 'behalf_of_charity_num_of_employees')->textInput()->label(""); ?></td>
+                            </h3>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>Full Official Name</td>
+                                            <td><?= $form->field($model, 'behalf_of_charity_official_name')->textInput()->label(""); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Number of employees</td>
+                                             <td><?= $form->field($model, 'behalf_of_charity_num_of_employees')->textInput()->label(""); ?></td>
 
-                                    </tr>
-                                    <tr>
-                                        <td>If a partnership, the number of partners </td>
-                                        <td><?= $form->field($model, 'behalf_of_charity_num_of_partners')->textInput()->label(""); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>its annual turnover, annual income or net asset value (at the time you first complained) *</td>
-                                        <td><?= $form->field($model, 'behalf_of_charity_annual_income')->textInput()->label(""); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>If a partnership, the number of partners </td>
+                                            <td><?= $form->field($model, 'behalf_of_charity_num_of_partners')->textInput()->label(""); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>its annual turnover, annual income or net asset value (at the time you first complained) *</td>
+                                            <td><?= $form->field($model, 'behalf_of_charity_annual_income')->textInput()->label(""); ?></td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <i>
                                 * We may ask you for evidence of this. Please phone us – or look on our website – for information about what types of businesses, charities and trusts can use our service.
                             </i>
                             <br>
                             <br>
-                            <strong class="sub-section-header">
+                            <h3 class="sub-section-header">
                                 Details of the business you think is responsible for your complaint
-                            </strong>
-                            <table class="table table-bordered table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td>Their name</td>
-                                        <td><?= $form->field($model, 'business_responsible_details_name')->textInput()->label(""); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Their address (include postcode)</td>
-                                        <td><?= $form->field($model, 'business_responsible_details_address')->textInput()->label(""); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Their phone number</td>
-                                        <td><?= $form->field($model, 'business_responsible_details_phone')->textInput()->label(""); ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            </h3>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">                            
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>Their name</td>
+                                            <td><?= $form->field($model, 'business_responsible_details_name')->textInput()->label(""); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Their address (include postcode)</td>
+                                            <td><?= $form->field($model, 'business_responsible_details_address')->textarea(['style'=>'margin-top: 0px; margin-bottom: 0px; height: 200px;'])->label(""); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Their phone number</td>
+                                            <td><?= $form->field($model, 'business_responsible_details_phone')->textInput()->label(""); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <br>
-                            <strong class="sub-section-header">
+                            <h3 class="sub-section-header">
                                 Details of the adviser or business who originally sold the product or service
                                 you’re complaining about <small>(if different from the name above)</small>
-
-                            </strong>
-                            <table class="table table-bordered table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td>Their name</td>
-                                        <td><?= $form->field($model, 'adviser_detail_name')->textInput()->label(""); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Their address (include postcode)</td>
-                                        <td><?= $form->field($model, 'adviser_detail_address')->textInput()->label(""); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Their phone number</td>
-                                        <td><?= $form->field($model, 'adviser_detail_phone')->textInput()->label(""); ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            </h3>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>Their name</td>
+                                            <td><?= $form->field($model, 'adviser_detail_name')->textInput()->label(""); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Their address (include postcode)</td>
+                                            <td><?= $form->field($model, 'adviser_detail_address')->textarea(['style'=>'margin-top: 0px; margin-bottom: 0px; height: 200px;'])->label(""); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Their phone number</td>
+                                            <td><?= $form->field($model, 'adviser_detail_phone')->textInput()->label(""); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <br>
-                            <strong class="sub-section-header">
+                            <h3 class="sub-section-header">
                                 The kind of product or service you’re complaining about
                                 the name and type of product or service
-                            </strong>
+                            </h3>
 
                             <?= $form->field($model, 'kind_of_service_complain')->textInput()->label(""); ?>
 
-                            <strong class="sub-section-header">
+                            <h3 class="sub-section-header">
                                 any reference number (eg your account and sort code;
                                 hire-agreement or loan number; policy or claim number)
-                            </strong>
+                            </h3>
                             <?= $form->field($model, 'kind_of_service_complain_reference')->textInput()->label(""); ?>
                             
-                            <strong class="sub-section-header">
+                            <h3 class="sub-section-header">
                                 Please tell us what your complaint is about
-                            </strong>
+                            </h3>
                             <?= 
                                 $form
                                     ->field($model, 'complaint_whole_details')
@@ -1528,784 +1530,183 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             <h3>
                                 Time limits may apply to your complaint so we need to know these dates
                             </h3>
-                            <ul>
-                                <li>
-                                     When did the advice, service or transaction you’re complaining about take place?
-                                     <!-- datepicker  -->
-                                    <?= $form
-                                        ->field($model, 'when_trasaction_happen') 
-                                        ->widget(DatePicker::classname(), [
-                                            'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                            'pluginOptions' => [
-                                                'autoclose'=>true,
-                                                'format' => 'dd-mm-yyyy'
-                                            ]
-                                        ])
-                                        ->label("")
-                                    ?>                                     
-                                </li>
-                                <li>
-                                     When did you first complain to the business you think is responsible?
-                                     <!-- datepicker -->
-                                    <?= $form
-                                        ->field($model, 'when_first_complain_business') 
-                                        ->widget(DatePicker::classname(), [
-                                            'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                            'pluginOptions' => [
-                                                'autoclose'=>true,
-                                                'format' => 'dd-mm-yyyy'
-                                            ]
-                                        ])
-                                        ->label("")
-                                    ?>
-                                </li>
-                            </ul>
-                            <p>
+                            <br>
+                             <label>When did the advice, service or transaction you’re complaining about take place?</label>
+                             <!-- datepicker  -->
+                            <?= $form
+                                ->field($model, 'when_trasaction_happen') 
+                                ->widget(DatePicker::classname(), [
+                                    'type' => DatePicker::TYPE_COMPONENT_PREPEND,
+                                    'pluginOptions' => [
+                                        'autoclose'=>true,
+                                        'format' => 'dd-mm-yyyy'
+                                    ]
+                                ])
+                                ->label("")
+                            ?>
+                            <br>
+                             <label>When did you first complain to the business you think is responsible?</label>
+                             <!-- datepicker -->
+                            <?= $form
+                                ->field($model, 'when_first_complain_business') 
+                                ->widget(DatePicker::classname(), [
+                                    'type' => DatePicker::TYPE_COMPONENT_PREPEND,
+                                    'pluginOptions' => [
+                                        'autoclose'=>true,
+                                        'format' => 'dd-mm-yyyy'
+                                    ]
+                                ])
+                                ->label("")
+                            ?>
+                            <small>
                                 The business has eight weeks from this date to send you its final written answer – before we can investigate the complaint.
-                            </p>
-<!-- todo final page -->
-                            <strong class="sub-section-header">
+                            </small>
+                            <!-- todo final page -->
+                            <h2 class="sub-section-header">
                                 Just a few more questions
-                            </strong>
+                            </h2>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                        <h4>
+                                            Has the business you’re complaining about sent you its final written answer?
+                                            <br><small>Please enclose a copy of the last letter that the business sent you.</small>
+                                        </h4>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                        <?= $form->field($model, 'has_business_complaining_sent_letter')->radioList(['Yes'=>'Yes','No'=>'No'])->label(""); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                        <h4>
+                                            Has there been any court action relating to your complaint (or is any planned)?
+                                            <br><small>* If YES, please enclose copies of relevant paperwork.</small>
+                                        </h4>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                         <?= $form->field($model, 'has_court_action_to_complain')->radioList(['Yes'=>'Yes','No'=>'No'])->label(""); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <h4>
+                                             How do you want the business to put things right for you?
+                                        </h4>
+                                        <?= $form->field($model, 'settlement_with_business_details')->label("")->textarea(['style'=>'margin-top: 0px; margin-bottom: 0px; height: 200px;']); ?>                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <h2>
+                                Accessibility and practical needs
+                            </h2>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+ 
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                                        <h4>
+                                            Do you have any practical needs where we could help – by making adjustments like
+                                            using large print, Braille or a different language? <br>
+                                            <small>* If YES, please tell us how we can help you.</small>
+                                        </h4>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                        <?= $form->field($model, 'is_ineed_of_practical_help_details')->radioList(['Yes'=>'Yes','No'=>'No'])->label(""); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="alert alert-info">
+                                <h2>
+                                    Finally, please read and sign this declaration
+                                </h2>
+                                <div>
+                                    I’d like the Financial Ombudsman Service to look into my complaint. To the best of my
+                                    knowledge, all the information I’ve given you is accurate.
+                                    <ul>
+                                        <li>I understand that you usually resolve complaints by phone, letter and email.</li>
+
+                                        <li>
+                                            I understand that you will need some personal details about me, that you might need to
+                                            share information I give you – including sensitive or personal information – with the
+                                            business involved and other relevant organisations, and that you might need to ask them
+                                            for information that’s relevant to my case.
+                                        </li>
+
+                                        <li>
+                                            I understand that you have a duty to publish your ombudsmen’s final decisions on your
+                                            website – with consumers’ details removed - but that most cases can be resolved before
+                                            they reach an ombudsman
+                                        </li>
+                                        <li>
+                                            I understand that to help you provide the best possible service, you (or a trusted third party)
+                                            might ask me about my experience. And though you sometimes publish anonymous
+                                            examples of the cases you look at, you’ll always keep my information confidential.
+                                        </li>
+                                        <li>You need to sign, even if someone else is complaining on your behalf. This shows you have
+                                        given them your permission to complain for you.</li>
+                                        <Li>For complaints involving accounts or policies held jointly, each person needs to sign.</Li>
+                                        <li>If you’re signing on behalf of a business, please give your job title.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <strong>post to …</strong>
+                                    Financial Ombudsman Service <br>
+                                    Exchange Tower <br>
+                                    London E14 9SR <br>                                    
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <?= 
+                                        $form
+                                        ->field($model, 'final_tick_checklist')
+                                        ->label("Please tick  to show you have …")
+                                        ->checkboxList([
+                                                "enclosed a copy of the business’s last letter to you."=>"enclosed a copy of the business’s last letter to you.",
+                                                "enclosed copies of other relevant information."=>"enclosed copies of other relevant information.",
+                                                "included everything you want to tell us about your complaint."=>"included everything you want to tell us about your complaint.",
+                                        ])
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <h4 class="text-left">
+                                        <strong>0300 123 9 123 or 0800 023 4567</strong>  <br>
+                                        <small>
+                                            calls are recorded for training <br>
+                                            and monitoring purposes 
+                                        </small>
+                                    </h4>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <h4 class="text-right">
+                                        <strong>fax 020 7964 1001 dx 141280 Isle of Dogs</strong> <br>
+                                        <small>
+                                        <?= Html::mailto('complaint.info@financial-ombudsman.org.uk', 'complaint.info@financial-ombudsman.org.uk'); ?>
+                                        <br>
+                                        <a href="www.financial-ombudsman.org.uk">www.financial-ombudsman.org.uk</a>
+                                        <br>
+                                        </small>
+                                    </h4>
+                                </div>
+                            </div>
+
 
 
                             <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
-
-
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive text-right">
-                            Have you ever tried to claim back your money for this packaged account yourself or through another company?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
- 
-                        <br>
-                        <br>
-                        <div id="tried_to_claim_for_package_details" class="hidden">
-                            <?= 
-                            $form
-                                ->field($model, 'tried_to_claim_for_package_details')
-                                ->label("") 
-                                ->textarea(['style'=>'margin-top: 0px; margin-bottom: 0px; height: 200px;']);
-
-                            ?>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            1. Have you ever made a claim on any of the insurance products or breakdown cover provided by the packaged bank account?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                        $form
-                            ->field($model, 'tried_to_claim_for_insurance_products')
-                            ->radioList(['Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"wasClaimRejectedMoreInfo","Yes")'])
-                            ->label("")
-                        ?>
-                    </div>
-                </div>
-                <!-- show if yes -->
-                <div id='wasClaimRejectedMoreInfo' class="hidden">
-                    <div class="row" >
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                1B. Was your claim rejected?
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?= $form->field($model, 'tried_to_claim_for_insurance_products_is_rejected')->radioList(['Yes'=>'Yes','No'=>'No'])->label("") ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                1C. Please give details
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?= $form->field($model, 'tried_to_claim_for_insurance_products_rejection_reason')->textarea()->label("") ?>
-                        </div>
-                    </div>
-                </div>
-                <!-- end -->
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <br>
-                        <br>
-                    </div>
-                </div>
-
-
-                <!-- show this if yes -->
-                <div class="hidden" id="usedBenefitsMoreDetailsContainer">
-                    <div class="row" >
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                2B. Please give details
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                2C. Do you know specifically how much of a benefit this gave you, if any? (e.g. if it was a preferential rate how much did it save them? - was this made clear at the point of sale? Does client know if it actually saved them them more than the fees for the PBA?)
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                        $form
-                            ->field($model, 'know_benefit')
-                            ->label("")
-                            ->radioList(['Yes'=>'Yes','No'=>'No'])
-                        ?>
-
-                        </div>
-                    </div>
-
-                </div>
-                <!-- end -->
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            3. Have you registered for any of the benefits provided by your packaged account (e.g. registered mobile phone/s)
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= $form
-                            ->field($model, 'registered_benefits_by_packaged_account')
-                            ->label("")
-                            ->radioList(['Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"registeredBenefirstDetails","Yes")']); 
-                        ?>
-                        <br>
-                        <div id="registeredBenefirstDetails" class="hidden">
-                            <?= $form
-                            ->field($model, 'registered_benefits_by_packaged_account_details')
-                            ->label("")
-                            ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']); ?>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            3B. What do you understand the features and benefits of the account to be? (Show understanding and bear in mind when asking other questions / selling & explaining etc)
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <br>
-                        <?= 
-                        $form
-                            ->field($model, 'understanding_of_features_and_benefits')
-                            ->label("")
-                            ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;'])
-                        ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            4. At the time you opened or upgraded the packaged bank account, or shortly afterwards, was your main address outside of the United Kingdom?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                            $form
-                            ->field($model, 'address_while_bank_opened') 
-                            ->label("") 
-                            ->radioList(['Non UK Address'=>'Non UK Address','UK Address'=>'UK Address'])
-                        ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            5. Is the Account in Arrears, Debt Management, IVA or have you been bankrupt since taking the account?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                            $form
-                            ->field($model, 'bank_account_status') 
-                            ->label("") 
-                            ->radioList([
-                                'Account In Arrears'=>'Account In Arrears',
-                                'Account In Debt Management'=>'Account In Debt Management',
-                                'Account In IVA'=>'Account In IVA',
-                                'Bankrupt'=>'Bankrupt',
-                                'None of the above'=>'None of the above',
-                            ],['onchange'=>'toggleByMultipleCondition(this,"bankAccountStatusCommentDetails",["Account In Arrears", "Account In Debt Management", "Account In IVA", "Bankrupt"]  )'])
-                        ?>
-                        <div id="bankAccountStatusCommentDetails" class="hidden">
-                            <?= 
-                                $form
-                                    ->field($model, 'bank_account_status_comment')
-                                    ->label("")
-                                    ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;'])
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" id="has_account_upgraded_downgraded_container">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            6A. Has your account been upgraded or downgraded to any other packaged account types during the period you have been paying the monthly fees?                        
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                            $form
-                                ->field($model, 'has_account_upgraded_downgraded') 
-                                ->label("")
-                                ->radioList(['Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"upgradeComment","Yes")'])
-                        ?>
-                    
-                    </div>
-                </div>
-                <div class="row hidden" id="upgradeComment">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            6B. Was there one upgrade in particular that you were most unhappy with?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?=
-                            $form
-                                ->field($model, 'upgrade_comment')
-                                ->label("")
-                                ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                        ?>
-                    </div>
-                </div>                
-
-                <div class="row" id="howWasPackageContainer">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            6C. How was the packaged bank account sold to you?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <div id="how_packaged_bank_account_sold_details_container" class="hidden">
-                            <?= 
-                                $form
-                                ->field($model, 'how_packaged_bank_account_sold_details')
-                                ->label("")
-                                ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" id="whatPromptedToTakeContainer">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            7. Tell me, what prompted you to take out the packaged account?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                            $form
-                            ->field($model, 'reason_to_takeout_packaged_account_reason_of_speaking')
-                            ->label("")
-                            ->radioList([
-                                    'Actively enquired about a packaged account'=>'Actively enquired about a packaged account',
-                                    'The Account was suggested by the bank/building society representative'=>'The Account was suggested by the bank/building society representative',
-                                    'Account was suggested to me but I only discovered the actual charges & type of account at a later stage'=>'Account was suggested to me but I only discovered the actual charges & type of account at a later stage',
-                                    'Enquired about another product and told taking the packaged account was a condition of acceptance'=>'Enquired about another product and told taking the packaged account was a condition of acceptance',
-                                    'Enquired about another product (e.g. overdraft / loan) and told that taking this account was the best option for me by the bank representative'=>'Enquired about another product (e.g. overdraft / loan) and told that taking this account was the best option for me by the bank representative',
-                                    'I was not aware my account had been ‘upgraded’ until discovering the charges at a later stage'=>'I was not aware my account had been ‘upgraded’ until discovering the charges at a later stage',
-                                    'I received a letter stating my account was automatically being upgraded but it did not tell me that I would be charged a fee'=>'I received a letter stating my account was automatically being upgraded but it did not tell me that I would be charged a fee',
-                                    'I received a letter stating my account was automatically being upgraded to a packaged account, I was not given any choice, it was presented as a non-optional automatic change to my account'=>'I received a letter stating my account was automatically being upgraded to a packaged account, I was not given any choice, it was presented as a non-optional automatic change to my account',
-                                ],
-                            ['onchange'=>'toggleField(this,"thinkBackSummaryContainer","Account was suggested to me but I only discovered the actual charges & type of account at a later stage")'])
-                        ?>
-                    </div>
-                </div>
-                <div class="row" id="thinkBackSummaryContainer">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            7B. Try and think back, what was the actual reason you were speaking with the bank that day?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                            $form
-                            ->field($model, 'reason_to_takeout_packaged_account_reason_of_speaking')
-                            ->label("")
-                            ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                        ?>  
-                    </div>
-                </div>         
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            8. Did you notice the account fees on your statement?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                            $form
-                            ->field($model, 'noticed_account_fees')
-                            ->label("")
-                            ->radioList(['Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"noticed_account_fees_details_container","Yes")']);
-                        ?>
-                    </div>
-                </div>
-                <div class="row" id="noticed_account_fees_details_container">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            8B. Because part of your complaint will be that you didn't know you were paying a fee for a packaged account - please tell me when you first noticed the fees and what you thought they were for?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                         <?= 
-                             $form
-                                ->field($model, 'noticed_account_fees_details') 
-                                ->label("") 
-                                ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                         ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            9. At the time you opened or upgraded to the packaged bank account, did you actually take out any other products with the bank (for example a credit card, loan, overdraft, mortgage or savings account)?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                            $form
-                            ->field($model, 'actually_take_out_other_prodcuts') 
-                            ->label("") 
-                            ->radioList(['Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"actually_take_out_other_prodcuts_details_container","Yes")'])
-                        ?>
-                    </div>
-                </div>
-                <div id="actually_take_out_other_prodcuts_details_container" class="hidden">
-                    <div class="row" id="actually_take_out_other_prodcuts_details_container">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?= 
-                                $form
-                                ->field($model, 'actually_take_out_other_prodcuts_details') 
-                                ->label("") 
-                                ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;'])
-                            ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                9B. Did the bank discuss other options with you that DIDN'T involve a packaged bank account, or did they only talk to you about upgrading to a packaged bank account as the way of getting the overdraft / loan / mortgage etc?
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                          <?= 
-                            $form
-                            ->field($model, 'discuss_not_involed_packaged') 
-                            ->label("")
-                            ->radioList(['Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"discuss_not_involed_packaged_details_container","Yes")']);
-                          ?>
-      
-                        </div>
-                    </div>
-                    <div class="row hidden" id='discuss_not_involed_packaged_details_container'>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                9C. What other options and why did you end up with the packaged bank account?
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?= 
-                            $form
-                            ->field($model, 'discuss_not_involed_packaged_details') 
-                            ->label("") 
-                            ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;'])
-                            ?>
-                        </div>
-                    </div>
-                </div>   
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            11. Did you feel you were put under pressure to take out the account?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                        $form
-                            ->field($model, 'felt_under_pressure')
-                            ->label("")
-                            ->radioList([
-                                'Yes'=>'Yes','No'=>'No'],['onchange'=>'toggleField(this,"felt_under_pressure_details_container","Yes")']);
-                        ?>
-                    </div>
-                </div>
-                <div class="row" id="felt_under_pressure_details_container">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            11B. Why did you feel pressured?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                        $form
-                            ->field($model, 'felt_under_pressure_details')
-                            ->label("")
-                            ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;'])
-                        ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            12. Before you opened or upgraded to the packaged bank account, had you ever had a free bank account in the UK?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            13. Did the representative explain any of the main exclusions and limitations of the insurances?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                                $form
-                                ->field($model, 'did_representative_explain_main_exclusions')
-                                ->label("")
-                                ->radioList(['Yes'=>'Yes','No'=>'No',"Can't Remember"]); 
-                        ?>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            14. Did the representative explain that you would receive written information and it was very important to read the exclusions, terms and limitations of each product?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                                $form
-                                ->field($model, 'did_representative_explain_receive_written_info')
-                                ->label("")
-                                ->radioList(['Yes'=>'Yes','No'=>'No',"Can't Remember"=>"Can't Remember"]); 
-                        ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label">
-                            15. Did you ever receive any mailings in the post that made it clear and easy to understand the account and that you need to regularly review if it suited you?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                                $form
-                                ->field($model, 'receive_any_mailing_post')
-                                ->label("")
-                                ->radioList(['Yes'=>'Yes','No'=>'No']); 
-                        ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            16. Did the representative explain that if your circumstances change in the future, that it may affect whether you are eligible for the insurances?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                                $form
-                                ->field($model, 'explain_changes_effect_elligibility')
-                                ->label("")
-                                ->radioList(['Yes'=>'Yes','No'=>'No',"Can't Remember"=>"Can't Remember"]); 
-                        ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            17. Did the representative explain whether or not you would have to pay an excess to claim on any of the insurances?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                                $form
-                                ->field($model, 'explain_pay_excess_claim_on_insurance')
-                                ->label("")
-                                ->radioList(['Yes'=>'Yes','No'=>'No',"Can't Remember"=>"Can't Remember"]); 
-                        ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            18. At the time you opened or upgraded the packaged bank account, did you hold a valid UK driving license?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                    </div>
-                </div>
-
-                <div class="row hidden" id="didOwnACarContainer">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            18B. Did you own/drive a car?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            19. At the time you opened or upgraded to the packaged bank account, did you own a mobile phone?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                    </div>
-                </div>
-
-                <div class="row" id="smartphone_has_internet_access">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            19B. Was it a smart phone (i.e. with internet access)?                       
-                        </label>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            20. At the time you opened or upgraded to the packaged bank account, how often did you go on holiday?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                    </div>
-                </div>
-
-                <div id="has_health_problems_during_upgrade_details_container">
-
-                   <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                21B. Did the representative explain this may affect eligibility for the insurances
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?= 
-                            $form
-                                ->field($model, 'did_rep_explain_eligibility')
-                                ->label("")
-                                ->radioList(['Yes'=>'Yes','No'=>'No']);
-                            ?>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" id="has_registered_doctor_during_upgrade_container">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            23. At the time or shortly after you opened or upgraded to the packaged bank account, did you already have any of the following products?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-
-                    </div>
-                </div>
-
-                <div class="row hidden" id="further_details_help_evidence_container">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            23B. Further Details (Any specifics will help evidence this and strengthen your claim)
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                        $form
-                            ->field($model, 'further_details_help_evidence')
-                            ->label("")                            
-                            ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                        ?>
-                    </div>
-                </div>
-
-                
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            24. Did you keep the insurance after the sale of/upgrade to the packaged bank account?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-
-                    </div>
-                </div>
-                <div id="did_kept_insurance_after_sale_details_container" class="hidden">
-                    <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                24B. Please give details
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?=
-                            $form
-                                ->field($model, 'did_kept_insurance_after_sale_details')
-                                ->label("")
-                                ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                            ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            <label class="control-label form-label-exclusive">
-                                24C. Why did you keep the existing cover?
-                            </label>
-                        </div>
-                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                            <?=
-                            $form
-                                ->field($model, 'reason_kept_existing_cover')
-                                ->label("")
-                                ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            25. At the time you opened or upgraded to the packaged bank account, did you have any other packaged bank accounts?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <br>
-                        <br>
-                        <div id="when_opened_account_has_other_account_details_container">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <label class="control-label form-label-exclusive">
-                            27. What do you feel most unhappy about with this account and how it was sold?
-                        </label>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"><br>
-                        <?= 
-                        $form
-                        ->field($model, 'reason_why_unhappy')
-                        ->label("")
-                        ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
-                        ?>
-                    </div>
-                </div>
-                <div class="row">                
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-                            <label class="personal-info-labels">
-                                What is your preferred method of contact?
-                            </label>
-                        </div>
-                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                            <?= 
-                            $form
-                            ->field($model, 'preferred_method_of_contact')
-                            ->dropDownList(['Mobile'=>'Mobile','Work Number'=>'Work Number','Landline'=>'Landline','SMS'=>'SMS','Email'=>'Email','Any'=>'Any'])
-                            ->label("");
-                            ?>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-                            <label class="personal-info-labels">
-                                If we need to speak to you what is the best time to call?
-                            </label>
-                        </div>
-                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                            <?= 
-                            $form
-                            ->field($model, 'best_time_to_call')
-                            ->dropDownList([
-                                    'Morning'=>'Morning',
-                                    'Afternoon'=>'Afternoon',
-                                    '5-6 PM'=>'5-6 PM',
-                                    '6-7 PM'=>'6-7 PM',
-                                    '7-8 PM'=>'7-8 PM',
-                                    'Anytime'=>'Anytime'
-                                ])
-                            ->label("");
-                            ?>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-right">
-                        <label class="form-label-exclusive">
-                            Client Contact Notes ?
-                        </label>
-                    </div>
-
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                        <?= 
-                        $form
-                        ->field($model, 'client_contact_notes')
-                        ->textArea(['style'=>'100%'])
-                        ->label("");
-                        ?>
-                    </div>
-                </div>
-                </div>
-
-
-
 
 
 
