@@ -292,7 +292,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                                         <?= 
                                             $form
                                                 ->field($model, 'other_previous_address_details')
-                                                ->textArea()
+                                                ->textarea(['style'=>'margin-top: 0px; margin-bottom: 0px; height: 200px;'])
                                                 ->label("Full information of previous address");
                                         ?>
                                     </div>
@@ -999,25 +999,32 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                                 ->textarea(['class'=>'col-xs-12 col-sm-12 col-md-12 col-lg-12','style'=>'margin-top: 0px; margin-bottom: 0px; height: 143px;']);
                             ?>
                             <strong class="sub-section-header">
-                                C8. at the time you opened or upgraded to the packaged bank account, were you registered with a UK doctor?
+                                C8. at the time you opened or upgraded to the packaged bank account, were you registered with a UK doctor?                                
+                                <?= 
+                                $form
+                                    ->field($model, 'has_registered_doctor_during_upgrade')
+                                    ->label("")
+                                    ->radioList(['Yes'=>'Yes','No'=>'No']);
+                                ?>                                
                             </strong>
- 
+                            <br>
                             <strong class="sub-section-header">
                                 C9. at the time you opened or upgraded to the packaged bank account, did you take out any other products
                                 with the bank (for example a credit card, loan, overdraft, mortgage or savings account)?                            
                             </strong>
                             <?= 
                             $form
-                                ->field($model, 'when_opened_account_has_other_account')
+                                ->field($model, 'actually_take_out_other_prodcuts')
                                 ->label("")
                                 ->radioList(['Yes'=>'Yes','No'=>'No']);
                             ?>
+                            <br>
                             <strong class="sub-section-header">
                                 If you answered “yes” to C9, please give details.
                             </strong>
                             <?= 
                                 $form
-                                    ->field($model, 'when_opened_account_has_other_account_details')
+                                    ->field($model, 'actually_take_out_other_prodcuts_details')
                                     ->label("")
                                     ->textarea(['style'=>'margin-top: 0px; margin-bottom: 0px; height: 200px;']);
                             ?>                            
@@ -1048,7 +1055,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             </strong>
                             <?= 
                                 $form
-                                ->field($model, 'has_registered_doctor_during_upgrade')
+                                ->field($model, 'registered_benefits_by_packaged_account')
                                 ->label("")
                                 ->radioList(['Yes'=>'Yes','No'=>'No']); 
                             ?>
@@ -1057,7 +1064,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             </strong>
                              <?= 
                                 $form
-                                ->field($model, 'has_registered_doctor_during_upgrade_details')
+                                ->field($model, 'registered_benefits_by_packaged_account_details')
                                 ->label("")
                                 ->textarea(['style'=>'margin-top: 0px; margin-bottom: 0px; height: 200px;']);
                             ?>
@@ -1236,6 +1243,8 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             </div>
                             <br>
                             <br>
+                            <hr>
+                            <?= Html::img('/images/ombudsman.jpg'); ?>
 
                             <h3 class="sub-section-header">
                                 Please use this form to tell us about your complaint – so we can see if we’re able to help you.
@@ -1497,7 +1506,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             <?= $form->field($model, 'kind_of_service_complain')->textInput()->label(""); ?>
 
                             <h3 class="sub-section-header">
-                                any reference number (eg your account and sort code;
+                                Any reference number (eg your account and sort code;
                                 hire-agreement or loan number; policy or claim number)
                             </h3>
                             <?= $form->field($model, 'kind_of_service_complain_reference')->textInput()->label(""); ?>
@@ -1660,7 +1669,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                             <hr>
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                    <strong>post to …</strong>
+                                    <strong>post to …</strong> <br>
                                     Financial Ombudsman Service <br>
                                     Exchange Tower <br>
                                     London E14 9SR <br>                                    

@@ -61,6 +61,10 @@ class m161205_143309_add_new_cols_lead_esign extends Migration
         $this->addColumn('{{%lead_esign}}', 'is_ineed_of_practical_help_details', $this->text());
         $this->addColumn('{{%lead_esign}}', 'final_tick_checklist', $this->text());
 
+        $this->addColumn('{{%lead_esign}}', 'final_tick_checklist', $this->string());
+
+
+
     }
 
     public function safeDown()

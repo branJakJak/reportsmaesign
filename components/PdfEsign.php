@@ -165,13 +165,19 @@ class PdfEsign extends Component
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
+        $this->writeToPdf($pdf,$tplIdx , 20 , 111.5 ,$leadObj->complaint_reference);
+        $this->writeToPdf($pdf,$tplIdx , 20 , 131 ,$leadObj->financial_business_name);
+        $this->writeToPdf($pdf,$tplIdx , 20 , 157 ,$leadObj->last_3_digit_account_num);
+
         $checkMarkCoor_x = 0;
         if ( $leadObj->account_type === "Joint" ) {
             /*place the x at the yes checkbox*/
             $checkMarkCoor_x = 17;
         }else {
-            $checkMarkCoor_x = 36;
+            $checkMarkCoor_x = 35.5;
         }
+
+
         $this->writeToPdf($pdf,$tplIdx , $checkMarkCoor_x , 179 ,"x");
         $this->writeToPdf($pdf,$tplIdx , 38 , 208 ,$leadObj->lastname);
         $this->writeToPdf($pdf,$tplIdx , 38 , 220 ,$leadObj->firstname);
@@ -199,6 +205,16 @@ class PdfEsign extends Component
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
+
+
+        is_complain_about_sale_packaged_bank_account
+
+        open_or_upgrade_package_bank_account_date
+
+        notice_account_fees_on_statements
+
+        notice_account_fees_on_statements_details
+
         $howWasPackageSold_coor_x = 0;
         $howWasPackageSold_coor_y = 0;
         switch ($leadObj->how_packaged_bank_account_sold) {
