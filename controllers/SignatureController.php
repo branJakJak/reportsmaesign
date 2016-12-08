@@ -40,8 +40,7 @@ class SignatureController extends \yii\web\Controller
                 if ($requestedLead->save()) {
                     \Yii::$app->session->setFlash('success', "Success!");
                     $requestedLead->trigger(LeadEsign::SIGNATURE_FINAL_STEP);
-
-                    // return $this->redirect("/success");
+                    return $this->redirect("/success");
                 }
             }
             $requestedLead->account_start_date = date("d-m-Y", strtotime($requestedLead->account_start_date));
