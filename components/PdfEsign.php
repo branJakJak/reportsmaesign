@@ -206,14 +206,49 @@ class PdfEsign extends Component
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
+        $is_complain_about_sale_packaged_bank_account_coor_x = 18.7;
+        $is_complain_about_sale_packaged_bank_account_coor_x = 37;
+        $is_complain_about_sale_packaged_bank_account_coor_y = 40.9;
+        // if ($leadObj->is_complain_about_sale_packaged_bank_account === "No") {
+        //     $is_complain_about_sale_packaged_bank_account_coor_x = 23;
+        // }
+        $this->writeToPdf($pdf,$tplIdx , $is_complain_about_sale_packaged_bank_account_coor_x , $is_complain_about_sale_packaged_bank_account_coor_y ,"x");
+        // is_complain_about_sale_packaged_bank_account
+        
+        // is_complain_about_sale_packaged_bank_account_details 
+        $this->writeToPdf($pdf,$tplIdx , 20 , 75 , $leadObj->is_complain_about_sale_packaged_bank_account_details);
+        if (isset($leadObj->open_or_upgrade_package_bank_account_date) && !empty($leadObj->open_or_upgrade_package_bank_account_date)) {
+            $dateStrcontainer = date("d",strtotime($leadObj->open_or_upgrade_package_bank_account_date));
+            $dateStrcontainer = intval($dateStrcontainer);
+            $dateStrcontainer = sprintf('%02d', $dateStrcontainer);
 
-        is_complain_about_sale_packaged_bank_account
+            $this->writeToPdf($pdf,$tplIdx , 19.5 , 142 , $dateStrcontainer[0]);
+            $this->writeToPdf($pdf,$tplIdx , 33 , 142 , $dateStrcontainer[1]);
 
-        open_or_upgrade_package_bank_account_date
+            $dateStrcontainer = date("m",strtotime($leadObj->open_or_upgrade_package_bank_account_date));
+            $monthStrContainer = intval($dateStrcontainer);
+            $monthStrContainer = sprintf('%02d', $monthStrContainer);
 
-        notice_account_fees_on_statements
+            $this->writeToPdf($pdf,$tplIdx , 47 , 142 , $monthStrContainer[0]);
+            $this->writeToPdf($pdf,$tplIdx , 60 , 142 , $monthStrContainer[1]);
 
-        notice_account_fees_on_statements_details
+            $yearStrcontainer = date("Y",strtotime($leadObj->open_or_upgrade_package_bank_account_date));
+            $yearStrcontainer = intval($yearStrcontainer).'';
+            $this->writeToPdf($pdf,$tplIdx , 75 , 142 , $yearStrcontainer[0]);
+            $this->writeToPdf($pdf,$tplIdx , 88 , 142 , $yearStrcontainer[1]);
+            $this->writeToPdf($pdf,$tplIdx , 101 , 142 , $yearStrcontainer[2]);
+            $this->writeToPdf($pdf,$tplIdx , 116 , 142 , $yearStrcontainer[3]);
+        }
+        // notice_account_fees_on_statements
+        $notice_account_fees_on_statements_coor_x = 17.5;
+        $notice_account_fees_on_statements_coor_y = 162.5;
+        if ($leadObj->notice_account_fees_on_statements === "No") {
+            $notice_account_fees_on_statements_coor_x = 36;
+        }
+        $this->writeToPdf($pdf,$tplIdx , $notice_account_fees_on_statements_coor_x , $notice_account_fees_on_statements_coor_y , 'x');
+
+        // notice_account_fees_on_statements_details
+        $this->writeToPdf($pdf,$tplIdx , 18.7 , 183 , $leadObj->notice_account_fees_on_statements_details);
 
         $howWasPackageSold_coor_x = 0;
         $howWasPackageSold_coor_y = 0;
@@ -262,6 +297,34 @@ class PdfEsign extends Component
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
+        
+        $this->writeToPdf($pdf,$tplIdx , 16 , 30 ,$leadObj->how_packaged_bank_account_sold_details);
+
+        $did_they_give_advice_clarify_coor_x = 54.5;//defaults to I cant remember
+        $did_they_give_advice_clarify_coor_y = 69.5;//defaults to I cant remember
+        if ($leadObj->did_they_give_advice_clarify === 'Yes') {
+            $did_they_give_advice_clarify_coor_x = 19;//
+        } else if ($leadObj->did_they_give_advice_clarify === 'No') {
+            $did_they_give_advice_clarify_coor_x = 37.5;//
+        }
+        $this->writeToPdf($pdf,$tplIdx , $did_they_give_advice_clarify_coor_x , $did_they_give_advice_clarify_coor_y ,'x');
+
+        $this->writeToPdf($pdf,$tplIdx , 19 , 90  ,$leadObj->did_they_give_advice_clarify_details);
+
+        // current_situation_packaged_bank_account
+        $current_situation_packaged_bank_account_coor_x = 17.5;
+        $current_situation_packaged_bank_account_coor_y = 133.5;
+        if ($leadObj->current_situation_packaged_bank_account === 'I’m still paying for my packaged bank account') {
+            $current_situation_packaged_bank_account_coor_x = 17.5;
+        }else if ($leadObj->current_situation_packaged_bank_account === 'I’ve closed/downgraded my packaged bank account') {
+            $current_situation_packaged_bank_account_coor_x = 97;
+        }
+        $this->writeToPdf($pdf,$tplIdx , $current_situation_packaged_bank_account_coor_x , $current_situation_packaged_bank_account_coor_y ,'x');
+
+        
+        // current_situation_packaged_bank_account_explanation
+        $this->writeToPdf($pdf,$tplIdx , 19 , 158 , $leadObj->current_situation_packaged_bank_account_explanation . 'weeee');
+
         if ($leadObj->how_packaged_bank_account_sold === "Other") {
             $this->writeToPdf($pdf,$tplIdx , 18 , 30 ,$leadObj->how_packaged_bank_account_sold);
         }
@@ -285,14 +348,15 @@ class PdfEsign extends Component
             default:
                 break;
         }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx ,
-            $did_they_give_advice_clarify_coor_x,
-            $did_they_give_advice_clarify_coor_y,
-            "x"
-        );
-
+        if ($did_they_give_advice_clarify_coor_x !== 0 && $did_they_give_advice_clarify_coor_y !== 0) {
+            $this->writeToPdf(
+                $pdf,
+                $tplIdx ,
+                $did_they_give_advice_clarify_coor_x,
+                $did_they_give_advice_clarify_coor_y,
+                "x"
+            );
+        }
         $had_free_bank_coor_x = 0;
         $had_free_bank_coor_y = 0;
         if ($leadObj->had_free_bank === "Yes") {
@@ -330,7 +394,7 @@ class PdfEsign extends Component
             "x"
         );
         if ($leadObj->when_opened_account_has_other_account === "Yes") {
-            $this->writeToPdf($pdf,$tplIdx, 17.5,60,$leadObj->when_opened_account_has_other_account_details);
+            $this->writeToPdf($pdf,$tplIdx, 17.5,65,$leadObj->when_opened_account_has_other_account_details);
         }
 
         /*driving license*/
