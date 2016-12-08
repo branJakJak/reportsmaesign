@@ -567,6 +567,24 @@ class PdfEsign extends Component
             "x"
         );
 
+        /*actually_take_out_other_prodcuts*/
+        $actually_take_out_other_prodcuts_coor_x = 17;
+        $actually_take_out_other_prodcuts_coor_y = 127;
+        if ($leadObj->actually_take_out_other_prodcuts === 'No') {
+            $actually_take_out_other_prodcuts_coor_x = 35.5;
+        }
+
+        $this->writeToPdf(
+            $pdf,
+            $tplIdx,
+            $actually_take_out_other_prodcuts_coor_x,
+            $actually_take_out_other_prodcuts_coor_y,
+            "x"
+        );
+        /*actually_take_out_other_prodcuts_details*/
+
+        $this->writeToPdf($pdf,$tplIdx,17,150 ,$leadObj->actually_take_out_other_prodcuts_details);
+
         $used_benefits_packaged_bank_coor_x = 36;
         $used_benefits_packaged_bank_coor_y = 248;
         if ($leadObj->used_benefits_packaged_bank === "Yes") {
@@ -588,6 +606,43 @@ class PdfEsign extends Component
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
+        // registered_benefits_by_packaged_account_details
+        $this->writeToPdf($pdf,$tplIdx, 18 , 38,$leadObj->registered_benefits_by_packaged_account_details);
+        
+        // tried_to_claim_for_package
+        $tried_to_claim_for_package_coor_x = 18;
+        $tried_to_claim_for_package_coor_y = 87.4;
+        if ($leadObj->tried_to_claim_for_package === "No") {
+            $tried_to_claim_for_package_coor_x = 36.5;
+        }
+        $this->writeToPdf($pdf,$tplIdx, $tried_to_claim_for_package_coor_x , $tried_to_claim_for_package_coor_y,'x');
+
+        $this->writeToPdf($pdf,$tplIdx, 18  , 115  , $leadObj->tried_to_claim_for_package_details);
+
+        // used_benefits_packaged_bank
+        $used_benefits_packaged_bank_coor_x = 17;
+        $used_benefits_packaged_bank_coor_y = 169;
+        if ($leadObj->used_benefits_packaged_bank === 'No') {
+            $used_benefits_packaged_bank_coor_x = 35.8;
+        } else if ($leadObj->used_benefits_packaged_bank === "I don't know") {
+            $used_benefits_packaged_bank_coor_x = 52.5;
+        }
+        $this->writeToPdf(
+            $pdf,
+            $tplIdx,
+            $used_benefits_packaged_bank_coor_x, 
+            $used_benefits_packaged_bank_coor_y, 
+            'x'
+        );
+
+        $this->writeToPdf(
+            $pdf,
+            $tplIdx,
+            18,
+            195,
+            $leadObj->used_benefits_packaged_bank_details
+        );
+
         /*page 12*/
         $pdf->addPage();
         $tplIdx = $pdf->importPage(12);
@@ -605,7 +660,7 @@ class PdfEsign extends Component
                     break;
                 case "Accidental death cover":
                     //accidental death cover
-                    $this->writeToPdf($pdf,$tplIdx,16.8,86,"x");
+                    $this->writeToPdf($pdf,$tplIdx,16.8,86.3,"x");
                     break;
                 case "Gadget insurance":
                     //gadget insurance
@@ -613,11 +668,11 @@ class PdfEsign extends Component
                     break;
                 case "Mobile phone insurance":
                     //mobile phone insurance
-                    $this->writeToPdf($pdf,$tplIdx,62,75,"x");
+                    $this->writeToPdf($pdf,$tplIdx,62,75.4,"x");
                     break;
                 case "Life Assurance":
                     //life assurance
-                    $this->writeToPdf($pdf,$tplIdx,62,86,"x");
+                    $this->writeToPdf($pdf,$tplIdx,61.4,86.3,"x");
                     break;
                 case "Travel insurance":
                     //any other insurance that was also included in your packaged bank account
@@ -625,16 +680,19 @@ class PdfEsign extends Component
                     break;
                 case "Identity theft insurance":
                     // travel insurance
-                    $this->writeToPdf($pdf,$tplIdx,131,75,"x");
+                    $this->writeToPdf($pdf,$tplIdx,131,75.5,"x");
                     break;
                 case "Any other insurance that was also included in your packaged bank account":
                     // identity theft protection
-                    $this->writeToPdf($pdf,$tplIdx,131,86,"x");
+                    $this->writeToPdf($pdf,$tplIdx,130,86.3,"x");
                     break;
                 default:
                     break;
             }
         }
+        $this->writeToPdf($pdf,$tplIdx,16.8,125,$leadObj->after_upgrade_already_has_products_details);
+        
+
         $did_kept_insurance_after_sale_coor_x = 36;
         $did_kept_insurance_after_sale_coor_y = 182;
         if ($leadObj->did_kept_insurance_after_sale === "Yes") {
@@ -650,6 +708,9 @@ class PdfEsign extends Component
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
+        /*possible word wrap this to break on specific length to prevent overflow*/
+        $this->writeToPdf($pdf,$tplIdx, 20 ,50 ,$leadObj->complaint_whole_details);
+        
 
         /*page 14*/
         $pdf->addPage();
@@ -665,6 +726,9 @@ class PdfEsign extends Component
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
+
+
+
         /*name and signature*/
         $fullname = "$leadObj->salutation . $leadObj->firstname $leadObj->lastname";
         $this->writeToPdf($pdf,$tplIdx , 20 , 88 ,$fullname);
@@ -696,6 +760,32 @@ class PdfEsign extends Component
         $this->writeToPdf($pdf,$tplIdx, 185 , 109 ,$yearStr[3]);
 
 
+        $declaration_confirmed_tickArr = explode(",", $leadObj->declaration_confirmed_tick);
+        
+        $temp_coor_x = 17;
+        $temp_coor_y = 0;
+        foreach ($declaration_confirmed_tickArr as $key => $value) {
+            switch ($value) {
+                case 'Included everything you want to tell us about your complaint':
+                    $temp_coor_y = 180;
+                    break;
+                case 'Signed the declaration':
+                    $temp_coor_y = 185.4;
+                    break;
+                case 'Enclosed copies of all relevant documents':
+                    $temp_coor_y = 192;
+                    break;
+                case 'Not enclosed any documents with this form':
+                $temp_coor_y = 204;
+                    break;
+                default:
+                    break;
+            }
+        }
+        if ($temp_coor_y !== 0) {
+            $this->writeToPdf($pdf,$tplIdx, $temp_coor_x , $temp_coor_y ,'x');
+        }
+
         /*page 16*/
         $pdf->addPage();
         $tplIdx = $pdf->importPage(16);
@@ -716,12 +806,56 @@ class PdfEsign extends Component
         $this->writeToPdf($pdf,$tplIdx, 150 ,167 ,$leadObj->email_address);
         $this->writeToPdf($pdf,$tplIdx, 52 ,167 ,$leadObj->landline);
 
+        $this->writeToPdf($pdf,$tplIdx, 52 ,250 ,$leadObj->behalf_of_charity_official_name);
+        $this->writeToPdf($pdf,$tplIdx, 187 ,250 ,$leadObj->behalf_of_charity_num_of_employees);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,265 ,$leadObj->behalf_of_charity_num_of_partners);
+        $this->writeToPdf($pdf,$tplIdx, 187 ,265 ,$leadObj->behalf_of_charity_annual_income);
+        
         // /*page 17*/
         $pdf->addPage();
         $tplIdx = $pdf->importPage(17);
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
+        $this->writeToPdf($pdf,$tplIdx, 55 ,23 ,$leadObj->business_responsible_details_name);
+        $leadObj->business_responsible_details_address = explode("\n", $leadObj->business_responsible_details_address);
+        $leadObj->business_responsible_details_address = implode(",", $leadObj->business_responsible_details_address);
+        $this->writeToPdf($pdf,$tplIdx, 55 ,30 ,$leadObj->business_responsible_details_address);
+        $this->writeToPdf($pdf,$tplIdx, 55 ,55 ,$leadObj->business_responsible_details_phone);
+
+        $this->writeToPdf($pdf,$tplIdx, 55 ,80 ,$leadObj->adviser_detail_name);
+        $leadObj->adviser_detail_address = explode("\n", $leadObj->adviser_detail_address);
+        $leadObj->adviser_detail_address = implode(",", $leadObj->adviser_detail_address);
+        $this->writeToPdf($pdf,$tplIdx, 55 , 87 ,$leadObj->adviser_detail_address);
+        $this->writeToPdf($pdf,$tplIdx, 55 , 110 ,$leadObj->adviser_detail_phone);
+
+        $this->writeToPdf($pdf,$tplIdx, 55 , 133 ,$leadObj->kind_of_service_complain);
+        $this->writeToPdf($pdf,$tplIdx, 105 , 145 ,$leadObj->kind_of_service_complain_reference . 'reference');
+
+        $this->writeToPdf($pdf,$tplIdx, 23 ,180 ,$leadObj->complaint_whole_details);
+
+        $when_trasaction_happen_day = date("d",strtotime($leadObj->when_trasaction_happen));
+        $when_trasaction_happen_day = sprintf("%02d", $when_trasaction_happen_day);
+        $this->writeToPdf($pdf,$tplIdx, 160 ,265 ,$when_trasaction_happen_day);
+
+        $when_trasaction_happen_month = date("m",strtotime($leadObj->when_trasaction_happen));
+        $when_trasaction_happen_month = sprintf("%02d", $when_trasaction_happen_month);
+        $this->writeToPdf($pdf,$tplIdx, 175 ,265 ,$when_trasaction_happen_month);
+
+        $when_trasaction_happen_year = date("Y",strtotime($leadObj->when_trasaction_happen));
+        $this->writeToPdf($pdf,$tplIdx, 188 ,265 ,$when_trasaction_happen_year);
+
+        // /*first complain*/
+        $when_first_complain_business_day = date("d",strtotime($leadObj->when_first_complain_business));
+        $when_first_complain_business_day = sprintf("%02d", $when_first_complain_business_day);
+        $this->writeToPdf($pdf,$tplIdx, 160 ,273 ,$when_first_complain_business_day);
+
+        $when_first_complain_business_month = date("m",strtotime($leadObj->when_first_complain_business));
+        $when_first_complain_business_month = sprintf("%02d", $when_first_complain_business_month);
+        $this->writeToPdf($pdf,$tplIdx, 175 ,273 ,$when_first_complain_business_month);
+
+        $when_first_complain_business_year = date("Y",strtotime($leadObj->when_first_complain_business));
+        $this->writeToPdf($pdf,$tplIdx, 188 ,273 ,$when_first_complain_business_year);
 
         // /*page 18*/
         $pdf->addPage();
@@ -729,6 +863,55 @@ class PdfEsign extends Component
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
+        // has_business_complaining_sent_letter
+        $has_business_complaining_sent_letter_coor_x = 178;
+        $has_business_complaining_sent_letter_coor_y = 21.5;
+        if ($leadObj->has_business_complaining_sent_letter === 'No') {
+            $has_court_action_to_complain_x = 192;
+        }
+        $this->writeToPdf($pdf,$tplIdx, $has_business_complaining_sent_letter_coor_x ,$has_business_complaining_sent_letter_coor_y ,'x');
+
+        $has_court_action_to_complain_x = 178;
+        $has_court_action_to_complain_y = 33;
+        if ($leadObj->has_court_action_to_complain === 'No') {
+            $has_court_action_to_complain_x = 192;
+        }
+        $this->writeToPdf($pdf,$tplIdx, $has_court_action_to_complain_x ,$has_court_action_to_complain_y ,'x');
+        
+        $this->writeToPdf($pdf,$tplIdx, 15 , 55 ,$leadObj->settlement_with_business_details . ' test ');
+
+        $is_ineed_of_practical_help_details_x = 178;
+        $is_ineed_of_practical_help_details_y = 82.5;
+        if ($leadObj->is_ineed_of_practical_help_details === 'No') {
+            $is_ineed_of_practical_help_details_x = 192;
+        }
+        $this->writeToPdf($pdf,$tplIdx, $is_ineed_of_practical_help_details_x ,$is_ineed_of_practical_help_details_y ,'x');
+        // is_ineed_of_practical_help_details
+
+        /*signature*/
+        $pdf->Image($leadObj->client_signature_image, 20, 179, 100,18);
+        /*date*/
+        $this->writeToPdf($pdf,$tplIdx, 85 ,190 ,date("d-m-Y"));
+
+
+        $final_tick_checklist_arr = explode(",", $leadObj->final_tick_checklist);
+        
+        foreach ($final_tick_checklist_arr as $key => $value) {
+            switch ($value) {
+                case "enclosed a copy of the business’s last letter to you.":
+                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,231.5 ,'x');
+                    break;
+                case "enclosed copies of other relevant information.":
+                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,237 ,'x');
+                    break;
+                case "included everything you want to tell us about your complaint.":
+                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,243 ,'x');
+                    break;
+                default:
+                    break;
+            }
+        }   
+        
 
         if (isset($this->destinationFile)) {
             $pdf->Output($this->destinationFile ,"F");
