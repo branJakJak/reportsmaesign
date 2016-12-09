@@ -61,6 +61,93 @@ $this->registerCss($customCss);
 $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 ?>
 
+<style type="text/css">
+    /* Smartphones (portrait and landscape) ----------- */
+    @media only screen and (min-width : 320px) and (max-width : 480px) {
+        #signaturePanel {
+            margin-bottom: -20px;
+        }
+        .signature-label-text ,.signature-date-label-text{
+            font-size: 10px !important;
+        }
+    }
+
+    /* Smartphones (landscape) ----------- */
+    @media only screen and (min-width : 321px) {
+        #signaturePanel {
+            margin-bottom: -25px;
+        }
+
+    }
+
+    /* Smartphones (portrait) ----------- */
+    @media only screen and (max-width : 320px) {
+    /* Styles */
+    }
+
+    /* iPads (portrait and landscape) ----------- */
+    @media only screen and (min-width : 768px) and (max-width : 1024px) {
+    /* Styles */
+    }
+
+    /* iPads (landscape) ----------- */
+    @media only screen and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
+    /* Styles */
+    }
+
+    /* iPads (portrait) ----------- */
+    @media only screen and (min-width : 768px) and (max-width : 1024px) and (orientation : portrait) {
+    /* Styles */
+    }
+
+    /* Desktops and laptops ----------- */
+    @media only screen and (min-width : 1224px) {
+    /* Styles */
+    }
+
+    /* Large screens ----------- */
+    @media only screen and (min-width : 1824px) {
+    /* Styles */
+    }
+
+    
+    /*exclusive for iPhone 6 - because they are rich*/
+    /*iPhone 6 Portrait*/
+    @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) { 
+        #signaturePanel {
+            margin-bottom: -20px;
+        }
+    }
+
+    /*iPhone 6 landscape*/
+    @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : landscape) { 
+
+    }
+
+    /*iPhone 6+ Portrait*/
+    @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) { 
+
+    }
+
+    /*iPhone 6+ landscape*/
+    @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : landscape) { 
+
+    }
+
+    /*iPhone 6 and iPhone 6+ portrait and landscape*/
+    @media only screen and (max-device-width: 640px), only screen and (max-device-width: 667px), only screen and (max-width: 480px){ 
+    }
+
+    /*iPhone 6 and iPhone 6+ portrait*/
+    @media only screen and (max-device-width: 640px), only screen and (max-device-width: 667px), only screen and (max-width: 480px) and (orientation : portrait){ 
+
+    }
+
+    /*iPhone 6 and iPhone 6+ landscape*/
+    @media only screen and (max-device-width: 640px), only screen and (max-device-width: 667px), only screen and (max-width: 480px) and (orientation : landscape){ 
+
+    }
+</style>
 
 
 <script type="text/javascript">
@@ -1749,7 +1836,13 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div id="signaturePanel" style='border: 1px solid black'></div>
+                        <div id="signaturePanel" style='border: 1px solid black;'></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center signature-label-text">
+                            <strong>Signature</strong>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 signature-date-label-text">
+                            <?= date("F j, Y"); ?>
+                        </div>
                         <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
                         <div class="text-center">
                             <?= Html::button('Reset signature panel', ['class' => 'btn btn-default', 'onclick' => 'resetSignature()']) ?>
