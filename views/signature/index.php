@@ -1852,7 +1852,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                 </div>
                 <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <canvas class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='border: 1px solid black;' id="signaturePanel"></canvas>
+                    <canvas class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='border: 1px solid black;min-height: 250px;' id="signaturePanel"></canvas>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center signature-label-text">
                         <strong>Signature</strong>
                     </div>
