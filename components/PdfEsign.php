@@ -40,7 +40,8 @@ class PdfEsign extends Component
         $pdf->SetFont("Helvetica",'',8);
         $pdf->setSourceFile($this->pdfTemplate);
         $leadObj = $this->leadObject;
-
+        $leadObj->date_of_birth = date("d/m/Y",strtotime($leadObj->date_of_birth));
+        
         /*page 1*/
         $tplIdx = $pdf->importPage(1);
         $this->writeToPdf($pdf,$tplIdx , 80 , 39 ,$leadObj->salutation);
@@ -447,7 +448,7 @@ class PdfEsign extends Component
                 $often_go_holiday_in_europe_coor_y = 244;
                 break;
             case '1-3 times a year':
-                $often_go_holiday_in_europe_coor_x = 124;
+                $often_go_holiday_in_europe_coor_x = 124.5;
                 $often_go_holiday_in_europe_coor_y = 244;
                 break;
             case '3+ times a year':
@@ -476,7 +477,7 @@ class PdfEsign extends Component
                 $often_go_holiday_outside_europe_coor_y = 250;
                 break;
             case '1-3 times a year':
-                $often_go_holiday_outside_europe_coor_x = 124;
+                $often_go_holiday_outside_europe_coor_x = 124.5;
                 $often_go_holiday_outside_europe_coor_y = 250;
                 break;
             case '3+ times a year':
@@ -505,7 +506,7 @@ class PdfEsign extends Component
                 $often_go_holiday_and_winter_sports_coor_y = 256.5;
                 break;
             case '1-3 times a year':
-                $often_go_holiday_and_winter_sports_coor_x = 124;
+                $often_go_holiday_and_winter_sports_coor_x = 124.5;
                 $often_go_holiday_and_winter_sports_coor_y = 256.5;
                 break;
             case '3+ times a year':
@@ -676,7 +677,7 @@ class PdfEsign extends Component
                     break;
                 case "Travel insurance":
                     //any other insurance that was also included in your packaged bank account
-                    $this->writeToPdf($pdf,$tplIdx,62,97,"x");
+                    $this->writeToPdf($pdf,$tplIdx,61.4,97,"x");
                     break;
                 case "Identity theft insurance":
                     // travel insurance
@@ -795,6 +796,7 @@ class PdfEsign extends Component
         $this->writeToPdf($pdf,$tplIdx, 115 ,94 ,$leadObj->salutation);
         $this->writeToPdf($pdf,$tplIdx, 52 ,94 ,$leadObj->firstname);
         $this->writeToPdf($pdf,$tplIdx, 52 ,100 ,$leadObj->lastname);
+
         $this->writeToPdf($pdf,$tplIdx, 52 ,117 ,$leadObj->date_of_birth);
         $this->writeToPdf($pdf,$tplIdx, 52 ,127 ,$leadObj->address1);
         $this->writeToPdf($pdf,$tplIdx, 52 ,131 ,$leadObj->address2);
