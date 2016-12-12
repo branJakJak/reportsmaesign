@@ -7,15 +7,36 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use kartik\date\DatePicker;
 
-$this->registerJsFile('js/jSignature/flashcanvas.js', ['position' => \yii\web\View::POS_END, 'depends' => \yii\web\JqueryAsset::className()]);
-$this->registerJsFile('js/jSignature/jSignature.min.js', ['position' => \yii\web\View::POS_END, 'depends' => \yii\web\JqueryAsset::className()]);
+
+// $this->registerJsFile('js/signature_pad-1.5.3/signature_pad.min.js', ['position' => \yii\web\View::POS_END, 'depends' => \yii\web\JqueryAsset::className()]);
+$this->registerJsFile('js/signature_pad-1.5.3/signature_pad.js', ['position' => \yii\web\View::POS_END, 'depends' => \yii\web\JqueryAsset::className()]);
 
 $signaturePanelJs = <<< SCRIPT
-$("#signaturePanel").jSignature();
-$("#signaturePanel").bind('change',function(event) {
-    jQuery("#client_signature").val($("#signaturePanel").jSignature("getData", "image")[1]);
-});
-    
+    var clearButton = document.getElementById("clearButton"),
+        wrapper = document.getElementById("signature-wrapper"),
+        saveButton = document.getElementById("signed-btn"),
+        canvas = document.getElementById("signaturePanel"),
+        signaturePad;
+
+    signaturePad = new SignaturePad(canvas);
+
+    clearButton.addEventListener("click", function (event) {
+        signaturePad.clear();
+    });
+    function resizeCanvas() {
+        var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+    }
+
+    //before submit  , assign the data to client_signature_image
+    jQuery("form:eq(0)").submit(function(event) {
+        encodedImage = signaturePad.toDataURL();
+        jQuery("#client_signature").val(encodedImage.substr(encodedImage.indexOf(',')));
+    });
+    window.onresize = resizeCanvas;
+    resizeCanvas();
 SCRIPT;
 $this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
 
@@ -53,9 +74,6 @@ $customCss = <<< SCRIPT
 
 SCRIPT;
 $this->registerCss($customCss);
-
-
-
 
 /*font awesome*/
 $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -1834,23 +1852,20 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                 </div>
                 <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div id="signaturePanel" style='border: 1px solid black;'></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center signature-label-text">
-                            <strong>Signature</strong>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 signature-date-label-text">
-                            <?= date("F j, Y"); ?>
-                        </div>
-                        <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
-                        <div class="text-center">
-                            <?= Html::button('Reset signature panel', ['class' => 'btn btn-default', 'onclick' => 'resetSignature()']) ?>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
-                        </div>
+                    <canvas class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='border: 1px solid black;' id="signaturePanel"></canvas>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center signature-label-text">
+                        <strong>Signature</strong>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 signature-date-label-text">
+                        <?= date("F j, Y"); ?>
+                    </div>
+                    <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
+                    <div class="text-center">
+                        <?= Html::button('Reset signature panel', ['id'=>'clearButton','class' => 'btn btn-default', 'data-action' => 'clear']) ?>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'id'=>'signed-btn','name' => 'sign-button','data-action' => 'save']) ?>
                     </div>
                 </div>
                 </div>
