@@ -51,12 +51,7 @@ class ClientSignatureLead extends Event
         $templateMessage =  <<<EOL
 Hi $customerName,
 <br>
-<br>
-As discussed, please find attached esign documents ready for signature.
-<br>
-<br>
-Please complete this as soon as possible to start your claim
-<br>
+Please find attached signed documents for your copy.
 <br>
 Kind regards<br>
 Money Active<br>
