@@ -17,7 +17,6 @@ class SignatureController extends \yii\web\Controller
         // var_dump($requestedLead->how_packaged_bank_account_sold);
         // die();
         if ($requestedLead) {
-
             //load and save
             if ($requestedLead->load(\Yii::$app->request->post())) {
                 if (isset($requestedLead->declaration_confirmed_tick) && is_array($requestedLead->declaration_confirmed_tick)) {
@@ -53,6 +52,9 @@ class SignatureController extends \yii\web\Controller
             $requestedLead->after_upgrade_already_has_products = explode(",", $requestedLead->after_upgrade_already_has_products);
             $requestedLead->declaration_confirmed_tick = explode(",", $requestedLead->declaration_confirmed_tick);
             $requestedLead->final_tick_checklist = explode(",",$requestedLead->final_tick_checklist);
+            $requestedLead->complaint_reference = $requestedLead->security_key;
+
+
             return $this->render('index', ['model' => $requestedLead]);
         } else {
             throw new NotFoundHttpException("Record doesn't exists.");

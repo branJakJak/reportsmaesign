@@ -28,7 +28,10 @@
         "kartik-v/yii2-widgets": "*",
         "tecnickcom/tcpdf": "^6.2",
         "dompdf/dompdf": "^0.7.0",
-        "setasign/fpdi": "^1.6" 
+        "setasign/fpdi": "^1.6",
+        "codeception/codeception": "2.1.*",
+        "codeception/specify": "*",
+        "codeception/verify": "*" 
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

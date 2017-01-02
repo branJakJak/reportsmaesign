@@ -9,6 +9,7 @@
 namespace app\models\events;
 
 
+use app\components\PbaFormPdfEsign;
 use app\components\PdfEsign;
 use app\models\LeadEsign;
 use yii\base\Event;
@@ -30,14 +31,17 @@ class ClientSignatureLead extends Event
          */
         $currentLeadData = $event->data;
         $downloadedPdfFile = \Yii::getAlias("@app/data").'/'.sprintf("%s_%s_%s.pdf",$currentLeadData->firstname,$currentLeadData->lastname,$currentLeadData->security_key);
-        $pdfTemplte = Yii::getAlias("@app/documentation/clean_pdf_template/PrintPack_65605.pdf");
+        $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/".$currentLeadData->pdf_template.".pdf");
         $pdfEsign = new PdfEsign();
+        //by default use the original template
+        if ($currentLeadData->pdf_template === 'PBA Form') {
+            $pdfEsign = new PbaFormPdfEsign();
+        }
         $pdfEsign->setTemplate($pdfTemplte);
         $pdfEsign->setLeadObject($currentLeadData);
         $pdfEsign->setDestinationFile($downloadedPdfFile);
         $pdfEsign->export();
         $exportedFile = $pdfEsign->getExportedFile();
-
 
         $mailer = \Yii::$app->mailer;
         $mailMessage = $mailer->compose();

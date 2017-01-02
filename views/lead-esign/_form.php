@@ -18,8 +18,23 @@ $customCss = <<< SCRIPT
     #has_registered_doctor_during_upgrade_container label , #has_account_upgraded_downgraded_container label,#howWasPackageContainer label , #leadesign-reason_to_takeout_packaged_account_reason_of_speaking label {
         display: block;
     }
+    #leadesign-pdf_template label {
+        text-align: center;
+        padding: 20px;        
+        border: 5px solid #808080;
+        padding: 20px;
+        margin: 20px;
+        min-width: 141px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
 SCRIPT;
 $this->registerCss($customCss);
+
+
+// $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+
 
 
 ?>
@@ -210,7 +225,7 @@ $this->registerCss($customCss);
                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                    'format' => 'dd-MM-yyyy'
+                                    'format' => 'dd-mm-yyyy'
                                 ]
                             ])
                             ->label("")
@@ -1657,7 +1672,7 @@ $this->registerCss($customCss);
                             Account Number
                         </label>
                     </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <?= 
                         $form
                         ->field($model, 'account_number')
@@ -1888,6 +1903,39 @@ $this->registerCss($customCss);
                             </div>
                         </div>
                     </fieldset>
+                    <br>
+                    <br>
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">PDF Template</h3>
+                        </div>
+                        <div class="panel-body">
+                            <fieldset>
+                                <legend>Choose Template : </legend>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <p class="form-control-static">
+                                            <?= 
+                                                $form->field($model, 'pdf_template')
+                                                    ->radioList([
+                                                    'Original'=>"<br> Original <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i> ",
+                                                    'PBA Form'=>"<br> PBA Form <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i>"
+                                                    ], 
+                                                    ['encode'=>false])
+                                                    ->label(""); 
+                                            ?>
+                                            
+
+
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </fieldset>                            
+                        </div>
+                    </div>
+
                     </div>
                 </div>
 

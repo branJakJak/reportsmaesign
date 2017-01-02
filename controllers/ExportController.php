@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\components\PbaFormPdfEsign;
 use app\components\PdfEsign;
 use Yii;
 use FPDI;
@@ -34,11 +35,20 @@ class ExportController extends \yii\web\Controller
          */
         class_exists('TCPDF', true);        
         $leadObj = LeadEsign::find()->where(['security_key' => $securityKey])->one();
-        $pdfTemplte = Yii::getAlias("@app/documentation/clean_pdf_template/PrintPack_65605.pdf");
-        $pdfEsign = new PdfEsign();
+        
+        // $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/PBA Form.pdf");
+        // $pdfEsign = new PbaFormPdfEsign();
+        // $pdfEsign->setTemplate($pdfTemplte);
+        // $pdfEsign->setLeadObject($leadObj);
+        // $pdfEsign->export();
+
+        $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/".$leadObj->pdf_template.".pdf");
+        $pdfEsign = new PbaFormPdfEsign();
         $pdfEsign->setTemplate($pdfTemplte);
         $pdfEsign->setLeadObject($leadObj);
         $pdfEsign->export();
+
+
         Yii::$app->end();
     }
 
