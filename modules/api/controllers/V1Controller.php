@@ -5,7 +5,7 @@ namespace app\modules\api\controllers;
 use app\models\AccountUser;
 use yii\helpers\ArrayHelper;
 use yii\rest\ActiveController;
-
+use yii\filters\Cors;
 
 /**
  * Default controller for the `api` module
@@ -20,6 +20,9 @@ class V1Controller extends ActiveController
     public function behaviors()
     {
         $customBehaviors = [
+            'cors'=>[
+                'class' => Cors::className(),
+            ],
             'basicAuth' => [
                 'class' => \yii\filters\auth\HttpBasicAuth::className(),
                 'auth' => function ($username, $password) {
