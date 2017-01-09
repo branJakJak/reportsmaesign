@@ -6,7 +6,7 @@ class m170102_103438_add_pdf_template_column extends Migration
 {
     public function safeUp()
     {
-        $this->addColumn('{{%lead_esign}}', 'pdf_template', $this->string());
+        $this->addColumn('{{%lead_esign}}', 'pdf_template', $this->text());
     }
 
     public function safeDown()
