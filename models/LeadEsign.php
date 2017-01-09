@@ -129,11 +129,11 @@ use yii\db\Expression;
  * @property string address2_complain_with
  * @property string address3_complain_with
  * @property string address4_complain_with
- * @property string mobile_complain_with 
+ * @property string mobile_complain_with
  * @property string behalf_of_charity_official_name
  * @property string behalf_of_charity_num_of_employees
  * @property string behalf_of_charity_num_of_partners
- * @property string behalf_of_charity_annual_income 
+ * @property string behalf_of_charity_annual_income
  * @property string business_responsible_details_name
  * @property string business_responsible_details_address
  * @property string business_responsible_details_phone
@@ -149,8 +149,8 @@ use yii\db\Expression;
  * @property string settlement_with_business_details
  * @property string is_ineed_of_practical_help
  * @property string is_ineed_of_practical_help_details
- * @property string final_tick_checklist 
- * @property string open_or_upgrade_package_bank_account_date 
+ * @property string final_tick_checklist
+ * @property string open_or_upgrade_package_bank_account_date
  * @property string pdf_template
  * @property string created_at
  * @property string updated_at
@@ -195,14 +195,14 @@ class LeadEsign extends \yii\db\ActiveRecord
             'behalf_of_charity_num_of_employees',
             'behalf_of_charity_num_of_partners',
             'behalf_of_charity_annual_income',
-            'salutation_complain_with' ,
-            'firstname_complain_with' ,
-            'lastname_complain_with' ,
-            'occupation_complain_with' ,
+            'salutation_complain_with',
+            'firstname_complain_with',
+            'lastname_complain_with',
+            'occupation_complain_with',
             'date_of_birth_complain_with',
             'postcode_complain_with',
             'address1_complain_with',
-            'address2_complain_with','address3_complain_with',
+            'address2_complain_with', 'address3_complain_with',
             'address4_complain_with',
             'mobile_complain_with',
             'occupation',
@@ -292,17 +292,17 @@ class LeadEsign extends \yii\db\ActiveRecord
             'date_of_birth',
             'appointment_date',
             'pdf_template',
-            'created_at', 
+            'created_at',
             'updated_at'
         ];
 
 
         return [
-            [['firstname', 'lastname', 'email_address','date_of_birth','pdf_template'], 'required'],
+            [['firstname', 'lastname', 'email_address', 'date_of_birth'], 'required'],
             [['monthly_account_charge'], 'number'],
             [['is_ongoing'], 'integer'],
-            [['behalf_of_charity_num_of_employees','behalf_of_charity_num_of_partners','behalf_of_charity_annual_income','salutation_complain_with' ,'firstname_complain_with' ,'lastname_complain_with' ,'occupation_complain_with' ,'date_of_birth_complain_with','postcode_complain_with','address1_complain_with','address2_complain_with','address3_complain_with','address4_complain_with','mobile_complain_with','occupation','declaration_confirmed_tick','complaint_whole_details','after_upgrade_already_has_products_details','has_registered_doctor_during_upgrade_details','is_address_outside_UK_at_package_upgrade','current_situation_packaged_bank_account','current_situation_packaged_bank_account_explanation','notice_account_fees_on_statements','notice_account_fees_on_statements_details','is_complain_about_sale_packaged_bank_account','is_complain_about_sale_packaged_bank_account_details','complaint_reference','financial_business_name','last_3_digit_account_num','tried_to_claim_for_package_details', 'tried_to_claim_for_insurance_products_rejection_reason', 'used_benefits_packaged_bank_details', 'registered_benefits_by_packaged_account_details', 'understanding_of_features_and_benefits', 'address_while_bank_opened', 'bank_account_status', 'bank_account_status_comment', 'upgrade_comment', 'how_packaged_bank_account_sold_details', 'reason_to_takeout_packaged_account_reason_of_speaking', 'noticed_account_fees_details', 'actually_take_out_other_prodcuts_details', 'discuss_not_involed_packaged_details', 'did_they_give_advice_clarify_details', 'felt_under_pressure_details', 'has_health_problems_during_upgrade_details', 'did_kept_insurance_after_sale_details', 'when_opened_account_has_other_account_details', 'reason_why_unhappy', 'notes','pdf_template'], 'string'],
-            /*safe*/            
+            [['behalf_of_charity_num_of_employees', 'behalf_of_charity_num_of_partners', 'behalf_of_charity_annual_income', 'salutation_complain_with', 'firstname_complain_with', 'lastname_complain_with', 'occupation_complain_with', 'date_of_birth_complain_with', 'postcode_complain_with', 'address1_complain_with', 'address2_complain_with', 'address3_complain_with', 'address4_complain_with', 'mobile_complain_with', 'occupation', 'declaration_confirmed_tick', 'complaint_whole_details', 'after_upgrade_already_has_products_details', 'has_registered_doctor_during_upgrade_details', 'is_address_outside_UK_at_package_upgrade', 'current_situation_packaged_bank_account', 'current_situation_packaged_bank_account_explanation', 'notice_account_fees_on_statements', 'notice_account_fees_on_statements_details', 'is_complain_about_sale_packaged_bank_account', 'is_complain_about_sale_packaged_bank_account_details', 'complaint_reference', 'financial_business_name', 'last_3_digit_account_num', 'tried_to_claim_for_package_details', 'tried_to_claim_for_insurance_products_rejection_reason', 'used_benefits_packaged_bank_details', 'registered_benefits_by_packaged_account_details', 'understanding_of_features_and_benefits', 'address_while_bank_opened', 'bank_account_status', 'bank_account_status_comment', 'upgrade_comment', 'how_packaged_bank_account_sold_details', 'reason_to_takeout_packaged_account_reason_of_speaking', 'noticed_account_fees_details', 'actually_take_out_other_prodcuts_details', 'discuss_not_involed_packaged_details', 'did_they_give_advice_clarify_details', 'felt_under_pressure_details', 'has_health_problems_during_upgrade_details', 'did_kept_insurance_after_sale_details', 'when_opened_account_has_other_account_details', 'reason_why_unhappy', 'notes', 'pdf_template'], 'string'],
+            /*safe*/
             [$safeAttributes, 'safe'],
         ];
     }
@@ -424,12 +424,12 @@ class LeadEsign extends \yii\db\ActiveRecord
             'lastname_complain_with' => 'Lastname',
             'occupation_complain_with' => 'Occupation',
             'date_of_birth_complain_with' => 'Date of birth',
-            'postcode_complain_with'=>'Postcode',
-            'address1_complain_with'=>'Address1',
-            'address2_complain_with'=>'Address2',
-            'address3_complain_with'=>'Address3',
-            'address4_complain_with'=>'Address4',
-            'mobile_complain_with'=>'Mobile',
+            'postcode_complain_with' => 'Postcode',
+            'address1_complain_with' => 'Address1',
+            'address2_complain_with' => 'Address2',
+            'address3_complain_with' => 'Address3',
+            'address4_complain_with' => 'Address4',
+            'mobile_complain_with' => 'Mobile',
             'occupation' => 'Occupation',
             'pdf_template' => 'PDF Template',
             'created_at' => 'Created At',
@@ -446,23 +446,31 @@ class LeadEsign extends \yii\db\ActiveRecord
             if (is_null($this->open_or_upgrade_package_bank_account_date) || empty($this->open_or_upgrade_package_bank_account_date)) {
                 $this->open_or_upgrade_package_bank_account_date = date("Y-m-d H:i:s");
             }
+            /*set default value for dates to current date*/
+            if (is_null($this->account_start_date) || empty($this->account_start_date)) {
+                $this->account_start_date = date("Y-m-d H:i:s");
+            }
+            if (is_null($this->account_end_date) || empty($this->account_end_date)) {
+                $this->account_end_date = date("Y-m-d H:i:s");
+            }
             $this->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);
         }
+        if (is_null($this->when_trasaction_happen) || empty($this->when_trasaction_happen)) {
+            $this->when_trasaction_happen = date("Y-m-d H:i:s");
+        }
+        if (is_null($this->when_first_complain_business) || empty($this->when_first_complain_business)) {
+            $this->when_first_complain_business = date("Y-m-d H:i:s");
+        }
         if (isset($this->after_upgrade_already_has_products) && is_array($this->after_upgrade_already_has_products)) {
-            $tempContainer = array_values($this->after_upgrade_already_has_products);
+            $tempContainer = array_values($thisO->after_upgrade_already_has_products);
         } else if (!is_array($this->after_upgrade_already_has_products) && is_string($this->after_upgrade_already_has_products)) {
             $tempContainer[] = $this->after_upgrade_already_has_products;
         }
-        if ( is_null($this->when_trasaction_happen) || empty($this->when_trasaction_happen)) {
-            $this->when_trasaction_happen = date("Y-m-d H:i:s");
-        }
-        if ( is_null($this->when_first_complain_business) || empty($this->when_first_complain_business)) {
-            $this->when_first_complain_business = date("Y-m-d H:i:s");
-        }
+
         $this->after_upgrade_already_has_products = implode(",", $tempContainer);
-        $this->account_start_date = date("Y-m-d H:i:s",strtotime($this->account_start_date));
-        $this->account_end_date = date("Y-m-d H:i:s",strtotime($this->account_end_date));
-        $this->date_of_birth = date("Y-m-d H:i:s",strtotime($this->date_of_birth));
+        $this->account_start_date = date("Y-m-d H:i:s", strtotime($this->account_start_date));
+        $this->account_end_date = date("Y-m-d H:i:s", strtotime($this->account_end_date));
+        $this->date_of_birth = date("Y-m-d H:i:s", strtotime($this->date_of_birth));
         $this->monthly_account_charge = floatval($this->monthly_account_charge);
         $this->is_ongoing = intval($this->is_ongoing);
 

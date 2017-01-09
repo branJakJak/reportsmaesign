@@ -47,7 +47,7 @@ class V1Controller extends ActiveController
             'view' => ['GET', 'HEAD'],
             'create' => ['POST'],
             'update' => ['PUT', 'PATCH'],
-            'delete' => ['DELETE'],
+            'delete' => ['DELETE']
         ];
     }
 

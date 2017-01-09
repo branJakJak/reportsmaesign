@@ -51,7 +51,7 @@ $config = [
             // 'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => array(
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1','pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/pba','pluralize' => false],
                 '/success' => 'site/success',
                 '/signature/<securityKey:\w+>' => 'signature/index',
                 '/export/<securityKey:\w+>' => 'export/index',
