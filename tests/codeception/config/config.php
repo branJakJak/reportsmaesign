@@ -4,6 +4,7 @@
  */
 return [
     'language' => 'en-US',
+    'bootstrap' => ['log'],    
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\faker\FixtureController',

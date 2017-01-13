@@ -26,7 +26,7 @@ class PbaFormPdfEsign extends PdfEsign{
         $pdf->SetFont("Helvetica",'',8);
         $pdf->setSourceFile($this->pdfTemplate);
         $leadObj = $this->leadObject;
-        $leadObj->date_of_birth = date("d/m/Y",strtotime($leadObj->date_of_birth));
+//        $leadObj->date_of_birth = date("d/m/Y",strtotime($leadObj->date_of_birth));
 
         /*page 1*/
         $tplIdx = $pdf->importPage(1);

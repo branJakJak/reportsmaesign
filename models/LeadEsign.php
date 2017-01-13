@@ -453,6 +453,10 @@ class LeadEsign extends \yii\db\ActiveRecord
             if (is_null($this->account_end_date) || empty($this->account_end_date)) {
                 $this->account_end_date = date("Y-m-d H:i:s");
             }
+            if(is_null($this->pdf_template) || empty($this->pdf_template) ){
+                $this->pdf_template = "Original";
+            }
+
             $this->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);
         }
         if (is_null($this->when_trasaction_happen) || empty($this->when_trasaction_happen)) {

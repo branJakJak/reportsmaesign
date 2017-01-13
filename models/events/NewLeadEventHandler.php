@@ -23,7 +23,7 @@ class NewLeadEventHandler extends Event
          * @var $currentLeadData LeadEsign
          */
         $currentLeadData = $event->data;
-        $signaturelinkUrl = "<a href='" . Url::home(true) . 'signature/' . $currentLeadData->security_key . "'> Final step </a>";
+        $signaturelinkUrl = "<a href='" . Url::home(true) . 'signature/pba/' . $currentLeadData->security_key . "'> Final step </a>";
         $logoPath = \Yii::getAlias("@app/web/images/moneyactive.JPG");
         $type = pathinfo($logoPath, PATHINFO_EXTENSION);
         $imgLogo = file_get_contents($logoPath);

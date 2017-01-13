@@ -5,22 +5,24 @@ http://affiliate.moneyactiveportal.co.uk/Login.aspx
 e-mail:- CThyer@CCowles.co.uk
 password - ozS5jvQb
 
-Form exact copy:
- ☐ make table
- ☐ make form
- ☐ test save
- ☐ test save with signature
- 
-
-
-
 User management :
-
+@DONE
 
 
 @TODO . disable try it out button
+@DONE
+
 
 @TODO - include sample response
+@DONE
+
 
 @TODO - explain all http code
+@DPPME
+
+
+@TODO - signature panel for ppi affiliate and non affiliate
+http://localhost:8080/signature/ppi/5874f0d425f2b
+
+
 

@@ -7,6 +7,9 @@ $config = [
     'name' => 'MoneyActive',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'controllerMap' => [
+        'ppi-lead' => 'app\controllers\PPILeadController',
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
@@ -37,7 +40,8 @@ $config = [
             'useFileTransport' => false,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            // 'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => 3,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
@@ -51,10 +55,16 @@ $config = [
             // 'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => array(
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/pba','pluralize' => false],
+                // ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/pba','pluralize' => false],
+                // ['class' => 'yii\rest\UrlRule', 'controller' => 'ppi-lead','pluralize' => false],
+                'POST /api/v1/pba/<action:\w+>' => 'api/pba/<action>',
+                'POST /api/v1/pba/non-affiliate' => 'api/pba/non-affiliate',
+                'POST /api/v1/ppi/<action:\w+>' => 'api/ppi/<action>',
+                'POST /api/v1/ppi/non-affiliate' => 'api/ppi/non-affiliate',
                 '/success' => 'site/success',
-                '/signature/<securityKey:\w+>' => 'signature/index',
-                '/export/<securityKey:\w+>' => 'export/index',
+                '/signature/ppi/<securityKey:\w+>' => 'signature/ppi',
+                '/signature/pba/<securityKey:\w+>' => 'signature/pba',
+                // '/export/<securityKey:\w+>' => 'export/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

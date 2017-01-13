@@ -8,7 +8,8 @@
 
 namespace app\components;
 
-use app\models\LeadEsign;
+
+use app\models\PPILead;
 use FPDI;
 use Yii;
 
@@ -16,7 +17,7 @@ class PPIAffiliatePdfEsign extends PdfEsign{
     public function export()
     {
         /**
-         * @var $leadObj LeadEsign
+         * @var $leadObj PPILead
          */
         class_exists('TCPDF', true);
         $pdf = new FPDI();
@@ -554,12 +555,12 @@ class PPIAffiliatePdfEsign extends PdfEsign{
 
         $this->writeToPdf($pdf,$tplIdx, 150 ,160 ,$leadObj->mobile);
         $this->writeToPdf($pdf,$tplIdx, 150 ,167 ,$leadObj->email_address);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,167 ,$leadObj->landline);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,167 ,$leadObj->home_phone);
 
-        $this->writeToPdf($pdf,$tplIdx, 52 ,250 ,$leadObj->behalf_of_charity_official_name);
-        $this->writeToPdf($pdf,$tplIdx, 187 ,250 ,$leadObj->behalf_of_charity_num_of_employees);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,265 ,$leadObj->behalf_of_charity_num_of_partners);
-        $this->writeToPdf($pdf,$tplIdx, 187 ,265 ,$leadObj->behalf_of_charity_annual_income);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,250 ,$leadObj->complaining_on_behalf_of_a_business_official_name);
+        $this->writeToPdf($pdf,$tplIdx, 187 ,250 ,$leadObj->complaining_on_behalf_of_a_business_num_employees);
+        $this->writeToPdf($pdf,$tplIdx, 52 ,265 ,$leadObj->complaining_on_behalf_of_a_business_num_partners);
+        $this->writeToPdf($pdf,$tplIdx, 187 ,265 ,$leadObj->complaining_on_behalf_of_a_business_annual_income);
 
         // /*page 17*/
         $pdf->addPage();
@@ -584,83 +585,6 @@ class PPIAffiliatePdfEsign extends PdfEsign{
 
         $this->writeToPdf($pdf,$tplIdx, 23 ,180 ,$leadObj->complaint_whole_details);
 
-        $when_trasaction_happen_day = date("d",strtotime($leadObj->when_trasaction_happen));
-        $when_trasaction_happen_day = sprintf("%02d", $when_trasaction_happen_day);
-        $this->writeToPdf($pdf,$tplIdx, 160 ,265 ,$when_trasaction_happen_day);
-
-        $when_trasaction_happen_month = date("m",strtotime($leadObj->when_trasaction_happen));
-        $when_trasaction_happen_month = sprintf("%02d", $when_trasaction_happen_month);
-        $this->writeToPdf($pdf,$tplIdx, 175 ,265 ,$when_trasaction_happen_month);
-
-        $when_trasaction_happen_year = date("Y",strtotime($leadObj->when_trasaction_happen));
-        $this->writeToPdf($pdf,$tplIdx, 188 ,265 ,$when_trasaction_happen_year);
-
-        // /*first complain*/
-        $when_first_complain_business_day = date("d",strtotime($leadObj->when_first_complain_business));
-        $when_first_complain_business_day = sprintf("%02d", $when_first_complain_business_day);
-        $this->writeToPdf($pdf,$tplIdx, 160 ,273 ,$when_first_complain_business_day);
-
-        $when_first_complain_business_month = date("m",strtotime($leadObj->when_first_complain_business));
-        $when_first_complain_business_month = sprintf("%02d", $when_first_complain_business_month);
-        $this->writeToPdf($pdf,$tplIdx, 175 ,273 ,$when_first_complain_business_month);
-
-        $when_first_complain_business_year = date("Y",strtotime($leadObj->when_first_complain_business));
-        $this->writeToPdf($pdf,$tplIdx, 188 ,273 ,$when_first_complain_business_year);
-
-        // /*page 18*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(18);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-        // has_business_complaining_sent_letter
-        // $has_business_complaining_sent_letter_coor_x = 178;
-        // $has_business_complaining_sent_letter_coor_y = 21.5;
-        // if ($leadObj->has_business_complaining_sent_letter === 'No') {
-        //     $has_court_action_to_complain_x = 192;
-        // }
-        // $this->writeToPdf($pdf,$tplIdx, $has_business_complaining_sent_letter_coor_x ,$has_business_complaining_sent_letter_coor_y ,'x');
-
-        // $has_court_action_to_complain_x = 178;
-        // $has_court_action_to_complain_y = 33;
-        // if ($leadObj->has_court_action_to_complain === 'No') {
-        //     $has_court_action_to_complain_x = 192;
-        // }
-        // $this->writeToPdf($pdf,$tplIdx, $has_court_action_to_complain_x ,$has_court_action_to_complain_y ,'x');
-
-        $this->writeToPdf($pdf,$tplIdx, 15 , 55 ,$leadObj->settlement_with_business_details . ' test ');
-
-        // $is_ineed_of_practical_help_details_x = 178;
-        // $is_ineed_of_practical_help_details_y = 82.5;
-        // if ($leadObj->is_ineed_of_practical_help_details === 'No') {
-        //     $is_ineed_of_practical_help_details_x = 192;
-        // }
-        // $this->writeToPdf($pdf,$tplIdx, $is_ineed_of_practical_help_details_x ,$is_ineed_of_practical_help_details_y ,'x');
-        // is_ineed_of_practical_help_details
-
-        /*signature*/
-        $pdf->Image($leadObj->client_signature_image, 20, 180, 100,18);
-        /*date*/
-        $this->writeToPdf($pdf,$tplIdx, 85 ,190 ,date("d-m-Y"));
-
-
-        $final_tick_checklist_arr = explode(",", $leadObj->final_tick_checklist);
-
-        foreach ($final_tick_checklist_arr as $key => $value) {
-            switch ($value) {
-                case "enclosed a copy of the business’s last letter to you.":
-                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,231.5 ,'x');
-                    break;
-                case "enclosed copies of other relevant information.":
-                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,237 ,'x');
-                    break;
-                case "included everything you want to tell us about your complaint.":
-                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,243 ,'x');
-                    break;
-                default:
-                    break;
-            }
-        }
 
 
         if (isset($this->destinationFile)) {

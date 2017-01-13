@@ -10,6 +10,7 @@ namespace app\components;
 
 
 use app\models\LeadEsign;
+use app\models\PPILead;
 use Dompdf\Exception;
 use yii\base\Component;
 use Yii;
