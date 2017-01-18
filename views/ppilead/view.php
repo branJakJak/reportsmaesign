@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'did_broker_arrange:ntext',
             'broker_name:ntext',
             'ppi_claim_type:ntext',
+            'date_of_birth:date',
             'amount_ppi',
             'daytime_phone:ntext',
             'home_phone:ntext',
