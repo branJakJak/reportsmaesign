@@ -41,17 +41,7 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
 
 <div class="wrap">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-7">
-                <h3 id="banner-top">
-                    Mis-sold Packaged Bank Account Claim Pack
-                </h3>
-            </div>
-            <div class="col-lg-5">
-                <?= Html::img("/images/moneyactive.jpg", ['class' => 'img-responsive']); ?>
-            </div>
 
-        </div>
 
         <?= $content ?>
     </div>

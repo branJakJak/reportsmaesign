@@ -205,6 +205,17 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
         margin-left: 20px;
     }
 </style>
+
+    <div class="row">
+        <div class="col-lg-7">
+            <h3 id="banner-top">
+                Mis-sold Packaged Bank Account Claim Pack
+            </h3>
+        </div>
+        <div class="col-lg-5">
+            <?= Html::img("/images/moneyactive.jpg", ['class' => 'img-responsive']); ?>
+        </div>
+    </div>
     <div class="row">
         <div class="form">
             <?php $form = ActiveForm::begin(); ?>
@@ -1851,23 +1862,23 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-aw
                     </div>
                 </div>
                 <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <canvas class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='border: 1px solid black;min-height: 250px;' id="signaturePanel"></canvas>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center signature-label-text">
-                        <strong>Signature</strong>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <canvas class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='border: 1px solid black;min-height: 250px;' id="signaturePanel"></canvas>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center signature-label-text">
+                            <strong>Signature</strong>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 signature-date-label-text">
+                            <?= date("F j, Y"); ?>
+                        </div>
+                        <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
+                        <div class="text-center">
+                            <?= Html::button('Reset signature panel', ['id'=>'clearButton','class' => 'btn btn-default', 'data-action' => 'clear']) ?>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'id'=>'signed-btn','name' => 'sign-button','data-action' => 'save']) ?>
+                        </div>
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 signature-date-label-text">
-                        <?= date("F j, Y"); ?>
-                    </div>
-                    <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
-                    <div class="text-center">
-                        <?= Html::button('Reset signature panel', ['id'=>'clearButton','class' => 'btn btn-default', 'data-action' => 'clear']) ?>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'id'=>'signed-btn','name' => 'sign-button','data-action' => 'save']) ?>
-                    </div>
-                </div>
                 </div>
             <?php ActiveForm::end(); ?>
         </div><!-- _form -->

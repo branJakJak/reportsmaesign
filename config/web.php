@@ -57,6 +57,8 @@ $config = [
             'rules' => array(
                 // ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/pba','pluralize' => false],
                 // ['class' => 'yii\rest\UrlRule', 'controller' => 'ppi-lead','pluralize' => false],
+                '/export/ppi/<securityKey:\w+>' => 'export/ppi',
+                '/export/pba/<securityKey:\w+>' => 'export/pba',                
                 'POST /api/v1/pba/<action:\w+>' => 'api/pba/<action>',
                 'POST /api/v1/pba/non-affiliate' => 'api/pba/non-affiliate',
                 'POST /api/v1/ppi/<action:\w+>' => 'api/ppi/<action>',
@@ -64,7 +66,6 @@ $config = [
                 '/success' => 'site/success',
                 '/signature/ppi/<securityKey:\w+>' => 'signature/ppi',
                 '/signature/pba/<securityKey:\w+>' => 'signature/pba',
-                // '/export/<securityKey:\w+>' => 'export/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

@@ -28,27 +28,35 @@ class PPIPdfEsignForm extends PdfEsign{
 
         /*page 1*/
         $tplIdx = $pdf->importPage(1);
-        $this->writeToPdf($pdf,$tplIdx , 80 , 39 +5 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 110 , 39 +5 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 153 , 39 +5 ,$leadObj->lastname);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 80 +5 ,$leadObj->address1);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 86 +5 ,$leadObj->address2);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 93 +5 ,$leadObj->address3);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 100  +5,$leadObj->address4);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 113 +5 ,$leadObj->postcode);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 106 +5 ,"United Kingdom");
-        $this->writeToPdf($pdf,$tplIdx , 69 , 126 +5 ,$leadObj->mobile);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 132 +5 ,$leadObj->email_address);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 137  +5,$leadObj->date_of_birth);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 143  +5,$leadObj->account_provider);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 150  +5 ,$leadObj->monthly_account_charge);
-        $this->writeToPdf($pdf,$tplIdx , 72 , 156  +5 ,date("d/m/Y",strtotime($leadObj->account_start_date)));
-        $this->writeToPdf($pdf,$tplIdx , 160 , 156   +5,date("d/m/Y",strtotime($leadObj->account_end_date)));
+        $this->writeToPdf($pdf,$tplIdx , 80 , 39 +4 ,$leadObj->salutation);
+        $this->writeToPdf($pdf,$tplIdx , 110 , 39 +4 ,$leadObj->firstname);
+        $this->writeToPdf($pdf,$tplIdx , 153 , 39 +4 ,$leadObj->lastname);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 80 +2 ,$leadObj->address1);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 86 +2 ,$leadObj->address2);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 93 +2 ,$leadObj->address3);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 100  +2,$leadObj->address4);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 113 +1 ,$leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 106 +2 ,"United Kingdom");
+        $this->writeToPdf($pdf,$tplIdx , 69 , 126 -6 ,$leadObj->home_phone);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 126 +1 ,$leadObj->mobile);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 132 +1 ,$leadObj->email_address);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 137  +2,$leadObj->date_of_birth);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 143  +2,$leadObj->account_provider);
+        if ($leadObj->did_broker_arrange === 'Yes') {
+            $this->writeToPdf($pdf,$tplIdx , 69 , 150  +2 ,"Yes");
+        }else{
+            $this->writeToPdf($pdf,$tplIdx , 69 , 150  +2 ,"No");
+        }
+        $this->writeToPdf($pdf,$tplIdx , 72 , 156  +4 ,$leadObj->amount_ppi . 'amount');
+        $this->writeToPdf($pdf,$tplIdx , 72 , 160  +7 ,$leadObj->finance_start . 'amount');
+        $this->writeToPdf($pdf,$tplIdx , 155 , 160  +7 ,$leadObj->finance_end . 'amount');
+        $this->writeToPdf($pdf,$tplIdx , 72 , 181 +2,$leadObj->amount_ppi . 'amount');
 
-        $this->writeToPdf($pdf,$tplIdx , 73, 179 +5 , $leadObj->security_key);
 
-        $this->writeToPdf($pdf,$tplIdx , 60, 247  +5, date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 23, 230 +5, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 165, 22 , $leadObj->security_key);
+
+        $this->writeToPdf($pdf,$tplIdx , 60, 270, date("d/m/Y",time()).'wee');
+        $pdf->Image($leadObj->client_signature_image, 18, 255, 100,18);
 
         /*page 2*/
         $pdf->addPage();
@@ -56,31 +64,30 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
-
+        $this->writeToPdf($pdf,$tplIdx , 130, 11 , $leadObj->security_key);
         /*page 3*/
         $pdf->addPage();
         $tplIdx = $pdf->importPage(3);
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
-
-        $this->writeToPdf($pdf,$tplIdx , 30 , 191 - 4 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 65 , 191- 4 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 197- 4 ,$leadObj->lastname);
-        $this->writeToPdf($pdf,$tplIdx , 44 , 204- 4 ,$leadObj->date_of_birth);
+        $this->writeToPdf($pdf,$tplIdx , 130, 11 , $leadObj->security_key);
+        /*fullname*/
+        $this->writeToPdf($pdf,$tplIdx , 35 , 230,  sprintf("%s %s %s",$leadObj->salutation , $leadObj->firstname,$leadObj->lastname) );
+        /*full address*/
         $fullAddress = sprintf(
-            "%s %s %s %s" ,
+            "%s %s %s %s %s" ,
             $leadObj->address1 ,
             $leadObj->address2 ,
             $leadObj->address3 ,
-            $leadObj->address4
+            $leadObj->address4,
+            $leadObj->address5
         );
-        $this->writeToPdf($pdf,$tplIdx , 43 , 210 - 4, $fullAddress);
-        $this->writeToPdf($pdf,$tplIdx , 43 , 217- 4 , $leadObj->postcode);
-        // $this->writeToPdf($pdf,$tplIdx , 43, 247 - 4, date("d/m/Y",time()));
-        $this->writeToPdf($pdf,$tplIdx , 30, 240 - 7 , date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 20, 223 - 7, 100,18);
-        // $pdf->Image($leadObj->client_signature_image, 123, 225, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 150 , 242 , $leadObj->postcode);
+        $pdf->Image($leadObj->client_signature_image, 30, 248, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 35, 267 , date("d/m/Y",time()));
+
 
         /*page 4*/
         $pdf->addPage();
@@ -88,28 +95,25 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
-        /*company information*/
-        $this->writeToPdf($pdf,$tplIdx , 30 , 204 -6 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 70 , 204 -6  ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 210  -6 ,$leadObj->lastname);
+
+        /*fullname*/
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232, $leadObj->date_of_birth );
+        // /*full address*/
         $fullAddress = sprintf(
-            "%s %s %s %s" ,
+            "%s %s %s" ,
             $leadObj->address1 ,
             $leadObj->address2 ,
-            $leadObj->address3 ,
-            $leadObj->address4
+            $leadObj->address3
         );
-        $this->writeToPdf($pdf,$tplIdx , 34 , 224  -6 , $fullAddress);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 230  -6 , $leadObj->postcode);
-        $this->writeToPdf($pdf,$tplIdx , 43 , 217  -6 ,$leadObj->date_of_birth);
-        $this->writeToPdf($pdf,$tplIdx , 34, 247  -7, date("d/m/Y",time()));
-        // $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 20, 232 -7, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 35 , 238, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 251 , $leadObj->postcode);
 
-
-        // $pdf->Image($leadObj->client_signature_image, 15, 233, 100,18);
-        // $pdf->Image($leadObj->client_signature_image, 123, 233, 100,18);
-
+        $pdf->Image($leadObj->client_signature_image, 26, 255, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 27, 270 , date("d/m/Y",time()));
 
         /*page 5*/
         $pdf->addPage();
@@ -118,23 +122,24 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        $this->writeToPdf($pdf,$tplIdx , 30 , 204 -6 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 70 , 204 -6 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 210  -6,$leadObj->lastname);
+        /*fullname*/
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 3, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 3, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 3, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 3, $leadObj->date_of_birth );
+        // /*full address*/
         $fullAddress = sprintf(
-            "%s %s %s %s" ,
+            "%s %s %s" ,
             $leadObj->address1 ,
             $leadObj->address2 ,
-            $leadObj->address3 ,
-            $leadObj->address4
+            $leadObj->address3
         );
-        $this->writeToPdf($pdf,$tplIdx , 34 , 224  -6, $fullAddress);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 230  -6, $leadObj->postcode);
-        $this->writeToPdf($pdf,$tplIdx , 43 , 217  -6,$leadObj->date_of_birth);
-        $this->writeToPdf($pdf,$tplIdx , 34, 247  -7, date("d/m/Y",time()));
-        // $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 20, 232-7, 100,18);
-        // $pdf->Image($leadObj->client_signature_image, 123, 233, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 3, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 3,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 3, $leadObj->postcode);
+
+        $pdf->Image($leadObj->client_signature_image, 26, 255 + 3, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 3, date("d/m/Y",time()));
 
         /*page 6*/
         $pdf->addPage();
@@ -143,39 +148,25 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        $this->writeToPdf($pdf,$tplIdx , 20 , 111.5 ,$leadObj->complaint_reference);
-        $this->writeToPdf($pdf,$tplIdx , 20 , 131 ,$leadObj->financial_business_name);
-        $this->writeToPdf($pdf,$tplIdx , 20 , 157 ,$leadObj->last_3_digit_account_num);
 
-        $checkMarkCoor_x = 0;
-        if ( $leadObj->account_type === "Joint" ) {
-            /*place the x at the yes checkbox*/
-            $checkMarkCoor_x = 17;
-        }else {
-            $checkMarkCoor_x = 35.5;
-        }
+        /*fullname*/
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 3, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 3, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 3, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 3, $leadObj->date_of_birth );
+        // /*full address*/
+        $fullAddress = sprintf(
+            "%s %s %s" ,
+            $leadObj->address1 ,
+            $leadObj->address2 ,
+            $leadObj->address3
+        );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 3, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 3,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 3, $leadObj->postcode);
 
-
-        $this->writeToPdf($pdf,$tplIdx , $checkMarkCoor_x , 179 ,"x");
-        $this->writeToPdf($pdf,$tplIdx , 38 , 208 ,$leadObj->lastname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 220 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 230 , $leadObj->postcode);
-        $dateArr = explode("/", $leadObj->date_of_birth);
-        $year= $dateArr[2];
-        $month= $dateArr[1];
-        $date= $dateArr[0];
-        /*date*/
-
-        $this->writeToPdf($pdf,$tplIdx , 39 , 245 , sprintf("%01d", $date[0]));
-        $this->writeToPdf($pdf,$tplIdx , 47 , 245 , sprintf("%01d", $date[1]));
-        /*month*/
-        $this->writeToPdf($pdf,$tplIdx , 58 , 245 , sprintf("%01d", $month[0]));
-        $this->writeToPdf($pdf,$tplIdx , 66 , 245 , sprintf("%01d", $month[1]));
-        /*year*/
-        $this->writeToPdf($pdf,$tplIdx , 76 , 245 , sprintf("%01d", $year[0]));
-        $this->writeToPdf($pdf,$tplIdx , 85 , 245 , sprintf("%01d", $year[1]));
-        $this->writeToPdf($pdf,$tplIdx , 91 , 245 , sprintf("%01d", $year[2]));
-        $this->writeToPdf($pdf,$tplIdx , 100 , 245 , sprintf("%01d", $year[3]));
+        $pdf->Image($leadObj->client_signature_image, 26, 255 + 3, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 3, date("d/m/Y",time()));
 
         /*page 7*/
         $pdf->addPage();
@@ -184,88 +175,24 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        $is_complain_about_sale_packaged_bank_account_coor_x = 18.7;
-        $is_complain_about_sale_packaged_bank_account_coor_x = 37;
-        $is_complain_about_sale_packaged_bank_account_coor_y = 40.9;
-        // if ($leadObj->is_complain_about_sale_packaged_bank_account === "No") {
-        //     $is_complain_about_sale_packaged_bank_account_coor_x = 23;
-        // }
-        $this->writeToPdf($pdf,$tplIdx , $is_complain_about_sale_packaged_bank_account_coor_x , $is_complain_about_sale_packaged_bank_account_coor_y ,"x");
-        // is_complain_about_sale_packaged_bank_account
+        /*fullname*/
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 3, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 3, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 3, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 3, $leadObj->date_of_birth );
+        // /*full address*/
+        $fullAddress = sprintf(
+            "%s %s %s" ,
+            $leadObj->address1 ,
+            $leadObj->address2 ,
+            $leadObj->address3
+        );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 3, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 3,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 3, $leadObj->postcode);
 
-        // is_complain_about_sale_packaged_bank_account_details
-        $this->writeToPdf($pdf,$tplIdx , 20 , 75 , $leadObj->is_complain_about_sale_packaged_bank_account_details);
-        if (isset($leadObj->open_or_upgrade_package_bank_account_date) && !empty($leadObj->open_or_upgrade_package_bank_account_date)) {
-            $dateStrcontainer = date("d",strtotime($leadObj->open_or_upgrade_package_bank_account_date));
-            $dateStrcontainer = intval($dateStrcontainer);
-            $dateStrcontainer = sprintf('%02d', $dateStrcontainer);
-
-            $this->writeToPdf($pdf,$tplIdx , 19.5 , 142 , $dateStrcontainer[0]);
-            $this->writeToPdf($pdf,$tplIdx , 33 , 142 , $dateStrcontainer[1]);
-
-            $dateStrcontainer = date("m",strtotime($leadObj->open_or_upgrade_package_bank_account_date));
-            $monthStrContainer = intval($dateStrcontainer);
-            $monthStrContainer = sprintf('%02d', $monthStrContainer);
-
-            $this->writeToPdf($pdf,$tplIdx , 47 , 142 , $monthStrContainer[0]);
-            $this->writeToPdf($pdf,$tplIdx , 60 , 142 , $monthStrContainer[1]);
-
-            $yearStrcontainer = date("Y",strtotime($leadObj->open_or_upgrade_package_bank_account_date));
-            $yearStrcontainer = intval($yearStrcontainer).'';
-            $this->writeToPdf($pdf,$tplIdx , 75 , 142 , $yearStrcontainer[0]);
-            $this->writeToPdf($pdf,$tplIdx , 88 , 142 , $yearStrcontainer[1]);
-            $this->writeToPdf($pdf,$tplIdx , 101 , 142 , $yearStrcontainer[2]);
-            $this->writeToPdf($pdf,$tplIdx , 116 , 142 , $yearStrcontainer[3]);
-        }
-        // notice_account_fees_on_statements
-        $notice_account_fees_on_statements_coor_x = 17.5;
-        $notice_account_fees_on_statements_coor_y = 162.5;
-        if ($leadObj->notice_account_fees_on_statements === "No") {
-            $notice_account_fees_on_statements_coor_x = 36;
-        }
-        $this->writeToPdf($pdf,$tplIdx , $notice_account_fees_on_statements_coor_x , $notice_account_fees_on_statements_coor_y , 'x');
-
-        // notice_account_fees_on_statements_details
-        $this->writeToPdf($pdf,$tplIdx , 18.7 , 183 , $leadObj->notice_account_fees_on_statements_details);
-
-        $howWasPackageSold_coor_x = 0;
-        $howWasPackageSold_coor_y = 0;
-        switch ($leadObj->how_packaged_bank_account_sold) {
-            case 'During a meeting':
-                $howWasPackageSold_coor_x = 18.5;
-                $howWasPackageSold_coor_y = 227;
-                break;
-            case 'Over the phone':
-                $howWasPackageSold_coor_x = 56;
-                $howWasPackageSold_coor_y = 227;
-                break;
-            case 'Over the internet':
-                $howWasPackageSold_coor_x = 88;
-                $howWasPackageSold_coor_y = 227;
-                break;
-            case 'By post':
-                $howWasPackageSold_coor_x = 122;
-                $howWasPackageSold_coor_y = 227;
-                break;
-            case 'I filled in a leaflet':
-                $howWasPackageSold_coor_x = 18.5;
-                $howWasPackageSold_coor_y = 240.5;
-                break;
-            case 'Can\'t remember':
-                $howWasPackageSold_coor_x = 88;
-                $howWasPackageSold_coor_y = 240.5;
-                break;
-            case 'Over the counter':
-                $howWasPackageSold_coor_x = 56;
-                $howWasPackageSold_coor_y = 240.5;
-                break;
-            default:
-                $howWasPackageSold_coor_x = 122;
-                $howWasPackageSold_coor_y = 240.5;
-                break;
-        }
-        $this->writeToPdf($pdf,$tplIdx , $howWasPackageSold_coor_x , $howWasPackageSold_coor_y ,"x");
-
+        $pdf->Image($leadObj->client_signature_image, 26, 255 + 3, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 3, date("d/m/Y",time()));
 
 
         /*page 8*/
@@ -274,83 +201,49 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
+        $this->writeToPdf($pdf,$tplIdx , 38 , 110, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 104 , 110, $leadObj->salutation );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 118, $leadObj->firstname );
+        /*date*/
+        $this->writeToPdf($pdf,$tplIdx , 41 , 124, $leadObj->date_of_birth[0]);
+        $this->writeToPdf($pdf,$tplIdx , 50 , 124, $leadObj->date_of_birth[1]);
+        // /*month*/
+        $this->writeToPdf($pdf,$tplIdx , 60 , 124, $leadObj->date_of_birth[3]);
+        $this->writeToPdf($pdf,$tplIdx , 70 , 124, $leadObj->date_of_birth[4]);
+        // /*year*/
+        $this->writeToPdf($pdf,$tplIdx , 80 , 124, $leadObj->date_of_birth[6]);
+        $this->writeToPdf($pdf,$tplIdx , 90 , 124, $leadObj->date_of_birth[7]);
+        $this->writeToPdf($pdf,$tplIdx , 98 , 124, $leadObj->date_of_birth[8]);
+        $this->writeToPdf($pdf,$tplIdx , 108 , 124, $leadObj->date_of_birth[9]);
 
 
-        $this->writeToPdf($pdf,$tplIdx , 16 , 30 ,$leadObj->how_packaged_bank_account_sold_details);
+        $this->writeToPdf($pdf,$tplIdx , 123 , 110, $leadObj->partner_detail_lastname .'1' );
+        $this->writeToPdf($pdf,$tplIdx , 183 , 110, $leadObj->partner_detail_title .'2');
+        $this->writeToPdf($pdf,$tplIdx , 123 , 118, $leadObj->partner_detail_firstname .'3');
+        // /*date*/
 
-        $did_they_give_advice_clarify_coor_x = 54.5;//defaults to I cant remember
-        $did_they_give_advice_clarify_coor_y = 69.5;//defaults to I cant remember
-        if ($leadObj->did_they_give_advice_clarify === 'Yes') {
-            $did_they_give_advice_clarify_coor_x = 19;//
-        } else if ($leadObj->did_they_give_advice_clarify === 'No') {
-            $did_they_give_advice_clarify_coor_x = 37.5;//
-        }
-        $this->writeToPdf($pdf,$tplIdx , $did_they_give_advice_clarify_coor_x , $did_they_give_advice_clarify_coor_y ,'x');
+        $this->writeToPdf($pdf,$tplIdx , 123 , 124, $leadObj->partner_detail_date_of_birth[0]);
+        $this->writeToPdf($pdf,$tplIdx , 123+10 , 124, $leadObj->partner_detail_date_of_birth[1]);
+        // // /*month*/
+        $this->writeToPdf($pdf,$tplIdx , 123+19 , 124, $leadObj->partner_detail_date_of_birth[3]);
+        $this->writeToPdf($pdf,$tplIdx , 123+29 , 124, $leadObj->partner_detail_date_of_birth[4]);
+        // // /*year*/
+        $this->writeToPdf($pdf,$tplIdx , 123+38 , 124, $leadObj->partner_detail_date_of_birth[6]);
+        $this->writeToPdf($pdf,$tplIdx , 123+47 , 124, $leadObj->partner_detail_date_of_birth[7]);
+        $this->writeToPdf($pdf,$tplIdx , 123+56 , 124, $leadObj->partner_detail_date_of_birth[8]);
+        $this->writeToPdf($pdf,$tplIdx , 123+55+9 , 124, $leadObj->partner_detail_date_of_birth[9]);       
 
-        $this->writeToPdf($pdf,$tplIdx , 19 , 90  ,$leadObj->did_they_give_advice_clarify_details);
-
-        // current_situation_packaged_bank_account
-        $current_situation_packaged_bank_account_coor_x = 17.5;
-        $current_situation_packaged_bank_account_coor_y = 133.5;
-        if ($leadObj->current_situation_packaged_bank_account === 'I’m still paying for my packaged bank account') {
-            $current_situation_packaged_bank_account_coor_x = 17.5;
-        }else if ($leadObj->current_situation_packaged_bank_account === 'I’ve closed/downgraded my packaged bank account') {
-            $current_situation_packaged_bank_account_coor_x = 97;
-        }
-        $this->writeToPdf($pdf,$tplIdx , $current_situation_packaged_bank_account_coor_x , $current_situation_packaged_bank_account_coor_y ,'x');
-
-
-        // current_situation_packaged_bank_account_explanation
-        $this->writeToPdf($pdf,$tplIdx , 19 , 158 , $leadObj->current_situation_packaged_bank_account_explanation);
-
-        if ($leadObj->how_packaged_bank_account_sold === "Other") {
-            $this->writeToPdf($pdf,$tplIdx , 18 , 30 ,$leadObj->how_packaged_bank_account_sold);
-        }
-        $did_they_give_advice_clarify_coor_x = 0;
-        $did_they_give_advice_clarify_coor_y = 0;
-        switch ($leadObj->discuss_not_involed_packaged) {
-            case 'Yes':
-                $did_they_give_advice_clarify_coor_x = 19.2;
-                $did_they_give_advice_clarify_coor_y = 69.5;
-                /*write the reason*/
-                // $this->writeToPdf($pdf,$tplIdx , 18, 88 ,$leadObj->discuss_not_involed_packaged_details.'discuss not involed');
-                break;
-            case 'No':
-                $did_they_give_advice_clarify_coor_x = 38;
-                $did_they_give_advice_clarify_coor_y = 69.5;
-                break;
-            case "Can't Remember":
-                $did_they_give_advice_clarify_coor_x = 54.2;
-                $did_they_give_advice_clarify_coor_y = 69.5;
-                break;
-            default:
-                break;
-        }
-        if ($did_they_give_advice_clarify_coor_x !== 0 && $did_they_give_advice_clarify_coor_y !== 0) {
-            $this->writeToPdf(
-                $pdf,
-                $tplIdx ,
-                $did_they_give_advice_clarify_coor_x,
-                $did_they_give_advice_clarify_coor_y,
-                "x"
-            );
-        }
-        $had_free_bank_coor_x = 0;
-        $had_free_bank_coor_y = 0;
-        if ($leadObj->had_free_bank === "Yes") {
-            $had_free_bank_coor_x = 17;
-            $had_free_bank_coor_y = 256;
-        } else {
-            $had_free_bank_coor_x = 35.5;
-            $had_free_bank_coor_y = 256;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx ,
-            $had_free_bank_coor_x,
-            $had_free_bank_coor_y,
-            "x"
-        );
+        $this->writeToPdf($pdf,$tplIdx , 41 , 145, $leadObj->address1);
+        $this->writeToPdf($pdf,$tplIdx , 41 , 149, $leadObj->address2);
+        $this->writeToPdf($pdf,$tplIdx , 41 , 153, $leadObj->address3);
+        $this->writeToPdf($pdf,$tplIdx , 41 , 157, $leadObj->address4);
+        $this->writeToPdf($pdf,$tplIdx , 41 , 161, $leadObj->address5.','.$leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 41 , 168, $leadObj->daytime_phone .'daytime');
+        $this->writeToPdf($pdf,$tplIdx , 123 , 168, $leadObj->mobile .'mobile');
+        $this->writeToPdf($pdf,$tplIdx , 41 , 176, $leadObj->home_phone .'home');
+        $this->writeToPdf($pdf,$tplIdx , 123 , 176, $leadObj->email_address .'email');
+        $this->writeToPdf($pdf,$tplIdx , 41 , 250, $leadObj->financial_business_name.'wee' );
+        $this->writeToPdf($pdf,$tplIdx , 41 , 269, $leadObj->ppi_policy_number .'ewq');
 
         /*page 9*/
         $pdf->addPage();
@@ -358,171 +251,107 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
-        $when_opened_account_has_other_account_coor_x = 35.5;
-        $when_opened_account_has_other_account_coor_y = 39;
-        if ($leadObj->when_opened_account_has_other_account === "Yes") {
-            $when_opened_account_has_other_account_coor_x = 17.5;
-            $when_opened_account_has_other_account_coor_y = 39;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $when_opened_account_has_other_account_coor_x,
-            $when_opened_account_has_other_account_coor_y,
-            "x"
-        );
-        if ($leadObj->when_opened_account_has_other_account === "Yes") {
-            $this->writeToPdf($pdf,$tplIdx, 17.5,65,$leadObj->when_opened_account_has_other_account_details);
-        }
-        /*is_address_outside_UK_at_package_upgrade*/
-        $is_address_outside_UK_at_package_upgrade_coor_x = 35.5;
-        $is_address_outside_UK_at_package_upgrade_coor_y = 112;
-        if ($leadObj->is_address_outside_UK_at_package_upgrade === 'No') {
-            $is_address_outside_UK_at_package_upgrade_coor_x = 17.5;
-        }
-        $this->writeToPdf($pdf,$tplIdx, $is_address_outside_UK_at_package_upgrade_coor_x,$is_address_outside_UK_at_package_upgrade_coor_y,"x");
 
+        if (isset($leadObj->when_did_you_takeout_ppi)) {
+            /*day*/
+            $this->writeToPdf($pdf,$tplIdx , 25 , 37, $leadObj->when_did_you_takeout_ppi[0]);
+            $this->writeToPdf($pdf,$tplIdx , 31 , 37, $leadObj->when_did_you_takeout_ppi[1] );
+            /*month*/
+            $this->writeToPdf($pdf,$tplIdx , 40 , 37, $leadObj->when_did_you_takeout_ppi[3] );
+            $this->writeToPdf($pdf,$tplIdx , 47 , 37, $leadObj->when_did_you_takeout_ppi[4] );
+            // /*year*/
+            $this->writeToPdf($pdf,$tplIdx , 53.5 , 37, $leadObj->when_did_you_takeout_ppi[6] );
+            $this->writeToPdf($pdf,$tplIdx , 61 , 37, $leadObj->when_did_you_takeout_ppi[7] );
+            $this->writeToPdf($pdf,$tplIdx , 68 , 37, $leadObj->when_did_you_takeout_ppi[8] );
+            $this->writeToPdf($pdf,$tplIdx , 76 , 37, $leadObj->when_did_you_takeout_ppi[9] );
+        }
 
+        if ($leadObj->can_remember_date_of_ppi_takeout === 'Yes') {
+            $this->writeToPdf($pdf,$tplIdx , 107.5 , 36.8, "x");
+        }
 
-        /*driving license*/
-        $has_uk_driving_license_during_upgrade_coor_x = 35.5;
-        $has_uk_driving_license_during_upgrade_coor_y = 138.5;
-        if ($leadObj->has_uk_driving_license_during_upgrade === "Yes") {
-            $has_uk_driving_license_during_upgrade_coor_x = 17.5;
-            $has_uk_driving_license_during_upgrade_coor_y = 138;
+        $ppi_claim_type_coor_x = 64;
+        $ppi_claim_type_coor_y = 69;
+        if ($leadObj->ppi_cover_type === "single") {
+            $ppi_claim_type_coor_x = 26.5;
         }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $has_uk_driving_license_during_upgrade_coor_x,
-            $has_uk_driving_license_during_upgrade_coor_y,
-            "x"
-        );
-        /*has car*/
-        $own_a_car_x = 35.5;
-        $own_a_car_y = 160.5;
-        if ($leadObj->own_a_car === 'Yes') {
-            $own_a_car_x = 17.5;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $own_a_car_x,
-            $own_a_car_y,
-            "x"
-        );
-
-        $has_mobile_phone_during_upgrade_coor_x = 35.5;
-        $has_mobile_phone_during_upgrade_coor_y = 183.5;
-        if ( $leadObj->has_mobile_phone_during_upgrade  === "Yes" ) {
-            $has_mobile_phone_during_upgrade_coor_x = 17.5;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $has_mobile_phone_during_upgrade_coor_x,
-            $has_mobile_phone_during_upgrade_coor_y,
-            "x"
-        );
-        $has_mobile_phone_during_upgrade_has_internet_connection_coor_x = 35;
-        $has_mobile_phone_during_upgrade_has_internet_connection_coor_y = 206;
-        if ( $leadObj->has_mobile_phone_during_upgrade_has_internet_connection  === "Yes" ) {
-            $has_mobile_phone_during_upgrade_has_internet_connection_coor_x = 17.5;
-            $has_mobile_phone_during_upgrade_has_internet_connection_coor_y = 206;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $has_mobile_phone_during_upgrade_has_internet_connection_coor_x,
-            $has_mobile_phone_during_upgrade_has_internet_connection_coor_y,
-            "x"
-        );
-        /* in Europe*/
-        $often_go_holiday_in_europe_coor_x = 0;
-        $often_go_holiday_in_europe_coor_y = 0;
-        switch ($leadObj->often_go_holiday_in_europe) {
-            case 'Never':
-                $often_go_holiday_in_europe_coor_x = 81;
-                $often_go_holiday_in_europe_coor_y = 244;
+        $this->writeToPdf($pdf,$tplIdx , $ppi_claim_type_coor_x , $ppi_claim_type_coor_y, "x");
+        /*how was insurance sold*/
+        $how_was_ppi_sold_coor_x =  25;
+        $how_was_ppi_sold_coor_y =  0;
+        switch ($leadObj->how_was_ppi_sold) {
+            case 'during a meeting':
+                $how_was_ppi_sold_coor_y =  98;
                 break;
-            case '1-3 times a year':
-                $often_go_holiday_in_europe_coor_x = 124.5;
-                $often_go_holiday_in_europe_coor_y = 244;
+            case 'during a phone conversation':
+                $how_was_ppi_sold_coor_y =  104.5;
                 break;
-            case '3+ times a year':
-                $often_go_holiday_in_europe_coor_x = 168;
-                $often_go_holiday_in_europe_coor_y = 244;
+            case 'you were given a leaflet to fill in':
+                $how_was_ppi_sold_coor_y =  108;
+                break;
+            case 'over the internet':
+                $how_was_ppi_sold_coor_y =  117;
+                break;
+            case 'by post':
+                $how_was_ppi_sold_coor_y =  123.5;
+                break;
+            case 'can’t remember':
+                $how_was_ppi_sold_coor_y =  130;
                 break;
             default:
                 break;
         }
-        if ($often_go_holiday_in_europe_coor_x !== 0 && $often_go_holiday_in_europe_coor_x !== 0) {
-            $this->writeToPdf(
-                $pdf,
-                $tplIdx,
-                $often_go_holiday_in_europe_coor_x,
-                $often_go_holiday_in_europe_coor_y,
-                "x"
-            );
+        if ($how_was_ppi_sold_coor_x !== 0 &&  $how_was_ppi_sold_coor_y !== 0) {
+            $this->writeToPdf($pdf,$tplIdx , $how_was_ppi_sold_coor_x , $how_was_ppi_sold_coor_y, "x");
         }
 
-        /* outside Europe */
-        $often_go_holiday_outside_europe_coor_x = 0;
-        $often_go_holiday_outside_europe_coor_y = 0;
-        switch ($leadObj->often_go_holiday_outside_europe) {
-            case 'Never':
-                $often_go_holiday_outside_europe_coor_x = 81;
-                $often_go_holiday_outside_europe_coor_y = 250;
-                break;
-            case '1-3 times a year':
-                $often_go_holiday_outside_europe_coor_x = 124.5;
-                $often_go_holiday_outside_europe_coor_y = 250;
-                break;
-            case '3+ times a year':
-                $often_go_holiday_outside_europe_coor_x = 168;
-                $often_go_holiday_outside_europe_coor_y = 250;
-                break;
-            default:
-                break;
+        $did_financial_business_give_advice_x = 25.5;
+        $did_financial_business_give_advice_y = 0;
+        if ($leadObj->did_financial_business_give_advice === 'Yes') {
+            $did_financial_business_give_advice_y = 153;
+        } else if ($leadObj->did_financial_business_give_advice === 'No') {
+            $did_financial_business_give_advice_y = 159;
+        }else {
+            $did_financial_business_give_advice_y = 165.5;            
         }
-        if ($often_go_holiday_outside_europe_coor_x !== 0 && $often_go_holiday_outside_europe_coor_y !== 0) {
-            $this->writeToPdf(
-                $pdf,
-                $tplIdx,
-                $often_go_holiday_outside_europe_coor_x,
-                $often_go_holiday_outside_europe_coor_y,
-                "x"
-            );
+        if ($did_financial_business_give_advice_x !== 0 && $did_financial_business_give_advice_y !== 0) {
+            $this->writeToPdf($pdf,$tplIdx , $did_financial_business_give_advice_x , $did_financial_business_give_advice_y, "x");
         }
 
-        /* did winter sports */
-        $often_go_holiday_and_winter_sports_coor_x = 0;
-        $often_go_holiday_and_winter_sports_coor_y = 0;
-        switch ($leadObj->often_go_holiday_and_winter_sports) {
-            case 'Never':
-                $often_go_holiday_and_winter_sports_coor_x = 81;
-                $often_go_holiday_and_winter_sports_coor_y = 256.5;
-                break;
-            case '1-3 times a year':
-                $often_go_holiday_and_winter_sports_coor_x = 124.5;
-                $often_go_holiday_and_winter_sports_coor_y = 256.5;
-                break;
-            case '3+ times a year':
-                $often_go_holiday_and_winter_sports_coor_x = 168;
-                $often_go_holiday_and_winter_sports_coor_y = 256.5;
-                break;
-            default:
-                break;
+        /*ppi payment method*/
+        if ($leadObj->ppi_payment_method === 'with a single payment (“premium”) paid up-front as a one-off') {
+            $this->writeToPdf($pdf,$tplIdx , 25.5 , 188, "x");
+        } else if ($leadObj->ppi_payment_method === 'with a “premium” paid each month') {
+            $this->writeToPdf($pdf,$tplIdx , 25.5 , 194, "x");
+        } else if ($leadObj->ppi_payment_method === 'not sure'){
+            $this->writeToPdf($pdf,$tplIdx , 25.5 , 200.5, "x");
         }
-        if ($often_go_holiday_and_winter_sports_coor_x !== 0 && $often_go_holiday_and_winter_sports_coor_y !== 0) {
-            $this->writeToPdf(
-                $pdf,
-                $tplIdx,
-                $often_go_holiday_and_winter_sports_coor_x,
-                $often_go_holiday_and_winter_sports_coor_y,
-                "x"
-            );
+
+
+        /*ppi payment situation*/
+        if ($leadObj->ppi_insurance_current_situation === 'the insurance is still running') {
+            $this->writeToPdf($pdf,$tplIdx , 25.3 , 226, "x");
+        } else if ($leadObj->ppi_insurance_current_situation === 'the insurance ended when the loan was paid off (or when the credit card account was closed)') {
+            $this->writeToPdf($pdf,$tplIdx , 25.3 , 232, "x");
+        } else if ($leadObj->ppi_insurance_current_situation === 'the insurance was cancelled (if so, when did this happen?)'){
+            $this->writeToPdf($pdf,$tplIdx , 25.3 , 241.5, "x");
         }
+
+
+        if (isset($leadObj->ppi_insurance_cancelled_situation_date)) {
+            /*month*/
+            $this->writeToPdf($pdf,$tplIdx , 76 , 250, $leadObj->ppi_insurance_cancelled_situation_date[0]);
+            $this->writeToPdf($pdf,$tplIdx , 85 , 250, $leadObj->ppi_insurance_cancelled_situation_date[1]);
+            /*date*/
+            $this->writeToPdf($pdf,$tplIdx , 95 , 250, $leadObj->ppi_insurance_cancelled_situation_date[3]);
+            $this->writeToPdf($pdf,$tplIdx , 104 , 250, $leadObj->ppi_insurance_cancelled_situation_date[4]);
+            /*year*/
+            $this->writeToPdf($pdf,$tplIdx , 114 , 250, $leadObj->ppi_insurance_cancelled_situation_date[6]);
+            $this->writeToPdf($pdf,$tplIdx , 123 , 250, $leadObj->ppi_insurance_cancelled_situation_date[7]);
+            $this->writeToPdf($pdf,$tplIdx , 133 , 250, $leadObj->ppi_insurance_cancelled_situation_date[8]);
+            $this->writeToPdf($pdf,$tplIdx , 142 , 250, $leadObj->ppi_insurance_cancelled_situation_date[9]);
+        }
+
 
         /*page 10*/
         $pdf->addPage();
@@ -531,72 +360,14 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        $has_health_problems_during_upgrade_coor_x = 35.8;
-        $has_health_problems_during_upgrade_coor_y = 28.8;
-        if ($leadObj->has_health_problems_during_upgrade === "Yes") {
-            $has_health_problems_during_upgrade_coor_x = 17;
-            $has_health_problems_during_upgrade_coor_y = 28.8;
-            $this->writeToPdf(
-                $pdf,
-                $tplIdx,
-                17,
-                52,
-                $leadObj->has_health_problems_during_upgrade_details
-            );
+        $this->writeToPdf($pdf,$tplIdx , 25.4 , 30, 'x');
+        $this->writeToPdf($pdf,$tplIdx , 26+19 , 30, 'x');
+        if (isset($leadObj->had_a_claim_ppi_insurance)) {
+
         }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $has_health_problems_during_upgrade_coor_x,
-            $has_health_problems_during_upgrade_coor_y,
-            "x"
-        );
-
-        $has_registered_doctor_during_upgrade_coor_x = 35.5;
-        $has_registered_doctor_during_upgrade_coor_y = 101.5;
-        if ($leadObj->has_registered_doctor_during_upgrade === "Yes") {
-            $has_registered_doctor_during_upgrade_coor_x = 17;
-            $has_registered_doctor_during_upgrade_coor_y = 101;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $has_registered_doctor_during_upgrade_coor_x,
-            $has_registered_doctor_during_upgrade_coor_y,
-            "x"
-        );
-
-        /*actually_take_out_other_prodcuts*/
-        $actually_take_out_other_prodcuts_coor_x = 17;
-        $actually_take_out_other_prodcuts_coor_y = 127;
-        if ($leadObj->actually_take_out_other_prodcuts === 'No') {
-            $actually_take_out_other_prodcuts_coor_x = 35.5;
-        }
-
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $actually_take_out_other_prodcuts_coor_x,
-            $actually_take_out_other_prodcuts_coor_y,
-            "x"
-        );
-        /*actually_take_out_other_prodcuts_details*/
-
-        $this->writeToPdf($pdf,$tplIdx,17,150 ,$leadObj->actually_take_out_other_prodcuts_details);
-
-        $used_benefits_packaged_bank_coor_x = 36;
-        $used_benefits_packaged_bank_coor_y = 248;
-        if ($leadObj->used_benefits_packaged_bank === "Yes") {
-            $used_benefits_packaged_bank_coor_x = 18;
-            $used_benefits_packaged_bank_coor_y = 248;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $used_benefits_packaged_bank_coor_x,
-            $used_benefits_packaged_bank_coor_y,
-            "x"
-        );
+        /*details*/
+        $this->writeToPdf($pdf,$tplIdx , 30 , 60, $leadObj->had_a_claim_ppi_insurance_details);
+        
 
         /*page 11*/
         $pdf->addPage();
@@ -605,314 +376,43 @@ class PPIPdfEsignForm extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        // registered_benefits_by_packaged_account_details
-        $this->writeToPdf($pdf,$tplIdx, 18 , 38,$leadObj->registered_benefits_by_packaged_account_details);
+ 
 
-        // tried_to_claim_for_package
-        $tried_to_claim_for_package_coor_x = 18;
-        $tried_to_claim_for_package_coor_y = 87.4;
-        if ($leadObj->tried_to_claim_for_package === "No") {
-            $tried_to_claim_for_package_coor_x = 36.5;
+
+        $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 8), 'x');
+        $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 9) - .5, 'x');
+        switch ($leadObj->bought_cover_with_ppi_insurance) {
+            case 'a personal loan':
+                $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5, 'x');
+                break;
+            case 'a business loan':
+                $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6), 'x');
+                break;
+            case 'a credit card':
+                $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 2), 'x');           
+                break;
+            case 'a mortgage':
+                $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 3), 'x');
+                break;
+            case 'an overdraft':
+                $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 4), 'x');
+                break;
+            case 'a store card':
+                $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 5), 'x');            
+                break;
+            case 'a loan secured on your home in addition to your mortgage':
+                $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 6), 'x');            
+                break;
+            case 'catalogue shopping':
+                 $this->writeToPdf($pdf,$tplIdx , 22.3 , 43.5 + (6 * 7), 'x');           
+                break;
+            case 'hire purchase':
+                break;
+            case 'not sure':
+                break;
+            default:
+                break;
         }
-        $this->writeToPdf($pdf,$tplIdx, $tried_to_claim_for_package_coor_x , $tried_to_claim_for_package_coor_y,'x');
-
-        $this->writeToPdf($pdf,$tplIdx, 18  , 115  , $leadObj->tried_to_claim_for_package_details);
-
-        // used_benefits_packaged_bank
-        $used_benefits_packaged_bank_coor_x = 17;
-        $used_benefits_packaged_bank_coor_y = 169;
-        if ($leadObj->used_benefits_packaged_bank === 'No') {
-            $used_benefits_packaged_bank_coor_x = 35.8;
-        } else if ($leadObj->used_benefits_packaged_bank === "I don't know") {
-            $used_benefits_packaged_bank_coor_x = 52.5;
-        }
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            $used_benefits_packaged_bank_coor_x,
-            $used_benefits_packaged_bank_coor_y,
-            'x'
-        );
-
-        $this->writeToPdf(
-            $pdf,
-            $tplIdx,
-            18,
-            195,
-            $leadObj->used_benefits_packaged_bank_details
-        );
-
-        /*page 12*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(12);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-
-        $after_upgrade_already_has_products_arr = explode(",", $leadObj->after_upgrade_already_has_products);
-
-        foreach ($after_upgrade_already_has_products_arr as $currentVal) {
-            switch ($currentVal) {
-                case "Car breakdown cover":
-                    //car breakdown cover
-                    $this->writeToPdf($pdf,$tplIdx,16.8,75,"x");
-                    break;
-                case "Accidental death cover":
-                    //accidental death cover
-                    $this->writeToPdf($pdf,$tplIdx,16.8,86.3,"x");
-                    break;
-                case "Gadget insurance":
-                    //gadget insurance
-                    $this->writeToPdf($pdf,$tplIdx,16.8,97,"x");
-                    break;
-                case "Mobile phone insurance":
-                    //mobile phone insurance
-                    $this->writeToPdf($pdf,$tplIdx,62,75.4,"x");
-                    break;
-                case "Life Assurance":
-                    //life assurance
-                    $this->writeToPdf($pdf,$tplIdx,61.4,86.3,"x");
-                    break;
-                case "Travel insurance":
-                    //any other insurance that was also included in your packaged bank account
-                    $this->writeToPdf($pdf,$tplIdx,131,75.4,"x");
-                    break;
-                case "Identity theft insurance":
-                    // travel insurance
-                    $this->writeToPdf($pdf,$tplIdx,131,86.3,"x");
-                    break;
-                case "Any other insurance that was also included in your packaged bank account":
-                    // identity theft protection
-                    $this->writeToPdf($pdf,$tplIdx,61.4,97,"x");
-                    break;
-                default:
-                    break;
-            }
-        }
-        $this->writeToPdf($pdf,$tplIdx,16.8,125,$leadObj->after_upgrade_already_has_products_details);
-
-
-        $did_kept_insurance_after_sale_coor_x = 36;
-        $did_kept_insurance_after_sale_coor_y = 182;
-        if ($leadObj->did_kept_insurance_after_sale === "Yes") {
-            $did_kept_insurance_after_sale_coor_x = 18;
-            $did_kept_insurance_after_sale_coor_y = 182;
-            $this->writeToPdf($pdf,$tplIdx,18,205,$leadObj->did_kept_insurance_after_sale_details);
-        }
-        $this->writeToPdf($pdf,$tplIdx,$did_kept_insurance_after_sale_coor_x,$did_kept_insurance_after_sale_coor_y,"x");
-
-        /*page 13*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(13);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-        /*possible word wrap this to break on specific length to prevent overflow*/
-        $this->writeToPdf($pdf,$tplIdx, 20 ,50 ,$leadObj->complaint_whole_details);
-
-
-        /*page 14*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(14);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-
-
-        /*page 15*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(15);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-
-
-
-        /*name and signature*/
-        $fullname = "$leadObj->salutation . $leadObj->firstname $leadObj->lastname";
-        $this->writeToPdf($pdf,$tplIdx , 20 , 88 ,$fullname);
-        $pdf->Image($leadObj->client_signature_image, 70, 78, 100,18);
-        $dateStr = sprintf("%02d", date("d"));
-        $monthStr = sprintf("%02d", date("m"));
-        $yearStr = sprintf("%02d", date("Y"));
-        $this->writeToPdf($pdf,$tplIdx, 134 ,90 ,$dateStr[0]);
-        $this->writeToPdf($pdf,$tplIdx, 140 ,90 ,$dateStr[1]);
-        $this->writeToPdf($pdf,$tplIdx, 148 , 90 ,$monthStr[0]);
-        $this->writeToPdf($pdf,$tplIdx, 155 , 90 ,$monthStr[1]);
-        $this->writeToPdf($pdf,$tplIdx, 162 , 90 ,$yearStr[0]);
-        $this->writeToPdf($pdf,$tplIdx, 170 , 90 ,$yearStr[1]);
-        $this->writeToPdf($pdf,$tplIdx, 178 , 90 ,$yearStr[2]);
-        $this->writeToPdf($pdf,$tplIdx, 185 , 90 ,$yearStr[3]);
-
-        $this->writeToPdf($pdf,$tplIdx , 20 , 111 ,$fullname);
-        $pdf->Image($leadObj->client_signature_image, 70, 101, 100,18);
-        $dateStr = sprintf("%02d", date("d"));
-        $monthStr = sprintf("%02d", date("m"));
-        $yearStr = sprintf("%02d", date("Y"));
-        $this->writeToPdf($pdf,$tplIdx, 134 ,109 ,$dateStr[0]);
-        $this->writeToPdf($pdf,$tplIdx, 140 ,109 ,$dateStr[1]);
-        $this->writeToPdf($pdf,$tplIdx, 148 , 109 ,$monthStr[0]);
-        $this->writeToPdf($pdf,$tplIdx, 155 , 109 ,$monthStr[1]);
-        $this->writeToPdf($pdf,$tplIdx, 162 , 109 ,$yearStr[0]);
-        $this->writeToPdf($pdf,$tplIdx, 170 , 109 ,$yearStr[1]);
-        $this->writeToPdf($pdf,$tplIdx, 178 , 109 ,$yearStr[2]);
-        $this->writeToPdf($pdf,$tplIdx, 185 , 109 ,$yearStr[3]);
-
-
-        $declaration_confirmed_tickArr = explode(",", $leadObj->declaration_confirmed_tick);
-
-        $temp_coor_x = 17;
-        $temp_coor_y = 0;
-        foreach ($declaration_confirmed_tickArr as $key => $value) {
-            switch ($value) {
-                case 'Included everything you want to tell us about your complaint':
-                    $temp_coor_y = 180;
-                    break;
-                case 'Signed the declaration':
-                    $temp_coor_y = 185.4;
-                    break;
-                case 'Enclosed copies of all relevant documents':
-                    $temp_coor_y = 192;
-                    break;
-                case 'Not enclosed any documents with this form':
-                    $temp_coor_y = 204;
-                    break;
-                default:
-                    break;
-            }
-        }
-        if ($temp_coor_y !== 0) {
-            $this->writeToPdf($pdf,$tplIdx, $temp_coor_x , $temp_coor_y ,'x');
-        }
-
-        /*page 16*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(16);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-        $this->writeToPdf($pdf,$tplIdx, 115 ,94 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,94 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,100 ,$leadObj->lastname);
-
-        $this->writeToPdf($pdf,$tplIdx, 52 ,117 ,$leadObj->date_of_birth);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,127 ,$leadObj->address1);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,131 ,$leadObj->address2);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,135 ,$leadObj->address3);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,139 ,$leadObj->address4);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,144 ,$leadObj->postcode);
-
-
-        $this->writeToPdf($pdf,$tplIdx, 150 ,160 ,$leadObj->mobile);
-        $this->writeToPdf($pdf,$tplIdx, 150 ,167 ,$leadObj->email_address);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,167 ,$leadObj->landline);
-
-        $this->writeToPdf($pdf,$tplIdx, 52 ,250 ,$leadObj->behalf_of_charity_official_name);
-        $this->writeToPdf($pdf,$tplIdx, 187 ,250 ,$leadObj->behalf_of_charity_num_of_employees);
-        $this->writeToPdf($pdf,$tplIdx, 52 ,265 ,$leadObj->behalf_of_charity_num_of_partners);
-        $this->writeToPdf($pdf,$tplIdx, 187 ,265 ,$leadObj->behalf_of_charity_annual_income);
-
-        // /*page 17*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(17);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-        $this->writeToPdf($pdf,$tplIdx, 55 ,23 ,$leadObj->business_responsible_details_name);
-        $leadObj->business_responsible_details_address = explode("\n", $leadObj->business_responsible_details_address);
-        $leadObj->business_responsible_details_address = implode(",", $leadObj->business_responsible_details_address);
-        $this->writeToPdf($pdf,$tplIdx, 55 ,30 ,$leadObj->business_responsible_details_address);
-        $this->writeToPdf($pdf,$tplIdx, 55 ,55 ,$leadObj->business_responsible_details_phone);
-
-        $this->writeToPdf($pdf,$tplIdx, 55 ,80 ,$leadObj->adviser_detail_name);
-        $leadObj->adviser_detail_address = explode("\n", $leadObj->adviser_detail_address);
-        $leadObj->adviser_detail_address = implode(",", $leadObj->adviser_detail_address);
-        $this->writeToPdf($pdf,$tplIdx, 55 , 87 ,$leadObj->adviser_detail_address);
-        $this->writeToPdf($pdf,$tplIdx, 55 , 110 ,$leadObj->adviser_detail_phone);
-
-        $this->writeToPdf($pdf,$tplIdx, 55 , 133 ,$leadObj->kind_of_service_complain);
-        $this->writeToPdf($pdf,$tplIdx, 105 , 145 ,$leadObj->kind_of_service_complain_reference . 'reference');
-
-        $this->writeToPdf($pdf,$tplIdx, 23 ,180 ,$leadObj->complaint_whole_details);
-
-        $when_trasaction_happen_day = date("d",strtotime($leadObj->when_trasaction_happen));
-        $when_trasaction_happen_day = sprintf("%02d", $when_trasaction_happen_day);
-        $this->writeToPdf($pdf,$tplIdx, 160 ,265 ,$when_trasaction_happen_day);
-
-        $when_trasaction_happen_month = date("m",strtotime($leadObj->when_trasaction_happen));
-        $when_trasaction_happen_month = sprintf("%02d", $when_trasaction_happen_month);
-        $this->writeToPdf($pdf,$tplIdx, 175 ,265 ,$when_trasaction_happen_month);
-
-        $when_trasaction_happen_year = date("Y",strtotime($leadObj->when_trasaction_happen));
-        $this->writeToPdf($pdf,$tplIdx, 188 ,265 ,$when_trasaction_happen_year);
-
-        // /*first complain*/
-        $when_first_complain_business_day = date("d",strtotime($leadObj->when_first_complain_business));
-        $when_first_complain_business_day = sprintf("%02d", $when_first_complain_business_day);
-        $this->writeToPdf($pdf,$tplIdx, 160 ,273 ,$when_first_complain_business_day);
-
-        $when_first_complain_business_month = date("m",strtotime($leadObj->when_first_complain_business));
-        $when_first_complain_business_month = sprintf("%02d", $when_first_complain_business_month);
-        $this->writeToPdf($pdf,$tplIdx, 175 ,273 ,$when_first_complain_business_month);
-
-        $when_first_complain_business_year = date("Y",strtotime($leadObj->when_first_complain_business));
-        $this->writeToPdf($pdf,$tplIdx, 188 ,273 ,$when_first_complain_business_year);
-
-        // /*page 18*/
-        $pdf->addPage();
-        $tplIdx = $pdf->importPage(18);
-        $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(20, 20);
-        // has_business_complaining_sent_letter
-        // $has_business_complaining_sent_letter_coor_x = 178;
-        // $has_business_complaining_sent_letter_coor_y = 21.5;
-        // if ($leadObj->has_business_complaining_sent_letter === 'No') {
-        //     $has_court_action_to_complain_x = 192;
-        // }
-        // $this->writeToPdf($pdf,$tplIdx, $has_business_complaining_sent_letter_coor_x ,$has_business_complaining_sent_letter_coor_y ,'x');
-
-        // $has_court_action_to_complain_x = 178;
-        // $has_court_action_to_complain_y = 33;
-        // if ($leadObj->has_court_action_to_complain === 'No') {
-        //     $has_court_action_to_complain_x = 192;
-        // }
-        // $this->writeToPdf($pdf,$tplIdx, $has_court_action_to_complain_x ,$has_court_action_to_complain_y ,'x');
-
-        $this->writeToPdf($pdf,$tplIdx, 15 , 55 ,$leadObj->settlement_with_business_details . ' test ');
-
-        // $is_ineed_of_practical_help_details_x = 178;
-        // $is_ineed_of_practical_help_details_y = 82.5;
-        // if ($leadObj->is_ineed_of_practical_help_details === 'No') {
-        //     $is_ineed_of_practical_help_details_x = 192;
-        // }
-        // $this->writeToPdf($pdf,$tplIdx, $is_ineed_of_practical_help_details_x ,$is_ineed_of_practical_help_details_y ,'x');
-        // is_ineed_of_practical_help_details
-
-        /*signature*/
-        $pdf->Image($leadObj->client_signature_image, 20, 180, 100,18);
-        /*date*/
-        $this->writeToPdf($pdf,$tplIdx, 85 ,190 ,date("d-m-Y"));
-
-
-        $final_tick_checklist_arr = explode(",", $leadObj->final_tick_checklist);
-
-        foreach ($final_tick_checklist_arr as $key => $value) {
-            switch ($value) {
-                case "enclosed a copy of the business’s last letter to you.":
-                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,231.5 ,'x');
-                    break;
-                case "enclosed copies of other relevant information.":
-                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,237 ,'x');
-                    break;
-                case "included everything you want to tell us about your complaint.":
-                    $this->writeToPdf($pdf,$tplIdx, 86.8 ,243 ,'x');
-                    break;
-                default:
-                    break;
-            }
-        }
-
 
         if (isset($this->destinationFile)) {
             $pdf->Output($this->destinationFile ,"F");

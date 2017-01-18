@@ -74,15 +74,38 @@ class SignatureController extends \yii\web\Controller
             if ($requestedLead->load(\Yii::$app->request->post())) {
                 $clientSignaturePpiLeadEventListener = new ClientSignaturePpiLead();
                 $clientSignaturePpiLeadEventListener->esignPdfFactory = new PPIPdfFactory();
-                $requestedLead->on(PPILead::SIGNATURE_FINAL_STEP, [$clientSignaturePpiLeadEventListener, 'handle'],$requestedLead);
+
+                // $requestedLead->on(PPILead::SIGNATURE_FINAL_STEP, [$clientSignaturePpiLeadEventListener, 'handle'],$requestedLead);
 
                 $requestedLead->saveClientSignature();
+                if (isset($requestedLead->date_of_birth)) {
+                    $requestedLead->date_of_birth = date("Y-m-d",strtotime($requestedLead->date_of_birth));
+                }
 
+                if (isset($requestedLead->reason_of_borrowing)) {
+                    $requestedLead->reason_of_borrowing = implode(",", $requestedLead->reason_of_borrowing);
+                }
+                if (isset($requestedLead->bought_cover_with_ppi_insurance)) {
+                    $requestedLead->bought_cover_with_ppi_insurance = implode(",", $requestedLead->bought_cover_with_ppi_insurance);
+                }
+
+
+                $borrowed_money_to_payoff_debt_details_temp_container = json_encode( \Yii::$app->request->post('borrowed_money_to_payoff_debt_details') );
+                $requestedLead->borrowed_money_to_payoff_debt_details = $borrowed_money_to_payoff_debt_details_temp_container;
                 if ($requestedLead->save()) {
                     \Yii::$app->session->setFlash('success', "Success!");
                     $requestedLead->trigger(PPILead::SIGNATURE_FINAL_STEP);
                     return $this->redirect("/success");
                 }
+            }
+            if (isset($requestedLead->bought_cover_with_ppi_insurance)) {
+                $requestedLead->bought_cover_with_ppi_insurance = explode(",",$requestedLead->bought_cover_with_ppi_insurance);
+            }
+            if (isset($requestedLead->reason_of_borrowing)) {
+                $requestedLead->reason_of_borrowing = explode(",",$requestedLead->reason_of_borrowing);
+            }
+            if (isset($requestedLead->final_tick_checklist) && is_array($requestedLead->final_tick_checklist)) {
+                $requestedLead->final_tick_checklist = implode(",",$requestedLead->final_tick_checklist);
             }
             if ($requestedLead->account_start_date) {
                 $requestedLead->account_start_date = date("d-m-Y", strtotime($requestedLead->account_start_date));

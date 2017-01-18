@@ -13,6 +13,13 @@ use yii\db\BaseActiveRecord;
  * @property string $salutation
  * @property string $firstname
  * @property string $lastname
+ * @property string $prev_salutation
+ * @property string $prev_firstname
+ * @property string $prev_lastname
+ * @property string $partner_detail_title
+ * @property string $partner_detail_firstname
+ * @property string $partner_detail_lastname
+ * @property string $partner_detail_date_of_birth
  * @property string $account_start_date
  * @property string $account_end_date
  * @property string $finance_provider
@@ -43,12 +50,14 @@ use yii\db\BaseActiveRecord;
  * @property string $ever_missed_payments
  * @property string $ever_missed_payments_explanation
  * @property string $employment_status_during_ppi_payment_you
+ * @property string $employment_status_during_ppi_payment_you_hours_work
  * @property string $employment_status_during_ppi_payment_partner
+ * @property string $employment_status_during_ppi_payment_partner_hours_work
  * @property string $employment_status_change_details
  * @property string $type_of_work_ppi_you
  * @property string $type_of_work_ppi_partner
  * @property string $name_of_employer_you
- * @property string $name_of_employer_partner
+ * @property string $name_of_employer_partfner
  * @property string $how_long_been_working_years_you
  * @property string $how_long_been_working_months_you
  * @property string $how_long_been_working_years_partner
@@ -97,15 +106,39 @@ use yii\db\BaseActiveRecord;
  * @property string $address2
  * @property string $address3
  * @property string $address4
+ * @property string $address5
  * @property string $postcode
+ * @property string $prev_address1
+ * @property string $prev_address2
+ * @property string $prev_address3
+ * @property string $prev_address4  
+ * @property string $prev_address5
+ * @property string $prev_postcode
  * @property string $date_of_birth
  * @property string $account_provider
  * @property string $monthly_account_charge
+ * @property string $finance_start
+ * @property string $finance_end
+ * @property string $is_joint
+ * @property string $finance_status
+ * @property string $final_tick_checklist
  * @property string $created_at
  * @property string $updated_at
  */
 class PPILead extends \yii\db\ActiveRecord
 {
+
+    public $complaining_on_behalf_name = "Money Active Limited";
+    public $complaining_on_behalf_relationship = "Claims Handler";
+    public $complaining_on_behalf_daytime_phone = "01455 530 034";
+    public $complaining_on_behalf_email = "";
+    public $complaining_on_behalf_fax = "0845 358 2510";
+    public $complaining_on_behalf_ref = "n/a";
+    public $complaining_on_behalf_of_a_business_official_name = "";
+    public $complaining_on_behalf_of_a_business_num_employees = "";
+    public $complaining_on_behalf_of_a_business_num_partners = "";
+    public $complaining_on_behalf_of_a_business_annual_income = "";
+
     const EVENT_NEW_LEAD = 'EVENT_NEW_LEAD';
     const SIGNATURE_FINAL_STEP = 'EVENT_CLIENT_SIGNATURE';
 
@@ -122,12 +155,23 @@ class PPILead extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        $safeAttributes = [
+            'account_start_date',
+            'account_end_date',
+            'when_did_you_takeout_ppi',
+            'ppi_insurance_cancelled_situation_date',
+            'created_at',
+            'updated_at',
+            'date_of_birth',
+            'partner_detail_date_of_birth'
+        ];
+
         return [
-            [['firstname', 'lastname', 'email_address'], 'required'],
-            [['salutation', 'firstname', 'lastname', 'finance_provider', 'did_broker_arrange', 'broker_name', 'ppi_claim_type', 'daytime_phone', 'home_phone', 'mobile', 'email_address', 'financial_business_name', 'ppi_policy_number', 'ppi_cover_type', 'how_was_ppi_sold', 'did_financial_business_give_advice', 'ppi_payment_method', 'ppi_insurance_current_situation', 'had_a_claim_ppi_insurance', 'had_a_claim_ppi_insurance_details', 'bought_cover_with_ppi_insurance', 'account_number', 'reason_of_borrowing', 'borrowed_money_to_payoff_debt_details', 'ever_missed_payments', 'ever_missed_payments_explanation', 'employment_status_during_ppi_payment_you', 'employment_status_during_ppi_payment_partner', 'employment_status_change_details', 'type_of_work_ppi_you', 'type_of_work_ppi_partner', 'name_of_employer_you', 'name_of_employer_partner', 'how_long_been_working_years_you', 'how_long_been_working_months_you', 'how_long_been_working_years_partner', 'how_long_been_working_months_partner', 'would_you_still_receive_payment', 'would_you_still_receive_payment_details', 'would_partner_still_receive_payment', 'would_partner_still_receive_payment_details', 'other_way_of_making_money_for_repayments_you', 'other_way_of_making_money_for_repayments_you_details', 'other_way_of_making_money_for_repayments_partner', 'has_health_problems_you', 'has_health_problems_you_details', 'has_health_problems_partner', 'what_happen_tookout_payment_protection', 'reason_of_unhappiness_with_insurance', 'complaining_on_behalf_name', 'complaining_on_behalf_relationship', 'complaining_on_behalf_daytime_phone', 'complaining_on_behalf_email', 'complaining_on_behalf_fax', 'complaining_on_behalf_ref', 'complaining_on_behalf_of_a_business_official_name', 'company_details_responsible_on_complaint_name', 'company_details_responsible_on_complaint_address', 'company_details_responsible_on_complaint_phone', 'adviser_who_sold_product_name', 'adviser_who_sold_product_address', 'adviser_who_sold_product_phone_number', 'kind_of_service_complained', 'kind_of_service_complained_reference_number', 'full_complain_details', 'when_did_transaction_take_place', 'first_complain_took_place', 'did_company_sent_message', 'any_court_action', 'settlement_details', 'has_accessibility_problem', 'client_signature_image','pdf_template','security_key','address1','address2','address3','address4','postcode','account_provider'], 'string'],
-            [['account_start_date', 'account_end_date', 'when_did_you_takeout_ppi', 'ppi_insurance_cancelled_situation_date', 'created_at', 'updated_at','date_of_birth'], 'safe'],
+            [['salutation','firstname','lastname', 'email_address','address1','address2','address3','address4','address5','postcode','finance_provider','home_phone','mobile','email_address','date_of_birth','did_broker_arrange','ppi_claim_type'], 'required'],
+            [['prev_salutation','prev_firstname', 'prev_lastname','salutation', 'firstname', 'lastname', 'finance_provider', 'did_broker_arrange', 'broker_name', 'ppi_claim_type', 'daytime_phone', 'home_phone', 'mobile', 'email_address', 'financial_business_name', 'ppi_policy_number', 'ppi_cover_type', 'how_was_ppi_sold', 'did_financial_business_give_advice', 'ppi_payment_method', 'ppi_insurance_current_situation', 'had_a_claim_ppi_insurance', 'had_a_claim_ppi_insurance_details', 'bought_cover_with_ppi_insurance', 'account_number', 'reason_of_borrowing', 'borrowed_money_to_payoff_debt_details', 'ever_missed_payments', 'ever_missed_payments_explanation', 'employment_status_during_ppi_payment_you', 'employment_status_during_ppi_payment_partner', 'employment_status_change_details', 'type_of_work_ppi_you', 'type_of_work_ppi_partner', 'name_of_employer_you', 'name_of_employer_partner', 'how_long_been_working_years_you', 'how_long_been_working_months_you', 'how_long_been_working_years_partner', 'how_long_been_working_months_partner', 'would_you_still_receive_payment', 'would_you_still_receive_payment_details', 'would_partner_still_receive_payment', 'would_partner_still_receive_payment_details', 'other_way_of_making_money_for_repayments_you', 'other_way_of_making_money_for_repayments_you_details', 'other_way_of_making_money_for_repayments_partner', 'has_health_problems_you', 'has_health_problems_you_details', 'has_health_problems_partner', 'what_happen_tookout_payment_protection', 'reason_of_unhappiness_with_insurance', 'complaining_on_behalf_name', 'complaining_on_behalf_relationship', 'complaining_on_behalf_daytime_phone', 'complaining_on_behalf_email', 'complaining_on_behalf_fax', 'complaining_on_behalf_ref', 'complaining_on_behalf_of_a_business_official_name', 'company_details_responsible_on_complaint_name', 'company_details_responsible_on_complaint_address', 'company_details_responsible_on_complaint_phone', 'adviser_who_sold_product_name', 'adviser_who_sold_product_address', 'adviser_who_sold_product_phone_number', 'kind_of_service_complained', 'kind_of_service_complained_reference_number', 'full_complain_details', 'when_did_transaction_take_place', 'first_complain_took_place', 'did_company_sent_message', 'any_court_action', 'settlement_details', 'has_accessibility_problem', 'client_signature_image','pdf_template','security_key','address1','address2','address3','address4','address5','postcode','account_provider','prev_address1', 'prev_address2', 'prev_address3', 'prev_address4', 'prev_address5', 'prev_postcode','finance_start','finance_end','prev_salutation', 'prev_firstname', 'prev_lastname','finance_status','partner_detail_title','partner_detail_firstname','partner_detail_lastname','employment_status_during_ppi_payment_you_hours_work','employment_status_during_ppi_payment_partner_hours_work','final_tick_checklist'], 'string'],
+            [$safeAttributes, 'safe'],
             [['amount_ppi', 'complaining_on_behalf_of_a_business_annual_income','monthly_account_charge'], 'number'],
-            [['can_remember_date_of_ppi_takeout', 'complaining_on_behalf_of_a_business_num_employees', 'complaining_on_behalf_of_a_business_num_partners'], 'integer'],
+            [['can_remember_date_of_ppi_takeout', 'complaining_on_behalf_of_a_business_num_employees', 'complaining_on_behalf_of_a_business_num_partners','is_joint'], 'integer'],
         ];
     }
 
@@ -141,6 +185,9 @@ class PPILead extends \yii\db\ActiveRecord
             'salutation' => 'Salutation',
             'firstname' => 'Firstname',
             'lastname' => 'Lastname',
+            'prev_salutation' => 'Salutation',
+            'prev_firstname' => 'Firstname',
+            'prev_lastname' => 'Lastname',
             'account_start_date' => 'Account Start Date',
             'account_end_date' => 'Account End Date',
             'finance_provider' => 'Finance Provider',
@@ -166,12 +213,14 @@ class PPILead extends \yii\db\ActiveRecord
             'had_a_claim_ppi_insurance_details' => 'Had A Claim Ppi Insurance Details',
             'bought_cover_with_ppi_insurance' => 'Bought Cover With Ppi Insurance',
             'account_number' => 'Account Number',
-            'reason_of_borrowing' => 'Reason Of Borrowing',
+            'reason_of_borrowing' => 'Reason for borrowing',
             'borrowed_money_to_payoff_debt_details' => 'Borrowed Money To Payoff Debt Details',
             'ever_missed_payments' => 'Ever Missed Payments',
             'ever_missed_payments_explanation' => 'Ever Missed Payments Explanation',
             'employment_status_during_ppi_payment_you' => 'Employment Status During Ppi Payment You',
             'employment_status_during_ppi_payment_partner' => 'Employment Status During Ppi Payment Partner',
+            'employment_status_during_ppi_payment_you_hours_work' => 'Hours each week(You)',
+            'employment_status_during_ppi_payment_partner_hours_work' => 'Hours each week(Partner)',
             'employment_status_change_details' => 'Employment Status Change Details',
             'type_of_work_ppi_you' => 'Type Of Work Ppi You',
             'type_of_work_ppi_partner' => 'Type Of Work Ppi Partner',
@@ -221,6 +270,22 @@ class PPILead extends \yii\db\ActiveRecord
             'client_signature_image' => 'Client Signature Image',
             'pdf_template' => 'PDF Template',
             'security_key' => 'Reference Number',
+            'address1' => 'House Number/Name',
+            'address2' => 'Street Name',
+            'address3' => 'Locality',
+            'address4' => 'City/Town',
+            'address5' => 'County',
+            'postcode' => 'Postal Code',
+            'prev_address1' => 'House Number/Name',
+            'prev_address2' => 'Street Name',
+            'prev_address3' => 'Locality',
+            'prev_address4' => 'City/Town',
+            'prev_address5' => 'County',
+            'prev_postcode' => 'Postal Code',
+            'partner_detail_title' => 'Title',
+            'partner_detail_firstname' => 'Firstname',
+            'partner_detail_lastname' => 'Lastname',
+            'partner_detail_date_of_birth' => 'Date of birth',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -231,6 +296,7 @@ class PPILead extends \yii\db\ActiveRecord
         if ($this->isNewRecord) {
             $this->security_key = uniqid();
         }
+
         return parent::beforeSave($insert);
     }
 

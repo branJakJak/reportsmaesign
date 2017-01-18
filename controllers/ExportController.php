@@ -33,7 +33,7 @@ class ExportController extends \yii\web\Controller
         ];
     }
 
-    public function actionIndex($securityKey)
+    public function actionPba($securityKey)
     {
         /**
          * @var $leadObj LeadEsign
@@ -41,24 +41,24 @@ class ExportController extends \yii\web\Controller
         class_exists('TCPDF', true);
         $leadObj = LeadEsign::find()->where(['security_key' => $securityKey])->one();
 
-        // $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/PBA Form.pdf");
-        // $pdfEsign = new PbaFormPdfEsign();
-        // $pdfEsign->setTemplate($pdfTemplte);
-        // $pdfEsign->setLeadObject($leadObj);
-        // $pdfEsign->export();
-        if (isset($_GET['test'])) {
-            $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/" . $leadObj->pdf_template . ".pdf");
-            $pdfEsign = new PbaFormPdfEsign();
-            $pdfEsign->setTemplate($pdfTemplte);
-            $pdfEsign->setLeadObject($leadObj);
-            $pdfEsign->export();
-        } else {
-            $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/PPI Affiliate Form.pdf");
-            $pdfEsign = new PPIAffiliatePdfEsign();
-            $pdfEsign->setTemplate($pdfTemplte);
-            $pdfEsign->setLeadObject($leadObj);
-            $pdfEsign->export();
-        }
+        $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/PBA Form.pdf");
+        $pdfEsign = new PbaFormPdfEsign();
+        $pdfEsign->setTemplate($pdfTemplte);
+        $pdfEsign->setLeadObject($leadObj);
+        $pdfEsign->export();
+        // if (isset($_GET['test'])) {
+        //     $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/" . $leadObj->pdf_template . ".pdf");
+        //     $pdfEsign = new PbaFormPdfEsign();
+        //     $pdfEsign->setTemplate($pdfTemplte);
+        //     $pdfEsign->setLeadObject($leadObj);
+        //     $pdfEsign->export();
+        // } else {
+        //     $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/PPI Affiliate Form.pdf");
+        //     $pdfEsign = new PPIAffiliatePdfEsign();
+        //     $pdfEsign->setTemplate($pdfTemplte);
+        //     $pdfEsign->setLeadObject($leadObj);
+        //     $pdfEsign->export();
+        // }
         Yii::$app->end();
     }
 

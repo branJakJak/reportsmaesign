@@ -162,10 +162,11 @@ class PbaFormPdfEsign extends PdfEsign{
         $this->writeToPdf($pdf,$tplIdx , 38 , 208 ,$leadObj->lastname);
         $this->writeToPdf($pdf,$tplIdx , 38 , 220 ,$leadObj->firstname);
         $this->writeToPdf($pdf,$tplIdx , 38 , 230 , $leadObj->postcode);
-        $dateArr = explode("/", $leadObj->date_of_birth);
-        $year= $dateArr[2];
+
+        $dateArr = explode("-", $leadObj->date_of_birth);
+        $year= $dateArr[0];
         $month= $dateArr[1];
-        $date= $dateArr[0];
+        $date= $dateArr[2];
         /*date*/
 
         $this->writeToPdf($pdf,$tplIdx , 39 , 245 , sprintf("%01d", $date[0]));

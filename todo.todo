@@ -26,3 +26,34 @@ http://localhost:8080/signature/ppi/5874f0d425f2b
 
 
 
+
+
+@TODO 
+http://esign.site8.co/api/v1/pba/non-affiliate
+will use the original PBA Form
+@DONE
+
+@TODO 
+http://esign.site8.co/api/v1/pba/affiliate
+will use the PBA Affiliate Form
+@DONE
+
+@TODO 
+http://esign.site8.co/api/v1/ppi/affiliate
+will use the PPI Affiliate Form
+@DONE
+
+@TODO 
+http://esign.site8.co/api/v1/ppi/non-affiliate
+will use the PPI Form
+@DONE
+
+
+
+http://localhost:8080/signature/ppi/5874f0d425f2b
+@TODO - 
+
+
+@TODO - when testing send to this email
+leightxn@gmail.com 
+seomaderight@gmail.com
