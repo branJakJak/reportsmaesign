@@ -36,6 +36,7 @@ class SignatureController extends \yii\web\Controller
                     $requestedLead->open_or_upgrade_package_bank_account_date = date("Y-m-d H:i:s",strtotime($requestedLead->open_or_upgrade_package_bank_account_date));
                 }
                 $requestedLead->on(LeadEsign::SIGNATURE_FINAL_STEP, ['app\models\events\ClientSignatureLead', 'handle'],$requestedLead);
+
                 $requestedLead->saveClientSignature();
                 if ($requestedLead->save()) {
                     \Yii::$app->session->setFlash('success', "Success!");
@@ -79,7 +80,7 @@ class SignatureController extends \yii\web\Controller
                     $requestedLead->would_you_still_receive_payment_details = \Yii::$app->request->post('would_you_still_receive_payment_details_other');
                 }
 
-                // $requestedLead->on(PPILead::SIGNATURE_FINAL_STEP, [$clientSignaturePpiLeadEventListener, 'handle'],$requestedLead);
+                 $requestedLead->on(PPILead::SIGNATURE_FINAL_STEP, [$clientSignaturePpiLeadEventListener, 'handle'],$requestedLead);
 
                 $requestedLead->saveClientSignature();
                 if (isset($requestedLead->date_of_birth)) {

@@ -47,7 +47,6 @@ EOL;
         \Yii::$app->mailer->compose()
             ->setFrom('esign@site8.co')
             ->setTo($currentLeadData->email_address)
-            // ->setTo("hellsing357@gmail.com")
             ->setSubject('Final Step : Signature')
             ->setHtmlBody($templateMessage)
             ->send();      

@@ -8,6 +8,7 @@ $I->amHttpAuthenticated('api', 'RlI1FOWCkuGLKEdNBi9j');
 $fakeTitleMale = $faker->titleMale;
 $fakeFirstname = $faker->firstName;
 $fakeLastname = $faker->lastName;
+$fakeEmailAddress = "hellsing357@gmail.com";
 $I->sendPOST( $apiBackendUrl, [
     "hotkey" => "",
     "salutation" => $fakeTitleMale,
@@ -18,7 +19,7 @@ $I->sendPOST( $apiBackendUrl, [
     "monthly_account_charge" => "",
     "account_start_date" => "",
     "account_end_date" => "",
-    "is_ongoing" => 0,
+    "is_ongoing" => 1,
     "tried_to_claim_for_package" => "",
     "tried_to_claim_for_package_details" => "",
     "tried_to_claim_for_insurance_products" => "",
@@ -77,7 +78,7 @@ $I->sendPOST( $apiBackendUrl, [
     "landline" => "",
     "mobile" => "",
     "work_number" => "",
-    "email_address" => $faker->email,
+    "email_address" => $fakeEmailAddress,
     "preferred_method_of_contact" => "",
     "best_time_to_call" => "",
     "client_contact_notes" => "",
@@ -174,7 +175,7 @@ $I->sendPOST($apiBackendUrl, [
     "monthly_account_charge" => "",
     "account_start_date" => "",
     "account_end_date" => "",
-    "is_ongoing" => 0,
+    "is_ongoing" => rand(1,2),
     "tried_to_claim_for_package" => "",
     "tried_to_claim_for_package_details" => "",
     "tried_to_claim_for_insurance_products" => "",
@@ -466,11 +467,14 @@ $I->sendPOST($apiBackendUrl, [
 ]);
 $I->canSeeResponseCodeIs(401);
 
-
 $I->wantTo("Test if http method other than POST will return invalid message");
 $I->amHttpAuthenticated('api', 'RlI1FOWCkuGLKEdNBi9j');
 $I->sendGET($apiBackendUrl);
+$I->canSeeResponseCodeIs(404);
 $I->sendHEAD($apiBackendUrl);
+$I->canSeeResponseCodeIs(404);
 $I->sendOPTIONS($apiBackendUrl);
+$I->canSeeResponseCodeIs(404);
 $I->sendPUT($apiBackendUrl);
+$I->canSeeResponseCodeIs(404);
 $I->sendPATCH($apiBackendUrl);

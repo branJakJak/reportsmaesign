@@ -2,11 +2,9 @@
 
 namespace app\modules\api\controllers;
 
-
-
+use app\models\events\NewLeadEventHandler;
 use app\models\LeadEsign;
 use app\modules\api\LeadBaseInterface;
-use yii\console\Exception;
 use yii\helpers\Json;
 
 class PbaController extends LeadBaseController implements LeadBaseInterface {
@@ -20,9 +18,12 @@ class PbaController extends LeadBaseController implements LeadBaseInterface {
             $postedData['LeadEsign'] = \Yii::$app->request->post();
             if ($pbaLead->load(['LeadEsign' => \Yii::$app->request->post()]) && $pbaLead->validate()) {
                 $pbaLead->pdf_template = 'Original';
-                $pbaLead->save();
-                \Yii::$app->response->statusCode = 201;
-                $message = $pbaLead;
+                $pbaLead->on(LeadEsign::LEAD_ESIGN_NEW_LEAD, [NewLeadEventHandler::className(), 'handle'],$pbaLead);
+                if($pbaLead->save()){
+                    $pbaLead->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);
+                    \Yii::$app->response->statusCode = 201;
+                    $message = $pbaLead;
+                }
             }else{
                 \Yii::$app->response->statusCode = 400;
                 $message = $pbaLead->getErrors();
@@ -46,9 +47,12 @@ class PbaController extends LeadBaseController implements LeadBaseInterface {
             $postedData['LeadEsign'] = \Yii::$app->request->post();
             if ($pbaLead->load(['LeadEsign' => \Yii::$app->request->post()]) && $pbaLead->validate()) {
                 $pbaLead->pdf_template = 'PBA Affiliate Form';
-                $pbaLead->save();
-                \Yii::$app->response->statusCode = 201;
-                $message = $pbaLead;
+                $pbaLead->on(LeadEsign::LEAD_ESIGN_NEW_LEAD, [NewLeadEventHandler::className(), 'handle'],$pbaLead);
+                if($pbaLead->save()){
+                    $pbaLead->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);
+                    \Yii::$app->response->statusCode = 201;
+                    $message = $pbaLead;
+                }
             }else{
                 \Yii::$app->response->statusCode = 400;
                 $message = $pbaLead->getErrors();

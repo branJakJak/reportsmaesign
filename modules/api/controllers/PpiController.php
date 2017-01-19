@@ -32,7 +32,7 @@ class PpiController extends LeadBaseController implements LeadBaseInterface{
                 $ppiLead->save();
                 $eventArgs = new Event();
                 $eventArgs->data = $ppiLead;
-                // $ppiLead->trigger(PPILead::EVENT_NEW_LEAD,$eventArgs);
+                $ppiLead->trigger(PPILead::EVENT_NEW_LEAD,$eventArgs);
                 \Yii::$app->response->statusCode = 201;
                 $message = $ppiLead;
             }else{
