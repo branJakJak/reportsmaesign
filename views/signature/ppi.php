@@ -71,6 +71,10 @@ $customCss = <<< SCRIPT
     .section-g-tick label {
         display: block;
     }
+    h1.panel-title{
+        font-size: 30px !important;
+        font-weight: bolder;
+    }
 
 SCRIPT;
 $this->registerCss($customCss);
@@ -261,7 +265,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Please fix the following error(s)</h3>
+                                <h1 class="panel-title">Please fix the following error(s)</h1>
                             </div>
                             <div class="panel-body">
                                 <?= Html::errorSummary($model); ?>
@@ -275,7 +279,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Finance Details</h3>
+                                <h1 class="panel-title">Finance Details</h1>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -288,7 +292,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                     <div class="col-lg-8">
                                         <?= 
                                         $form
-                                        ->field($model, 'is_joint')
+                                        ->field($model, 'account_number')
                                         ->label("");
                                         ?>
                                     </div>
@@ -432,7 +436,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Bank Details</h3>
+                                <h1 class="panel-title">Bank Details</h1>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -544,7 +548,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Disclaimer</h3>
+                                <h1 class="panel-title">Disclaimer</h1>
                             </div>
                             <div class="panel-body">
 
@@ -741,7 +745,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">To whom it may concern:</h3>
+                                <h1 class="panel-title">To whom it may concern:</h1>
                             </div>
                             <div class="panel-body">
                                 <p>
@@ -790,7 +794,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Payment Protection Insurance: consumer questionnaire</h3>
+                                <h1 class="panel-title">Payment Protection Insurance: consumer questionnaire</h1>
                             </div>
                             <div class="panel-body">
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -863,9 +867,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    <h1>section A: about you</h1>
-                                </h3>
+                                <h1 class="panel-title">section A: about you</h1>
                             </div>
                             <div class="panel-body">
                                 <h3> A.1 Your name and contact details</h3>
@@ -1057,6 +1059,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                     </div>
                                 </div>
                                 <br>
+                                <br>
                                 <h3>
                                     A.2 if someone is complaining on your behalf (eg a relative or claims manager) please give us their details                                    
                                 </h3>
@@ -1122,7 +1125,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Section B: about the sale of the insurance</h3>
+                                <h1 class="panel-title">Section B: about the sale of the insurance</h1>
                             </div>
                             <div class="panel-body">
                                 <h3>B.1 when did you take out this payment protection insurance?</h3>
@@ -1146,7 +1149,10 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                 <h3>B.2 did the payment protection insurance provide single cover (to cover just you) or joint cover (to cover you and your partner)?</h3>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <?= $form->field($model, 'ppi_claim_type')->radioList(['single'=>'single','joint'=>'joint'])->label(""); ?>
+                                        <?= $form->field($model, 'is_joint')->radioList([
+                                            1=>'single',
+                                            2=>'joint'
+                                        ])->label(""); ?>
                                     </div>
                                 </div>
                                 <h3>B.3 how was this insurance sold to you?</h3>
@@ -1211,7 +1217,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">   
                                         <?= $form->field($model, 'had_a_claim_ppi_insurance')->radioList(['Yes'=>'Yes','No'=>'No'], [])->label(''); ?>
-                                        <?= $form->field($model, 'had_a_claim_ppi_insurance_details')->textarea(['style' => 'margin-top: 0px; margin-bottom: 0px; height: 212px;'])->label(' If “yes”, tell us below why you claimed on the policy (for example, you were made unemployed) and the date of your claim. Also tell us if the insurer turned down your claim. <br> Please enclose copies of any paperwork you received from the insurer about this claim.'); ?>
+                                        <?= $form->field($model, 'had_a_claim_ppi_insurance_details')->textarea(['style' => 'margin-top: 0px; margin-bottom: 0px; height: 212px;'])->label(' If “yes”, tell us below why you claimed on the policy (for example, you were made unemployed) and the date of your claim. Also tell us if the insurer turned down your claim. <br><br><br> Please enclose copies of any paperwork you received from the insurer about this claim.'); ?>
                                     </div>
                                 </div>
                             </div>
@@ -1222,7 +1228,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Section C: about the money you borrowed</h3>
+                                <h1 class="panel-title">Section C: about the money you borrowed</h1>
                             </div>
                             <div class="panel-body">
                                 <h3>C.1 what did you buy the payment protection insurance to cover?</h3>
@@ -1273,23 +1279,29 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php 
+                                                    $borrowed_money_to_payoff_debt_details_temp_container = json_decode($model->borrowed_money_to_payoff_debt_details , true);
+
+                                                ?>
+                                                <?php foreach (range(0, 2) as $key => $value): ?>
                                                 <tr>
-                                                    <td><?= Html::textInput('borrowed_money_to_payoff_debt_details[company_debt_with[]',null,['class'=>'form-control']); ?></td>
+                                                    <td><?= Html::textInput('borrowed_money_to_payoff_debt_details[company_debt_with][]',@$borrowed_money_to_payoff_debt_details_temp_container['company_debt_with'][$key],['class'=>'form-control']); ?></td>
                                                     <td>
-                                                        <?= Html::dropDownList('borrowed_money_to_payoff_debt_details[is_credit_loan][]', null, ['credit'=>'credit','loan'=>'loan'] , ['class'=>'form-control']); ?>    
+                                                        <?= Html::dropDownList('borrowed_money_to_payoff_debt_details[is_credit_loan][]', @$borrowed_money_to_payoff_debt_details_temp_container['is_credit_loan'][$key], ['credit'=>'credit','loan'=>'loan'] , ['class'=>'form-control','prompt'=>'Select type']); ?>    
                                                     </td>
                                                     <td>
                                                        <div class="input-group col-lg-12 ">
                                                           <span class="input-group-addon" style="padding-bottom: 3px;padding-top: 3px;font-size: 13px">
                                                             &pound;
                                                           </span>
-                                                         <?= Html::textInput('borrowed_money_to_payoff_debt_details[how_much_owe][]',null,['class'=>'form-control']); ?>
+                                                         <?= Html::textInput('borrowed_money_to_payoff_debt_details[how_much_owe][]',@$borrowed_money_to_payoff_debt_details_temp_container['how_much_owe'][$key],['class'=>'form-control']); ?>
                                                        </div>
                                                     </td>
                                                     <td>
                                                         <?= 
                                                             DatePicker::widget([
                                                                 'name'  => 'borrowed_money_to_payoff_debt_details[when_borrowed][]',
+                                                                'value' => @$borrowed_money_to_payoff_debt_details_temp_container['when_borrowed'][$key],
                                                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                                                 'pluginOptions'=>[
                                                                     'autoclose'=>true,
@@ -1302,6 +1314,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                                         <?= 
                                                             DatePicker::widget([
                                                                 'name'  => 'borrowed_money_to_payoff_debt_details[when_paid][]',
+                                                                'value' => @$borrowed_money_to_payoff_debt_details_temp_container['when_paid'][$key],                                                                
                                                                 'type' => DatePicker::TYPE_COMPONENT_PREPEND,
                                                                 'pluginOptions'=>[
                                                                     'autoclose'=>true,
@@ -1311,158 +1324,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                                         ?>                                                        
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td><?= Html::textInput('borrowed_money_to_payoff_debt_details[company_debt_with[]',null,['class'=>'form-control']); ?></td>
-                                                    <td>
-                                                        <?= Html::dropDownList('borrowed_money_to_payoff_debt_details[is_credit_loan][]', null, ['credit'=>'credit','loan'=>'loan'] , ['class'=>'form-control']); ?>    
-                                                    </td>
-                                                    <td>
-                                                       <div class="input-group col-lg-12 ">
-                                                          <span class="input-group-addon" style="padding-bottom: 3px;padding-top: 3px;font-size: 13px">
-                                                            &pound;
-                                                          </span>
-                                                         <?= Html::textInput('borrowed_money_to_payoff_debt_details[how_much_owe][]',null,['class'=>'form-control']); ?>
-                                                       </div>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_borrowed][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_paid][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>                                                        
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><?= Html::textInput('borrowed_money_to_payoff_debt_details[company_debt_with[]',null,['class'=>'form-control']); ?></td>
-                                                    <td>
-                                                        <?= Html::dropDownList('borrowed_money_to_payoff_debt_details[is_credit_loan][]', null, ['credit'=>'credit','loan'=>'loan'] , ['class'=>'form-control']); ?>    
-                                                    </td>
-                                                    <td>
-                                                       <div class="input-group col-lg-12 ">
-                                                          <span class="input-group-addon" style="padding-bottom: 3px;padding-top: 3px;font-size: 13px">
-                                                            &pound;
-                                                          </span>
-                                                         <?= Html::textInput('borrowed_money_to_payoff_debt_details[how_much_owe][]',null,['class'=>'form-control']); ?>
-                                                       </div>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_borrowed][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_paid][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>                                                        
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><?= Html::textInput('borrowed_money_to_payoff_debt_details[company_debt_with[]',null,['class'=>'form-control']); ?></td>
-                                                    <td>
-                                                        <?= Html::dropDownList('borrowed_money_to_payoff_debt_details[is_credit_loan][]', null, ['credit'=>'credit','loan'=>'loan'] , ['class'=>'form-control']); ?>    
-                                                    </td>
-                                                    <td>
-                                                       <div class="input-group col-lg-12 ">
-                                                          <span class="input-group-addon" style="padding-bottom: 3px;padding-top: 3px;font-size: 13px">
-                                                            &pound;
-                                                          </span>
-                                                         <?= Html::textInput('borrowed_money_to_payoff_debt_details[how_much_owe][]',null,['class'=>'form-control']); ?>
-                                                       </div>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_borrowed][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_paid][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>                                                        
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><?= Html::textInput('borrowed_money_to_payoff_debt_details[company_debt_with[]',null,['class'=>'form-control']); ?></td>
-                                                    <td>
-                                                        <?= Html::dropDownList('borrowed_money_to_payoff_debt_details[is_credit_loan][]', null, ['credit'=>'credit','loan'=>'loan'] , ['class'=>'form-control']); ?>    
-                                                    </td>
-                                                    <td>
-                                                       <div class="input-group col-lg-12 ">
-                                                          <span class="input-group-addon" style="padding-bottom: 3px;padding-top: 3px;font-size: 13px">
-                                                            &pound;
-                                                          </span>
-                                                         <?= Html::textInput('borrowed_money_to_payoff_debt_details[how_much_owe][]',null,['class'=>'form-control']); ?>
-                                                       </div>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_borrowed][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= 
-                                                            DatePicker::widget([
-                                                                'name'  => 'borrowed_money_to_payoff_debt_details[when_paid][]',
-                                                                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                                                                'pluginOptions'=>[
-                                                                    'autoclose'=>true,
-                                                                    'format' => 'dd-mm-yyyy'
-                                                                ]
-                                                            ]);
-                                                        ?>                                                        
-                                                    </td>
-                                                </tr>
+                                                <?php endforeach ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -1483,7 +1345,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Section D: about your personal circumstances</h3>
+                                <h1 class="panel-title">Section D: about your personal circumstances</h1>
                             </div>
                             <div class="panel-body">
                                 <h3>D.1 at the time you took out the payment protection insurance, what was your employment status (and your partner’s – if relevant)?</h3>
@@ -1495,14 +1357,14 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                             $form->field($model, 'employment_status_during_ppi_payment_you')->dropDownList([
                                                 'employed'=>'employed',
                                                 'self employed'=>'self employed',
-                                                'temporary / agency worker',
-                                                'not working',
-                                                'retired',
-                                                'director of own company',
-                                                'student in full-time or part-time education',
-                                                'working fewer than 16 hours',
-                                                'not known',
-                                                'other',
+                                                'temporary / agency worker'=>'temporary / agency worker',
+                                                'not working'=>'not working',
+                                                'retired'=>'retired',
+                                                'director of own company'=>'director of own company',
+                                                'student in full-time or part-time education'=>'student in full-time or part-time education',
+                                                'working fewer than 16 hours'=>'working fewer than 16 hours',
+                                                'not known'=>'not known',
+                                                'other'=>'other',
                                             ])
                                             ->label('')
                                             ->hint('If you were a student – but also had a job –');
@@ -1583,6 +1445,8 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                 <div class="row">
                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                         <strong>You</strong>
+                                        <br>
+                                        <br>
                                         <?= $form->field($model, 'would_you_still_receive_payment')->dropDownList([
                                             'Yes'=>'Yes',
                                             'No'=>'No',
@@ -1592,6 +1456,8 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                     </div>
                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                         <strong>Your Partner</strong>
+                                        <br>
+                                        <br>
                                         <?= $form->field($model, 'would_partner_still_receive_payment')->dropDownList([
                                             'Yes'=>'Yes',
                                             'No'=>'No',
@@ -1611,7 +1477,8 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                                 'other (please tell us more below)'=>'other (please tell us more below)'                                        
                                             ])->label('');
                                         ?>
-                                        <?= $form->field($model, 'would_you_still_receive_payment_details')->textarea()->label('If "Others" '); ?>
+                                        <label>If "Others"</label>
+                                        <?= Html::textarea('would_you_still_receive_payment_details_other', '', ['style' => "margin: 0px -1px 0px 0px; width: 1138px; height: 201px;"]); ?>
                                     </div>
                                 </div>
                                 <h3>D.6 if you hadn’t been able to work (because you were ill, in an accident or had been made redundant), would you have had any other way of making your repayments?</h3>
@@ -1674,7 +1541,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">section E: about your complaint</h3>
+                                <h1 class="panel-title">section E: about your complaint</h1>
                             </div>
                             <div class="panel-body">
                                 <!-- TODO -->
@@ -1716,9 +1583,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    Financial Ombudsman Service
-                                </h3>
+                                <h1 class="panel-title">Financial Ombudsman Service</h1>
                             </div>
                             <div class="panel-body">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">                                

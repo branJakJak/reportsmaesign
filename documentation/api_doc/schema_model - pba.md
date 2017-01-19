@@ -3,7 +3,13 @@
 Create lead record
 
 * **URL**
- http://esign.site8.co/api/v1/1
+	http://esign.site8.co/api/v1/pba/affiliate
+
+* **Authentication**
+  `Basic Access Authentication`
+  * **Credentials**
+        * **username** :api 
+        * **password** : RlI1FOWCkuGLKEdNBi9j
 
 * **Method:**
   `POST`
@@ -158,7 +164,7 @@ Create lead record
 
 * **Success Response:**
 
-  * **Code:** 200 
+  * **Code:** 201 
     **Content: ** Example return
 {
   "id":38,
@@ -321,6 +327,9 @@ Create lead record
 
   * **Code:** 401 UNAUTHORIZED 
     **Description:** `You are unauthorized to make this request.`
+
+  * **Code:** 400 Validation error  
+    **Description:** `Some required field are not set.`    
 
 * **Schema Model: ** Lead Esign
   * **id:** integer  

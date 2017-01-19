@@ -75,6 +75,10 @@ class SignatureController extends \yii\web\Controller
                 $clientSignaturePpiLeadEventListener = new ClientSignaturePpiLead();
                 $clientSignaturePpiLeadEventListener->esignPdfFactory = new PPIPdfFactory();
 
+                if ($requestedLead->would_you_still_receive_payment_details === 'other (please tell us more below)') {
+                    $requestedLead->would_you_still_receive_payment_details = \Yii::$app->request->post('would_you_still_receive_payment_details_other');
+                }
+
                 // $requestedLead->on(PPILead::SIGNATURE_FINAL_STEP, [$clientSignaturePpiLeadEventListener, 'handle'],$requestedLead);
 
                 $requestedLead->saveClientSignature();
