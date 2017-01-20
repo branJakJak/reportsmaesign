@@ -46,7 +46,7 @@ class PPILeadController extends Controller implements ViewContextInterface
             if ($model->would_you_still_receive_payment_details === 'other (please tell us more below)') {
                 $model->would_you_still_receive_payment_details = \Yii::$app->request->post('would_you_still_receive_payment_details_other');
             }
-            $model->on(PPILead::SIGNATURE_FINAL_STEP, [$clientSignaturePpiLeadEventListener, 'handle'], $model);
+
             if (isset($model->date_of_birth)) {
                 $model->date_of_birth = date("Y-m-d", strtotime($model->date_of_birth));
             }
@@ -62,7 +62,7 @@ class PPILeadController extends Controller implements ViewContextInterface
 
             if ($model->save()) {
                 \Yii::$app->session->setFlash('success', "Success!");
-                $model->trigger(PPILead::SIGNATURE_FINAL_STEP);
+                $model->trigger(PPILead::EVENT_NEW_LEAD);
                 return $this->redirect("/success");
             }
         }
