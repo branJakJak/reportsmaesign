@@ -40,6 +40,7 @@ class PPILeadController extends Controller implements ViewContextInterface
     public function actionForm()
     {
         $model = NewPpiLeadFactory::create();
+        $model->pdf_template = 'PPI Form';//defaults to PPI Form
         if ($model->load(Yii::$app->request->post())) {
             $clientSignaturePpiLeadEventListener = new ClientSignaturePpiLead();
             $clientSignaturePpiLeadEventListener->esignPdfFactory = new PPIPdfFactory();
