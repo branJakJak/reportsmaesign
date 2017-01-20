@@ -9,9 +9,8 @@
 namespace app\models\events;
 
 
-use app\components\PdfEsign;
+use app\components\PPiAffiliatePdf;
 use app\components\PPINonAffiliatePdfEsign;
-use app\components\PPIAffiliatePdf;
 use app\models\PPILead;
 use Yii;
 
