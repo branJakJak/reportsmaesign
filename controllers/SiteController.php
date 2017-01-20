@@ -75,8 +75,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new LeadEsign();
+        $model->pdf_template = 'Original';
         $model->on(LeadEsign::LEAD_ESIGN_NEW_LEAD, ['app\models\events\NewLeadEventHandler', 'handle'],$model);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', "New lead created. Reference id : ".$model->security_key);
             return $this->redirect("/");

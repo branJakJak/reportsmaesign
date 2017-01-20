@@ -24,9 +24,13 @@ $customCss = <<< SCRIPT
         border: 5px solid #808080;
         padding: 20px;
         margin: 20px;
-        min-width: 141px;
+        min-width: 250px;
         border-radius: 10px;
         cursor: pointer;
+
+    }
+    #leadesign-pdf_template > * {
+        font-size: 20px;
     }
 SCRIPT;
 $this->registerCss($customCss);
@@ -1916,8 +1920,8 @@ $this->registerCss($customCss);
                                             <?= 
                                                 $form->field($model, 'pdf_template')
                                                     ->radioList([
-                                                    'Original'=>"<br> PBA Non Affiliate (Original) <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i> ",
-                                                    'PBA Form'=>"<br> PBA Affiliate <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i>"
+                                                    'Original'=>"<br>Non Affiliate<br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i> ",
+                                                    'PBA Form'=>"<br>PBA Affiliate<br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i>"
                                                     ], 
                                                     ['encode'=>false])
                                                     ->label(""); 

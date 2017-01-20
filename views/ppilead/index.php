@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'salutation:ntext',
             'firstname:ntext',
             'lastname:ntext',
-            'account_start_date',
+            // 'account_start_date',
             // 'account_end_date',
             // 'finance_provider:ntext',
             // 'did_broker_arrange:ntext',
