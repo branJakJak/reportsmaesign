@@ -10,8 +10,8 @@ namespace app\models\events;
 
 
 use app\components\PdfEsign;
-use app\components\PPIAffiliatePdfEsign;
-use app\components\PPINonAffiliate;
+use app\components\PPINonAffiliatePdfEsign;
+use app\components\PPIAffiliatePdf;
 use app\models\PPILead;
 use Yii;
 
@@ -28,14 +28,16 @@ class PPIPdfFactory {
         $fileDestination = \Yii::getAlias("@app/data").'/'.sprintf("%s_%s_%s.pdf",$model->firstname,$model->lastname,$model->security_key);
         $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/".$model->pdf_template.".pdf");
         $pdfEsign = null;
+        
         if ($model->pdf_template === 'PPI Form') {
-            $pdfEsign = new PPINonAffiliate();
+            $pdfEsign = new PPINonAffiliatePdfEsign();
         } else if($model->pdf_template === 'PPI Affiliate Form') {
-            $pdfEsign = new PPIAffiliatePdfEsign();
+            $pdfEsign = new PPIAffiliatePdf();
         }
         $pdfEsign->setTemplate($pdfTemplte);
         $pdfEsign->setLeadObject($model);
         $pdfEsign->setDestinationFile($fileDestination);
+
         $pdfEsign->export();
         return $pdfEsign;
     }

@@ -1,10 +1,12 @@
 <?php
+/* @var $this yii\web\View */
+/* @var $model app\models\LeadEsign */
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\PPILead;
+use app\models\LeadEsign;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\LeadEsign */
 
 $this->title = "$model->firstname $model->lastname";
 $this->params['breadcrumbs'][] = ['label' => 'Lead Esigns', 'url' => ['index']];
@@ -35,8 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
-        <?= Html::a('Resend Link', ['/lead-esign/resend', 'id' => $model->id], ['class' => 'btn btn-default pull-right ','style'=>'margin: 0px 10px']) ?>
-        <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/export/'.$model->security_key], ['class' => 'btn btn-default pull-right']) ?>
+        <?= Html::a('Resend Link', ['/lead-esign/resend', 'id' => $model->id], ['class' => 'btn btn-default pull-right ','style'=>'margin: 0px 10px']); ?>
+        <?php if (LeadEsign::find()->where(['security_key'=>$model->security_key])->exists()): ?>
+            <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/export/pba/'.$model->security_key], ['class' => 'btn btn-default pull-right']) ?>
+        <?php endif ?>
+        <?php if (PPILead::find()->where(['security_key'=>$model->security_key])->exists()): ?>
+            <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/export/ppi/'.$model->security_key], ['class' => 'btn btn-default pull-right']) ?>
+        <?php endif ?>
+
     </p>
 
     <?= DetailView::widget([
@@ -136,6 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'appointment_time',
             'notes:ntext',
             'client_signature_image',
+            'pdf_template',
             'security_key',
             'created_at',
             'updated_at',

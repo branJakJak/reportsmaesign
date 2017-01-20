@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\LeadEsign;
+use app\models\PPILead;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PPILead */
@@ -23,6 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+
+        <?= Html::a('Resend Link', ['/lead-esign/resend', 'id' => $model->id], ['class' => 'btn btn-default pull-right ','style'=>'margin: 0px 10px']); ?>
+        <?php if (LeadEsign::find()->where(['security_key'=>$model->security_key])->exists()): ?>
+            <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/export/pba/'.$model->security_key], ['class' => 'btn btn-default pull-right']) ?>
+        <?php endif ?>
+        <?php if (PPILead::find()->where(['security_key'=>$model->security_key])->exists()): ?>
+            <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/export/ppi/'.$model->security_key], ['class' => 'btn btn-default pull-right']) ?>
+        <?php endif ?>
+
     </p>
 
     <?= DetailView::widget([

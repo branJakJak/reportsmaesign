@@ -58,7 +58,7 @@ class SiteController extends Controller
     }
     public function actionSuccess()
     {
-        
+        $this->layout = "customer";        
         return $this->render('success');
     }
     public function actionLead()

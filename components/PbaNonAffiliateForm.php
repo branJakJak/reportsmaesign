@@ -1,11 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 1/2/17
- * Time: 11:15 PM
- */
-
+<?php 
 namespace app\components;
 
 
@@ -13,7 +6,12 @@ use app\models\LeadEsign;
 use FPDI;
 use Yii;
 
-class PbaFormPdfEsign extends PdfEsign{
+
+/**
+* PbaNonAffiliateForm
+*/
+class PbaNonAffiliateForm extends PdfEsign
+{
 
     public function export()
     {
@@ -26,31 +24,31 @@ class PbaFormPdfEsign extends PdfEsign{
         $pdf->SetFont("Helvetica",'',8);
         $pdf->setSourceFile($this->pdfTemplate);
         $leadObj = $this->leadObject;
-//        $leadObj->date_of_birth = date("d/m/Y",strtotime($leadObj->date_of_birth));
+
 
         /*page 1*/
         $tplIdx = $pdf->importPage(1);
-        $this->writeToPdf($pdf,$tplIdx , 80 , 39 +5 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 110 , 39 +5 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 153 , 39 +5 ,$leadObj->lastname);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 80 +5 ,$leadObj->address1);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 86 +5 ,$leadObj->address2);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 93 +5 ,$leadObj->address3);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 100  +5,$leadObj->address4);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 113 +5 ,$leadObj->postcode);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 106 +5 ,"United Kingdom");
-        $this->writeToPdf($pdf,$tplIdx , 69 , 126 +5 ,$leadObj->mobile);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 132 +5 ,$leadObj->email_address);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 137  +5,$leadObj->date_of_birth);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 143  +5,$leadObj->account_provider);
-        $this->writeToPdf($pdf,$tplIdx , 69 , 150  +5 ,$leadObj->monthly_account_charge);
-        $this->writeToPdf($pdf,$tplIdx , 72 , 156  +5 ,date("d/m/Y",strtotime($leadObj->account_start_date)));
-        $this->writeToPdf($pdf,$tplIdx , 160 , 156   +5,date("d/m/Y",strtotime($leadObj->account_end_date)));
+        $this->writeToPdf($pdf,$tplIdx , 80 , 39 +0 ,$leadObj->salutation);
+        $this->writeToPdf($pdf,$tplIdx , 110 , 39 +0 ,$leadObj->firstname);
+        $this->writeToPdf($pdf,$tplIdx , 153 , 39 +0 ,$leadObj->lastname);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 80 +0 ,$leadObj->address1);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 86 +0 ,$leadObj->address2);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 93 +0 ,$leadObj->address3);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 100  +0,$leadObj->address4);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 113 +0 ,$leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 106 +0 ,"United Kingdom");
+        $this->writeToPdf($pdf,$tplIdx , 69 , 126 +0 ,$leadObj->mobile);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 132 +0 ,$leadObj->email_address);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 137  +0,$leadObj->date_of_birth);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 143  +0,$leadObj->account_provider);
+        $this->writeToPdf($pdf,$tplIdx , 69 , 150  +0 ,$leadObj->monthly_account_charge);
+        $this->writeToPdf($pdf,$tplIdx , 72 , 156  +0 ,date("d/m/Y",strtotime($leadObj->account_start_date)));
+        $this->writeToPdf($pdf,$tplIdx , 160 , 156   +0,date("d/m/Y",strtotime($leadObj->account_end_date)));
 
-        $this->writeToPdf($pdf,$tplIdx , 73, 179 +5 , $leadObj->security_key);
+        $this->writeToPdf($pdf,$tplIdx , 73, 179 +0 , $leadObj->security_key);
 
-        $this->writeToPdf($pdf,$tplIdx , 60, 247  +5, date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 23, 230 +5, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 60, 247  +0, date("d/m/Y",time()));
+        $pdf->Image($leadObj->client_signature_image, 23, 230 +0, 100,18);
 
         /*page 2*/
         $pdf->addPage();
@@ -66,10 +64,10 @@ class PbaFormPdfEsign extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        $this->writeToPdf($pdf,$tplIdx , 30 , 191 - 4 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 65 , 191- 4 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 197- 4 ,$leadObj->lastname);
-        $this->writeToPdf($pdf,$tplIdx , 44 , 204- 4 ,$leadObj->date_of_birth);
+        $this->writeToPdf($pdf,$tplIdx , 30 , 191 - 0 ,$leadObj->salutation);
+        $this->writeToPdf($pdf,$tplIdx , 65 , 191- 0 ,$leadObj->firstname);
+        $this->writeToPdf($pdf,$tplIdx , 38 , 197- 0 ,$leadObj->lastname);
+        $this->writeToPdf($pdf,$tplIdx , 44 , 204- 0 ,$leadObj->date_of_birth);
         $fullAddress = sprintf(
             "%s %s %s %s" ,
             $leadObj->address1 ,
@@ -77,11 +75,11 @@ class PbaFormPdfEsign extends PdfEsign{
             $leadObj->address3 ,
             $leadObj->address4
         );
-        $this->writeToPdf($pdf,$tplIdx , 43 , 210 - 4, $fullAddress);
-        $this->writeToPdf($pdf,$tplIdx , 43 , 217- 4 , $leadObj->postcode);
-        // $this->writeToPdf($pdf,$tplIdx , 43, 247 - 4, date("d/m/Y",time()));
-        $this->writeToPdf($pdf,$tplIdx , 30, 240 - 7 , date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 20, 223 - 7, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 43 , 210 - 0, $fullAddress);
+        $this->writeToPdf($pdf,$tplIdx , 43 , 217- 0 , $leadObj->postcode);
+        // $this->writeToPdf($pdf,$tplIdx , 43, 247 - 0, date("d/m/Y",time()));
+        $this->writeToPdf($pdf,$tplIdx , 30, 240 - 0 , date("d/m/Y",time()));
+        $pdf->Image($leadObj->client_signature_image, 20, 223 - 0, 100,18);
         // $pdf->Image($leadObj->client_signature_image, 123, 225, 100,18);
 
         /*page 4*/
@@ -91,9 +89,9 @@ class PbaFormPdfEsign extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
         /*company information*/
-        $this->writeToPdf($pdf,$tplIdx , 30 , 204 -6 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 70 , 204 -6  ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 210  -6 ,$leadObj->lastname);
+        $this->writeToPdf($pdf,$tplIdx , 30 , 204 -0 ,$leadObj->salutation);
+        $this->writeToPdf($pdf,$tplIdx , 70 , 204 -0  ,$leadObj->firstname);
+        $this->writeToPdf($pdf,$tplIdx , 38 , 210  -0 ,$leadObj->lastname);
         $fullAddress = sprintf(
             "%s %s %s %s" ,
             $leadObj->address1 ,
@@ -101,12 +99,12 @@ class PbaFormPdfEsign extends PdfEsign{
             $leadObj->address3 ,
             $leadObj->address4
         );
-        $this->writeToPdf($pdf,$tplIdx , 34 , 224  -6 , $fullAddress);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 230  -6 , $leadObj->postcode);
-        $this->writeToPdf($pdf,$tplIdx , 43 , 217  -6 ,$leadObj->date_of_birth);
-        $this->writeToPdf($pdf,$tplIdx , 34, 247  -7, date("d/m/Y",time()));
+        $this->writeToPdf($pdf,$tplIdx , 34 , 224  -0 , $fullAddress);
+        $this->writeToPdf($pdf,$tplIdx , 38 , 230  -0 , $leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 43 , 217  -0 ,$leadObj->date_of_birth);
+        $this->writeToPdf($pdf,$tplIdx , 34, 247  -0, date("d/m/Y",time()));
         // $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 20, 232 -7, 100,18);
+        $pdf->Image($leadObj->client_signature_image, 20, 232 -0, 100,18);
 
 
         // $pdf->Image($leadObj->client_signature_image, 15, 233, 100,18);
@@ -120,9 +118,9 @@ class PbaFormPdfEsign extends PdfEsign{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        $this->writeToPdf($pdf,$tplIdx , 30 , 204 -6 ,$leadObj->salutation);
-        $this->writeToPdf($pdf,$tplIdx , 70 , 204 -6 ,$leadObj->firstname);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 210  -6,$leadObj->lastname);
+        $this->writeToPdf($pdf,$tplIdx , 30 , 204 -0 ,$leadObj->salutation);
+        $this->writeToPdf($pdf,$tplIdx , 70 , 204 -0 ,$leadObj->firstname);
+        $this->writeToPdf($pdf,$tplIdx , 38 , 210  -0,$leadObj->lastname);
         $fullAddress = sprintf(
             "%s %s %s %s" ,
             $leadObj->address1 ,
@@ -130,12 +128,12 @@ class PbaFormPdfEsign extends PdfEsign{
             $leadObj->address3 ,
             $leadObj->address4
         );
-        $this->writeToPdf($pdf,$tplIdx , 34 , 224  -6, $fullAddress);
-        $this->writeToPdf($pdf,$tplIdx , 38 , 230  -6, $leadObj->postcode);
-        $this->writeToPdf($pdf,$tplIdx , 43 , 217  -6,$leadObj->date_of_birth);
-        $this->writeToPdf($pdf,$tplIdx , 34, 247  -7, date("d/m/Y",time()));
+        $this->writeToPdf($pdf,$tplIdx , 34 , 224  -0, $fullAddress);
+        $this->writeToPdf($pdf,$tplIdx , 38 , 230  -0, $leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 43 , 217  -0,$leadObj->date_of_birth);
+        $this->writeToPdf($pdf,$tplIdx , 34, 247  -0, date("d/m/Y",time()));
         // $this->writeToPdf($pdf,$tplIdx , 30, 247 , date("d/m/Y",time()));
-        $pdf->Image($leadObj->client_signature_image, 20, 232-7, 100,18);
+        $pdf->Image($leadObj->client_signature_image, 20, 232-0, 100,18);
         // $pdf->Image($leadObj->client_signature_image, 123, 233, 100,18);
 
         /*page 6*/
@@ -924,4 +922,5 @@ class PbaFormPdfEsign extends PdfEsign{
             $pdf->Output('peek.pdf', 'I');
         }
     }
-} 
+
+}

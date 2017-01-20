@@ -13,7 +13,8 @@ use app\models\LeadEsign;
 use FPDI;
 use Yii;
 
-class PPiAffiliatePdf extends PPIPdfEsignForm{
+class PPINonAffiliatePdfEsign extends PPIPdfEsignForm{
+
     public function export()
     {
         /**
@@ -21,13 +22,14 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
          */
         class_exists('TCPDF', true);
         $pdf = new FPDI();
-        $pdf->addPage();
+
         $pdf->SetFont("Helvetica",'',8);
         $pdf->setSourceFile($this->pdfTemplate);
         $leadObj = $this->leadObject;
         $leadObj->date_of_birth = date("d/m/Y",strtotime($leadObj->date_of_birth));
 
         /*page 1*/
+        $pdf->addPage();
         $tplIdx = $pdf->importPage(1);
         $this->writeToPdf($pdf,$tplIdx , 80 , 39 +4 ,$leadObj->salutation);
         $this->writeToPdf($pdf,$tplIdx , 110 , 39 +4 ,$leadObj->firstname);
@@ -74,7 +76,7 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
         $pdf->SetXY(20, 20);
         $this->writeToPdf($pdf,$tplIdx , 130, 11 , $leadObj->security_key);
         /*fullname*/
-        $this->writeToPdf($pdf,$tplIdx , 35 , 230,  sprintf("%s %s %s",$leadObj->salutation , $leadObj->firstname,$leadObj->lastname) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 208,  sprintf("%s %s %s",$leadObj->salutation , $leadObj->firstname,$leadObj->lastname) );
         /*full address*/
         $fullAddress = sprintf(
             "%s %s %s %s %s" ,
@@ -84,10 +86,10 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
             $leadObj->address4,
             $leadObj->address5
         );
-        $this->writeToPdf($pdf,$tplIdx , 35 , 242, $fullAddress );
-        $this->writeToPdf($pdf,$tplIdx , 150 , 242 , $leadObj->postcode);
-        $pdf->Image($leadObj->client_signature_image, 30, 248, 100,18);
-        $this->writeToPdf($pdf,$tplIdx , 35, 267 , date("d/m/Y",time()));
+        $this->writeToPdf($pdf,$tplIdx , 38 , 242 - 25, $fullAddress .'we');
+        $this->writeToPdf($pdf,$tplIdx , 150 , 242 - 25, $leadObj->postcode);
+        $pdf->Image($leadObj->client_signature_image, 30, 248- 25, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 38, 267 - 25, date("d/m/Y",time()));
 
 
         /*page 4*/
@@ -98,10 +100,10 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
         $pdf->SetXY(20, 20);
 
         /*fullname*/
-        $this->writeToPdf($pdf,$tplIdx , 28 , 219, $leadObj->salutation  );
-        $this->writeToPdf($pdf,$tplIdx , 60 , 219, $leadObj->firstname );
-        $this->writeToPdf($pdf,$tplIdx , 36 , 225, $leadObj->lastname );
-        $this->writeToPdf($pdf,$tplIdx , 45 , 232, $leadObj->date_of_birth );
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219 - 2, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219 - 2, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225 - 2, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232 - 2, $leadObj->date_of_birth );
         // /*full address*/
         $fullAddress = sprintf(
             "%s %s %s" ,
@@ -124,10 +126,10 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
         $pdf->SetXY(20, 20);
 
         /*fullname*/
-        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 3, $leadObj->salutation  );
-        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 3, $leadObj->firstname );
-        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 3, $leadObj->lastname );
-        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 3, $leadObj->date_of_birth );
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 2, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 2, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 2, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 2, $leadObj->date_of_birth );
         // /*full address*/
         $fullAddress = sprintf(
             "%s %s %s" ,
@@ -135,12 +137,12 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
             $leadObj->address2 ,
             $leadObj->address3
         );
-        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 3, $fullAddress );
-        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 3,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
-        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 3, $leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 2, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 2,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 2, $leadObj->postcode);
 
-        $pdf->Image($leadObj->client_signature_image, 26, 255 + 3, 100,18);
-        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 3, date("d/m/Y",time()));
+        $pdf->Image($leadObj->client_signature_image, 26, 255 + 2, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 2, date("d/m/Y",time()));
 
         /*page 6*/
         $pdf->addPage();
@@ -151,10 +153,10 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
 
 
         /*fullname*/
-        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 3, $leadObj->salutation  );
-        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 3, $leadObj->firstname );
-        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 3, $leadObj->lastname );
-        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 3, $leadObj->date_of_birth );
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 2, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 2, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 2, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 2, $leadObj->date_of_birth );
         // /*full address*/
         $fullAddress = sprintf(
             "%s %s %s" ,
@@ -162,12 +164,12 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
             $leadObj->address2 ,
             $leadObj->address3
         );
-        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 3, $fullAddress );
-        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 3,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
-        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 3, $leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 2, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 2,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 2, $leadObj->postcode);
 
-        $pdf->Image($leadObj->client_signature_image, 26, 255 + 3, 100,18);
-        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 3, date("d/m/Y",time()));
+        $pdf->Image($leadObj->client_signature_image, 26, 255 + 2, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 2, date("d/m/Y",time()));
 
         /*page 7*/
         $pdf->addPage();
@@ -177,10 +179,10 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
         $pdf->SetXY(20, 20);
 
         /*fullname*/
-        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 3, $leadObj->salutation  );
-        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 3, $leadObj->firstname );
-        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 3, $leadObj->lastname );
-        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 3, $leadObj->date_of_birth );
+        $this->writeToPdf($pdf,$tplIdx , 28 , 219  + 2, $leadObj->salutation  );
+        $this->writeToPdf($pdf,$tplIdx , 60 , 219 + 2, $leadObj->firstname );
+        $this->writeToPdf($pdf,$tplIdx , 36 , 225 + 2, $leadObj->lastname );
+        $this->writeToPdf($pdf,$tplIdx , 45 , 232 + 2, $leadObj->date_of_birth );
         /*full address*/
         $fullAddress = sprintf(
             "%s %s %s" ,
@@ -188,12 +190,12 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
             $leadObj->address2 ,
             $leadObj->address3
         );
-        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 3, $fullAddress );
-        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 3,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
-        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 3, $leadObj->postcode);
+        $this->writeToPdf($pdf,$tplIdx , 35 , 238 + 2, $fullAddress );
+        $this->writeToPdf($pdf,$tplIdx , 35 , 242 + 2,  sprintf('%s %s',$leadObj->address4,$leadObj->address5) );
+        $this->writeToPdf($pdf,$tplIdx , 38 , 251 + 2, $leadObj->postcode);
 
-        $pdf->Image($leadObj->client_signature_image, 26, 255 + 3, 100,18);
-        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 3, date("d/m/Y",time()));
+        $pdf->Image($leadObj->client_signature_image, 26, 255 + 2, 100,18);
+        $this->writeToPdf($pdf,$tplIdx , 27, 270 + 2, date("d/m/Y",time()));
 
 
         /*page 8*/
@@ -342,7 +344,7 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
         }
 
 
-        if ( $leadObj->ppi_insurance_cancelled_situation_date) {
+        if ($leadObj->ppi_insurance_cancelled_situation_date) {
             /*month*/
             $this->writeToPdf($pdf,$tplIdx , 76 , 250, $leadObj->ppi_insurance_cancelled_situation_date[0]);
             $this->writeToPdf($pdf,$tplIdx , 85 , 250, $leadObj->ppi_insurance_cancelled_situation_date[1]);
@@ -364,10 +366,11 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY(20, 20);
 
-        $this->writeToPdf($pdf,$tplIdx , 25.4 , 30, 'x');
-        $this->writeToPdf($pdf,$tplIdx , 26+19 , 30, 'x');
-        if (isset($leadObj->had_a_claim_ppi_insurance)) {
-
+		$leadObj->had_a_claim_ppi_insurance= 'No';
+        if ($leadObj->had_a_claim_ppi_insurance === 'Yes') {
+        	$this->writeToPdf($pdf,$tplIdx , 25.4 , 30, 'x');
+        } else if ($leadObj->had_a_claim_ppi_insurance === 'No') {
+	        $this->writeToPdf($pdf,$tplIdx , 26+19 , 30, 'x');
         }
         /*details*/
         $this->writeToPdf($pdf,$tplIdx , 30 , 60, $leadObj->had_a_claim_ppi_insurance_details);
@@ -774,7 +777,7 @@ class PPiAffiliatePdf extends PPIPdfEsignForm{
 
         $this->writeToPdf($pdf,$tplIdx , 53+4, 55+57+21, $leadObj->kind_of_service_complained);
         $this->writeToPdf($pdf,$tplIdx , 108, 147, $leadObj->kind_of_service_complained_reference_number);
-        $this->writeToPdf($pdf,$tplIdx , 20, 180, $leadObj->full_complain_details.'details');
+        $this->writeToPdf($pdf,$tplIdx , 20, 180, $leadObj->full_complain_details);
 
         if ($leadObj->when_did_transaction_take_place) {
             /*day*/

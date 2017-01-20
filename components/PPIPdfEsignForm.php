@@ -55,7 +55,7 @@ class PPIPdfEsignForm extends PdfEsign{
 
         $this->writeToPdf($pdf,$tplIdx , 165, 22 , $leadObj->security_key);
 
-        $this->writeToPdf($pdf,$tplIdx , 60, 270, date("d/m/Y",time()).'wee');
+        $this->writeToPdf($pdf,$tplIdx , 60, 270, date("d/m/Y",time()));
         $pdf->Image($leadObj->client_signature_image, 18, 255, 100,18);
 
         /*page 2*/
@@ -740,7 +740,7 @@ class PPIPdfEsignForm extends PdfEsign{
         $this->writeToPdf($pdf,$tplIdx , 150, 167 , $leadObj->email_address);
         $this->writeToPdf($pdf,$tplIdx , 150, 160 , $leadObj->mobile);
 
-        $this->writeToPdf($pdf,$tplIdx , 53, 94 + 91, $leadObj->complaining_on_behalf_name . 'wee');
+        $this->writeToPdf($pdf,$tplIdx , 53, 94 + 91, $leadObj->complaining_on_behalf_name );
         $this->writeToPdf($pdf,$tplIdx , 165, 94+ 91, $leadObj->complaining_on_behalf_relationship);
         $this->writeToPdf($pdf,$tplIdx , 53, 94+ 100, 'Wheatfield House,');
         $this->writeToPdf($pdf,$tplIdx , 53, 94+ 110, 'Wheatfield Way,');
@@ -750,10 +750,10 @@ class PPIPdfEsignForm extends PdfEsign{
         $this->writeToPdf($pdf,$tplIdx , 140, 94+ 130, $leadObj->complaining_on_behalf_fax);
         $this->writeToPdf($pdf,$tplIdx , 140, 94+ 137, $leadObj->complaining_on_behalf_ref);
 
-        $this->writeToPdf($pdf,$tplIdx , 53, 94+ 158, $leadObj->complaining_on_behalf_of_a_business_official_name.'1');
-        $this->writeToPdf($pdf,$tplIdx , 180, 94+ 158, $leadObj->complaining_on_behalf_of_a_business_num_employees.'2');
-        $this->writeToPdf($pdf,$tplIdx , 53, 94+ 170, $leadObj->complaining_on_behalf_of_a_business_num_partners.'3');
-        $this->writeToPdf($pdf,$tplIdx , 183, 94+ 170.5, $leadObj->complaining_on_behalf_of_a_business_annual_income.'4');
+        $this->writeToPdf($pdf,$tplIdx , 53, 94+ 158, $leadObj->complaining_on_behalf_of_a_business_official_name);
+        $this->writeToPdf($pdf,$tplIdx , 180, 94+ 158, $leadObj->complaining_on_behalf_of_a_business_num_employees);
+        $this->writeToPdf($pdf,$tplIdx , 53, 94+ 170, $leadObj->complaining_on_behalf_of_a_business_num_partners);
+        $this->writeToPdf($pdf,$tplIdx , 183, 94+ 170.5, $leadObj->complaining_on_behalf_of_a_business_annual_income);
 
          /*page 20*/
         $pdf->addPage();

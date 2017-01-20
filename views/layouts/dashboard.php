@@ -47,8 +47,9 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/dashboard/index'],'visible'=>!Yii::$app->user->isGuest],
-            ['label' => 'Form', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
-            ['label' => 'Leads', 'url' => ['/lead-esign'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'PBA Form', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'PPI Form', 'url' => ['/ppi-lead/form'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'PBA Leads', 'url' => ['/lead-esign'],'visible'=>!Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login'],'visible'=>!Yii::$app->user->isGuest] :
                 [
@@ -83,7 +84,8 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
 							],					
 						    'items' => [
 							        ['label' => 'Home', 'url' => ['/dashboard/index']],
-							        ['label' => 'Leads', 'url' => ['/lead-esign/index']],
+                                    ['label' => 'PBA', 'url' => ['/lead-esign/index']],
+							        ['label' => 'PPI', 'url' => ['/ppi-lead']],
 							        ['label' => 'Users', 'url' => ['/system-account/index'] ],
 							    ],
 							]

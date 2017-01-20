@@ -34,9 +34,6 @@ $this->registerCss($customCss);
 
 // $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
-
-
-
 ?>
 
 <script type="text/javascript">
@@ -1919,16 +1916,12 @@ $this->registerCss($customCss);
                                             <?= 
                                                 $form->field($model, 'pdf_template')
                                                     ->radioList([
-                                                    'Original'=>"<br> Original <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i> ",
-                                                    'PBA Form'=>"<br> PBA Form <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i>"
+                                                    'Original'=>"<br> PBA Non Affiliate (Original) <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i> ",
+                                                    'PBA Form'=>"<br> PBA Affiliate <br> <i class='fa fa-file-pdf-o' style='font-size: 50px;'></i>"
                                                     ], 
                                                     ['encode'=>false])
                                                     ->label(""); 
                                             ?>
-                                            
-
-
-
                                         </p>
                                     </div>
                                 </div>

@@ -9,7 +9,7 @@
 namespace app\models\events;
 
 
-use app\components\PbaFormPdfEsign;
+use app\components\PbaAffiliatePdfEsign;
 use app\components\PdfEsign;
 use app\models\LeadEsign;
 use yii\base\Event;
@@ -34,9 +34,17 @@ class ClientSignatureLead extends Event
         $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/".$currentLeadData->pdf_template.".pdf");
         $pdfEsign = new PdfEsign();
         //by default use the original template
-        if ($currentLeadData->pdf_template === 'PBA Form') {
-            $pdfEsign = new PbaFormPdfEsign();
+        // if ($currentLeadData->pdf_template === 'Original') {
+        //     $pdfEsign = new PbaAffiliatePdfEsign();
+        // }
+        
+        if ($currentLeadData->pdf_template === 'Original') {
+            $pdfEsign = new PbaNonAffiliateForm();
+        } else if ($currentLeadData->pdf_template === 'PPI Affiliate Form') {
+            $pdfEsign = new PbaAffiliatePdfEsign();
         }
+
+
         $pdfEsign->setTemplate($pdfTemplte);
         $pdfEsign->setLeadObject($currentLeadData);
         $pdfEsign->setDestinationFile($downloadedPdfFile);

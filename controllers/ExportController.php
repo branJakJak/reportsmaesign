@@ -2,10 +2,11 @@
 
 namespace app\controllers;
 
-use app\components\PbaFormPdfEsign;
-use app\components\PdfEsign;
-use app\components\PPIAffiliatePdfEsign;
-use app\components\PPIPdfEsignForm;
+
+use app\components\PbaAffiliatePdfEsign;
+use app\components\PbaNonAffiliateForm;
+use app\components\PPINonAffiliatePdfEsign;
+use app\components\PPIAffiliatePdf;
 use app\models\PPILead;
 use Yii;
 use FPDI;
@@ -40,25 +41,22 @@ class ExportController extends \yii\web\Controller
          */
         class_exists('TCPDF', true);
         $leadObj = LeadEsign::find()->where(['security_key' => $securityKey])->one();
+        if ($leadObj) {
+            $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/" . $leadObj->pdf_template . ".pdf");
 
-        $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/PBA Form.pdf");
-        $pdfEsign = new PbaFormPdfEsign();
-        $pdfEsign->setTemplate($pdfTemplte);
-        $pdfEsign->setLeadObject($leadObj);
-        $pdfEsign->export();
-        // if (isset($_GET['test'])) {
-        //     $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/" . $leadObj->pdf_template . ".pdf");
-        //     $pdfEsign = new PbaFormPdfEsign();
-        //     $pdfEsign->setTemplate($pdfTemplte);
-        //     $pdfEsign->setLeadObject($leadObj);
-        //     $pdfEsign->export();
-        // } else {
-        //     $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/PPI Affiliate Form.pdf");
-        //     $pdfEsign = new PPIAffiliatePdfEsign();
-        //     $pdfEsign->setTemplate($pdfTemplte);
-        //     $pdfEsign->setLeadObject($leadObj);
-        //     $pdfEsign->export();
-        // }
+            if ($leadObj->pdf_template === 'Original') {
+                $pdfEsign = new PbaNonAffiliateForm();
+            } else if ($leadObj->pdf_template === 'PBA Affiliate Form') {
+                $pdfEsign = new PbaAffiliatePdfEsign();
+            }
+
+            $pdfEsign->setTemplate($pdfTemplte);
+            $pdfEsign->setLeadObject($leadObj);
+            $pdfEsign->export();
+        } else {
+            throw new NotFoundHttpException("Can't find the lead exception");
+        }
+
         Yii::$app->end();
     }
 
@@ -71,7 +69,11 @@ class ExportController extends \yii\web\Controller
         $leadObj = PPILead::find()->where(['security_key' => $securityKey])->one();
         if ($leadObj) {
             $pdfTemplte = Yii::getAlias("@app/documentation/pdf_template/" . $leadObj->pdf_template . ".pdf");
-            $pdfEsign = new PPIPdfEsignForm();
+            if ($leadObj->pdf_template === 'PPI Form') {
+                $pdfEsign = new PPINonAffiliatePdfEsign();
+            } else if ($leadObj->pdf_template === 'PPI Affiliate Form') {
+                $pdfEsign = new PPIAffiliatePdf();
+            }
             $pdfEsign->setTemplate($pdfTemplte);
             $pdfEsign->setLeadObject($leadObj);
             $pdfEsign->export();

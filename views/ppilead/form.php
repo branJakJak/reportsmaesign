@@ -8,38 +8,6 @@ use yii\helpers\Html;
 use kartik\date\DatePicker;
 
 
-// $this->registerJsFile('js/signature_pad-1.5.3/signature_pad.min.js', ['position' => \yii\web\View::POS_END, 'depends' => \yii\web\JqueryAsset::className()]);
-$this->registerJsFile('js/signature_pad-1.5.3/signature_pad.js', ['position' => \yii\web\View::POS_END, 'depends' => \yii\web\JqueryAsset::className()]);
-
-$signaturePanelJs = <<< SCRIPT
-    var clearButton = document.getElementById("clearButton"),
-        wrapper = document.getElementById("signature-wrapper"),
-        saveButton = document.getElementById("signed-btn"),
-        canvas = document.getElementById("signaturePanel"),
-        signaturePad;
-
-    signaturePad = new SignaturePad(canvas);
-
-    clearButton.addEventListener("click", function (event) {
-        signaturePad.clear();
-    });
-    function resizeCanvas() {
-        var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
-    }
-
-    //before submit  , assign the data to client_signature_image
-    jQuery("form:eq(0)").submit(function(event) {
-        encodedImage = signaturePad.toDataURL();
-        jQuery("#client_signature").val(encodedImage.substr(encodedImage.indexOf(',')));
-    });
-    window.onresize = resizeCanvas;
-    resizeCanvas();
-SCRIPT;
-$this->registerJs($signaturePanelJs, \yii\web\View::POS_READY);
-
 $customCss = <<< SCRIPT
     .form-label-exclusive{
         padding-top: 30px;
@@ -75,7 +43,16 @@ $customCss = <<< SCRIPT
         font-size: 30px !important;
         font-weight: bolder;
     }
-
+    #ppilead-pdf_template label {
+        text-align: center;
+        padding: 20px;        
+        border: 5px solid #808080;
+        padding: 20px;
+        margin: 20px;
+        min-width: 200px !important;
+        border-radius: 10px;
+        cursor: pointer;
+    }    
 SCRIPT;
 $this->registerCss($customCss);
 
@@ -212,54 +189,13 @@ $this->title = "Final Step :: Review your information before afixing your signat
         margin-left: 20px;
     }
 </style>
-    <div class="row">
-        <div class="col-lg-3">
-            <?= Html::img("/images/ppi_top_banner.png", ['class' => 'img-responsive']); ?>            
-        </div>
-        <div class="col-lg-5">
-            <?= Html::img("/images/moneyactive.jpg", ['class' => 'img-responsive']); ?>
-        </div>
-        <div class=" col-lg-4">
-            <h3 style="
-    padding: 24px;
-    background: lightgray;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bolder;
-    line-height: 46px;
-">
-                Our Reference :
-                <br>
-                <?= Html::encode($model->security_key); ?>
-            </h3>
-        </div>
 
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h3 id="banner-top">
-                PPI REFUND CLAIM PACK – Getting YOUR money back 
-            </h3>           
-        </div>
-    </div>
+
     <div class="row">
         <div class="form">
             <?php $form = ActiveForm::begin([]); ?>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="alert">
-                            <h3>
-                                <strong>Final Step</strong>
-                                <p>
-                                    Review your information before afixing your signature.
-                                </p>
-                            </h1>
-                        </div>
-                        <br>
 
-                    </div>
-                </div>
-                <br>
+
                 <?php if ($model->hasErrors()): ?>                    
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -544,325 +480,8 @@ $this->title = "Final Step :: Review your information before afixing your signat
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h1 class="panel-title">Disclaimer</h1>
-                            </div>
-                            <div class="panel-body">
-
-                                <h3 class="text-center">
-                                    Payment Protection Insurance Terms of Engagement - Please Read, Date and Sign below.
-                                </h3>
-                                <p>
-                                    ‘I/We’ and ‘the Client’ means the client(s) whose signature appears afoot of these terms and conditions ‘Company’ means
-                                    Money Active Ltd.
-                                </p>
-
-                                <p>
-                                    I/We herewith appoint Money Active Ltd to act exclusively on my/our behalf as my/our representative in respect of my/our
-                                    claim/s for any mis-sold Payment Protection Insurance. I/We shall provide all information required by Money Active Ltd, as
-                                    requested, by return. I/We shall not enter into any agreement with the Bank/Lender/Broker without first consulting Money
-                                    Active Ltd.
-                                </p>
-                                <strong>Cancellation Conditions:</strong>
-
-                                <p>Money Active Ltd can cancel this agreement at any time and no fee will be payable by you if we think there are no grounds
-                                for a complaint or that your claim is unlikely to succeed.</p>
-
-                                <p>Money Active Ltd has the right to terminate the contract by giving written notice to you (the client), also at any time to
-                                immediately terminate the contract if the client materially breaches any term of the contract or if the client is
-                                adjudicated bankrupt. In the case of redeemable breaches the client will be afforded 28 days to remedy the breach.</p>  
-
-                                <p>You will have the right to terminate the contract within 14 days of signing the contract by giving written or verbal
-                                notice to Money Active Ltd
-                                </p>
-
-                                <p>In the event that you wish to terminate the contract after the statutory 14 day ‘cooling off’ period you may do so but Money
-                                Active Ltd reserve the right to issue a cancellation charge that reflects the work already undertaken in pursuance of your
-                                claim, calculated by hourly rate of £45 plus VAT.</p>   
-
-                                <p>If Money Active Ltd has already achieved an offer of compensation that is made in accordance with FCA and FOS guidelines
-                                the full fee is payable.</p>
-
-                                <p>A cancellation fee would only be charged if you cancel the contract after 14 days of signing.
-                                </p>
-
-                                Cancellation of the agreement must be done by clear statement. For more information, please see our Notice of Right to
-                                cancel within the claim pack.
 
 
-                                <p><strong>Law &amp; Jurisdiction:</strong> In all matters affecting this contract the law applicable to this contract shall be English law and the parties
-                                consent to the jurisdiction of the English courts. The Company makes no representation or warranty to the Client that
-                                compensation will be obtained or is in any way guaranteed. The Company reserves the right at any time, at its discretion, to
-                                not pursue a claim for compensation and in such instances will notify the Client in writing promptly.
-                                </p>
-
-                                <p><strong>Compensation:</strong> Compensation refers to the total monies offered by the Third Party (i.e. Loan Company, Lender, Broker, IFA
-                                or any other organisation associated with your claim/s) whether as compensation, as a gesture of goodwill, refund, discount
-                                or otherwise arising from any claim made by the Company on behalf of the Client for an allegedly mis-sold PPI and/or any
-                                offer to reduce any loan amount outstanding and/or any interest or capital recovered. Where such an offer is revised on
-                                appeal and subject to the client having not cancelled our agreement, then the higher amount shall be used in order to
-                                calculate the amount of the Compensation.</p>
-
-                                <u>
-                                <center><strong>Responsibilities:</strong></center>
-                                </u>
-                                <strong>Money Active Ltd shall:</strong>
-                                <ul>
-                                    <li>a) Conduct ourselves in the best interest of the client in the pursuance of any potential claim against any financial institution.</li>
-                                    <li>b) Afford the client with impartial advice on any risks and benefits of pursing a claim against any financial institution.</li>
-                                    <li>c) Endeavour to achieve a satisfactory outcome via complaint to the lender/broker, through the Financial Ombudsman or Financial Services Compensation Scheme, as necessary. Our work is limited to reaching a settlement without court action.</li>
-                                    <li>d) Advise the client on the suitability of any offer of settlement on behalf of any financial institution.</li>
-                                </ul>
-
-                                <strong>The Client shall:</strong>
-                                <ul>
-                                    <li>a) Provide Money Active Ltd with full and accurate information and not mislead it or obstruct it in any way.</li>
-                                    <li>b) Provide Money Active Ltd with all documents, including in electronic form, in his/her possession relating to / giving evidence to the claim/s.</li>
-                                    <li>c) Respond without delay to any request from Money Active Ltd for instructions or further information without delay.</li>
-                                    <li>d) Advise Money Active Ltd of any change of address details or contact telephone numbers immediately.</li>
-                                    <li>e) Advise Money Active Ltd immediately if the Third Party contacts the client directly regarding the claim.</li>
-                                </ul>
-
-                                <strong>Payment & Our Fees:</strong>
-                                <p>Money Active Ltd will strive to recover all monies owed and undertake to forward any payment from our bank to you,
-                                the client, within 7 days from the date received, subject to the agreed fee of 33% plus VAT.
-                                If you are paid the compensation directly we require that you pay our fee no later than 10 days after payment is received by
-                                you.</p>
-
-                                <p>If based on all available evidence your offer of compensation is correct and was calculated in accordance with Financial
-                                Conduct Authority and Financial Ombudsman Service rules or guidance and we recommend that you accept it and you
-                                choose not to accept it our fee must be paid within 20 days of our recommendation.</p>
-
-                                <p>If you fail to pay our fee and Money Active Ltd takes steps to recover any service charges due, the Client shall pay to Money
-                                Active Ltd a recovery fee that reflects the cost of work undertaken to recover the fee, in addition to our normal fee.</p>
-
-                                <p>If you fail to pay our fees within our agreed terms you give permission for us to obtain a reference from a credit
-                                reference agency, who will perform a credit check on our behalf.</p>
-
-                                <p>You may be paid directly in cash, or a reduction to your balance may be made. If your claim relates to a loan that is still
-                                ongoing you may receive compensation both as a cash sum and also a reduction in your future loan payments, in such cases
-                                our fee will only be payable on the cash in hand sum.</p>
-
-                                <p>If your claim relates to a credit or store card that is still active the compensation may be paid as a cash sum and/or an
-                                amount credited to the card, naturally in such cases our fee will be payable on any amount credited to the card and any cash
-                                in hand sum.</p>
-
-                                <br>
-                                <h3>Examples of the Company’s fee –</h3>
-                                <br>
-
-                                <table class="table table-hover table-bordered">
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Example A: All compensation is "cash in hand"            </strong>
-                                        </td>
-                                        <td colspan="2">
-                                            <strong>Example B: Compensation includes "cash in hand" award with loan and future instalment reduction</strong>
-                                        </td>
-                                        <td colspan="2">
-                                            <strong>Example C: Compensations is used to offset arrears consumer has on credit card or loan            </strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Total compensation
-                                            Received by Customer:
-                                        </td>
-                                        <td>
-                                            £3,000
-                                        </td>
-                                        <td>
-                                            Total compensation Received by
-                                            Customer:
-                                        </td>
-                                        <td>
-                                            £3,000
-                                        </td>
-                                        <td>
-                                            Total compensation Received by
-                                            Customer:
-                                        </td>
-                                        <td>
-                                            £3,000
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Loan Reduction by Lender </td>
-                                        <td>£0 </td>
-                                        <td>Loan Reduction by Lender </td>
-                                        <td>£2,000 </td>
-                                        <td>Arrears Reduction by Lender </td>
-                                        <td>£3,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Of which cash received by Customer after Loan reduction</td>
-                                        <td>£3,000</td>
-                                        <td>Of which cash received by Customer after Loan reduction</td>
-                                        <td>£1,000</td>
-                                        <td>Of which cash received by Customer after Arrears reduction</td>
-                                        <td>£0        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Money Active Fee charged @ 33% + VAT</td>
-                                        <td>£1,188</td>
-                                        <td>Money Active Fee charged @ 33% + VAT</td>
-                                        <td>£1,188</td>
-                                        <td>Money Active Fee charged @ 33% + VAT</td>
-                                        <td>£1,188</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Consumer Pays Money Active</td>
-                                        <td>£1,188 </td>
-                                        <td>Consumer Pays Money Active </td>
-                                        <td>£1,188 </td>
-                                        <td>Consumer pays Money Active </td>
-                                        <td>£1,188    </td>
-                                    </tr>
-                                </table>
-
-                                <p><strong>No Win No Fee:</strong> Unless you cancel the contract after the 14 day cooling off period you, the Client, shall not pay any fee if
-                                an offer of compensation is not achieved via complaint to the lender/broker, through the Financial Ombudsman or Financial
-                                Services Compensation Scheme and/or the Company has deemed it appropriate not to pursue a claim for compensation.</p>
-
-                                <p><strong>Complaints:</strong> Money Active Ltd has an internal complaints procedure, included in a separate sheet in your pack.</p>
-
-                                <p><strong><u>Declaration</u>: You should only sign this document if you have read it and agree to be bound by the terms and
-                                conditions. By signing this agreement you are entering into a legally binding contract.</strong></p>
-
-                                <center>
-                                    <strong style="color:red">Any Questions? Call our helpline, we are happy to answer them – 01455 530 034</strong>
-                                </center>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h1 class="panel-title">To whom it may concern:</h1>
-                            </div>
-                            <div class="panel-body">
-                                <p>
-                                     1. <strong>Authorisation to Money Active Ltd</strong> – I/We hereby give authorisation to Money Active to act on my/our behalf in
-                                    pursuing my/our claim/s in respect of advice received from and/or sales made by the company relating to the above and
-                                    any other account I/we hold or have held with the company. I/We give Money Active Ltd full authority to refer the
-                                    complaint to the Financial Ombudsman Service and/or Financial Services compensation Scheme if this is believed to be in
-                                    my/our best interest. I/We further consent that a copy of this agreement holds the same validity as the original
-                                    and that this authority will endure until further notice.
-                                </p>
-                                <p>2 . I/We acknowledge that I/we could pursue this complaint myself/ourselves without the involvement of Money Active Ltd,
-                                but that I/we have instead opted to engage Money Active Ltd whose fees will be recoverable from me/us.</p>  
-                                <p>3 . <strong>Instructions to the company</strong>- Please take this letter as my/our instructions to you, the company, to deal
-                                directly with Money Active Ltd in respect of the complaint and to provide them with any information they
-                                request either verbally or in any other media format that they require to pursue my/our complaint. As of the
-                                date I/we have signed this letter of authority, we do not wish to receive any correspondence from the company in relation
-                                to our complaint.</p>
-                                <p>4 . <strong>Compensation</strong> – I authorise that any compensation monies arising from this matter may be paid directly to Money Active
-                                Ltd. Such monies will promptly be paid to me/us by Money Active Ltd less their fee for the services carried out by them. I/
-                                We have received details of any fees payable contained within our signed letter of engagement.</p>  
-                                <p>5. I/We understand that in the eventuality of a successful claim my/our payment protection policy will be terminated and it is
-                                my/our responsibility to arrange replacement cover if so required.</p>
-                                <p>6 . In the case of an ongoing loan or mortgage I/We require any compensation monies to be paid directly in accordance with
-                                article 5 above and not used to reduce an outstanding loan balance other than to reduce future loan payments by means
-                                of removal of the PPI.</p>
-                                <p>7 . In the case of an active credit or store card account I/We understand that if the card provider uses my redress monies to
-                                reduce an outstanding balance on my credit or store card, the total fee will still be payable to Money Active Ltd.</p>
-                                <p>8 . <strong>Instructions to third party</strong> – In the eventuality that you need to contact a third party to progress my/our claim for any
-                                reason, I/we hereby give my/ our authority and consent for the third party to provide the company and Money Active Ltd
-                                with any information they request and may require to pursue my/our claim.
-                                I understand that, in addition to the present Letter of Authority I will need to provide further information when raising an
-                                expression of dis-satisfaction to the Lender, about the underlying product(s), service(s) and where known, specific account
-                                number(s) being complained about. Doing so will enable the Lender to assess and determine the complaint as quickly and
-                                as effectively as possible.</p>
-                                <p>9 . <strong>Declaration of Truth</strong> – I/We have read and accepted the Money Active Ltd Terms of Engagement and give them full
-                                authority to make a claim on my/our behalf. I/We confirm that the information given in this letter is in the best of my/our
-                                knowledge accurate and a truthful reflection of my/our recollections of events at the point of sale.</p>
-                                <p>10. <strong>Terms of Engagement</strong> – I/We have read and accept the Money Active Ltd Terms of Engagement and give them full
-                                authority to make a claim on my/our behalf.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h1 class="panel-title">Payment Protection Insurance: consumer questionnaire</h1>
-                            </div>
-                            <div class="panel-body">
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                    <strong>WHAT IS THIS QUESTIONNAIRE FOR?</strong>
-                                    <hr>
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                This questionnaire is for consumers to bring
-                                                a complaint about the sale of payment protection
-                                                insurance (PPI).
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                The questionnaire asks you for the personal
-                                                and financial details needed to sort out
-                                                your complaint.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                If you’re not sure about anything – or have any
-                                                difficulties filling in this questionnaire – phone
-                                                us at the Financial Ombudsman Service on
-                                                0300 123 6222 or 0800 121 6222 .
-                                            </p>
-                                        </li>
-                                    </ul>                                    
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                    <strong>WHAT IS THIS QUESTIONNAIRE FOR?</strong>
-                                    <hr>
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                Please fill in the questionnaire, giving as much
-                                                information as you can.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                It may take you some time to go through the
-                                                questionnaire and get all your facts together.
-                                                But having all the information in one place should
-                                                mean your case can then be assessed more quickly.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Once you have completed the questionnaire,
-                                                please return it to us at the address at the end.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                If you have any documents you think may be of
-                                                interest, please send copies of them as well.
-                                            </p>
-                                        </li>
-                                    </ul>                                    
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-info">
@@ -1841,104 +1460,6 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <h2>
-                                    Accessibility and practical needs
-                                </h2>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <div class="col-lg-9">
-                                            <h4>
-                                                Do you have any practical needs where we could help – by making adjustments like
-                                                using large print, Braille or a different language? <br>
-                                                <small>* If YES, please tell us how we can help you.</small>
-                                            </h4>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <?= $form->field($model, 'has_accessibility_problem')->radioList(['Yes'=>'Yes','No'=>'No'])->label(""); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="alert alert-info">
-                                    <h2>
-                                        Finally, please read and sign this declaration
-                                    </h2>
-                                    <div>
-                                        I’d like the Financial Ombudsman Service to look into my complaint. To the best of my
-                                        knowledge, all the information I’ve given you is accurate.
-                                        <ul>
-                                            <li>I understand that you usually resolve complaints by phone, letter and email.</li>
-
-                                            <li>
-                                                I understand that you will need some personal details about me, that you might need to
-                                                share information I give you – including sensitive or personal information – with the
-                                                business involved and other relevant organisations, and that you might need to ask them
-                                                for information that’s relevant to my case.
-                                            </li>
-
-                                            <li>
-                                                I understand that you have a duty to publish your ombudsmen’s final decisions on your
-                                                website – with consumers’ details removed - but that most cases can be resolved before
-                                                they reach an ombudsman
-                                            </li>
-                                            <li>
-                                                I understand that to help you provide the best possible service, you (or a trusted third party)
-                                                might ask me about my experience. And though you sometimes publish anonymous
-                                                examples of the cases you look at, you’ll always keep my information confidential.
-                                            </li>
-                                            <li>You need to sign, even if someone else is complaining on your behalf. This shows you have
-                                            given them your permission to complain for you.</li>
-                                            <Li>For complaints involving accounts or policies held jointly, each person needs to sign.</Li>
-                                            <li>If you’re signing on behalf of a business, please give your job title.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <strong>post to …</strong> <br>
-                                        Financial Ombudsman Service <br>
-                                        Exchange Tower <br>
-                                        London E14 9SR <br>                                    
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <?= 
-                                            $form
-                                            ->field($model, 'final_tick_checklist')
-                                            ->label("Please tick  to show you have …")
-                                            ->checkboxList([
-                                                    "enclosed a copy of the business’s last letter to you."=>"enclosed a copy of the business’s last letter to you.",
-                                                    "enclosed copies of other relevant information."=>"enclosed copies of other relevant information.",
-                                                    "included everything you want to tell us about your complaint."=>"included everything you want to tell us about your complaint.",
-                                            ])
-                                        ?>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                        <h4 class="text-left">
-                                            <strong>0300 123 9 123 or 0800 023 4567</strong>  <br>
-                                            <small>
-                                                calls are recorded for training <br>
-                                                and monitoring purposes 
-                                            </small>
-                                        </h4>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                        <h4 class="text-right">
-                                            <strong>fax 020 7964 1001 dx 141280 Isle of Dogs</strong> <br>
-                                            <small>
-                                            <?= Html::mailto('complaint.info@financial-ombudsman.org.uk', 'complaint.info@financial-ombudsman.org.uk'); ?>
-                                            <br>
-                                            <a href="www.financial-ombudsman.org.uk">www.financial-ombudsman.org.uk</a>
-                                            <br>
-                                            </small>
-                                        </h4>
-                                    </div>
-                                </div>
-
-
 
                             </div>
                         </div>
@@ -1946,27 +1467,39 @@ $this->title = "Final Step :: Review your information before afixing your signat
                 </div>
 
 
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">PDF Template</h3>
+                    </div>
+                    <div class="panel-body">
+                        <fieldset>
+                            <legend>Choose Template : </legend>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <p class="form-control-static">
+                                        <?= 
+                                            $form->field($model, 'pdf_template')
+                                                ->radioList([
+                                                'PPI Form'=>"<br>Non Affiliate <br> <i class='fa fa-file-pdf-o' style='font-size: 100px;'></i> ",
+                                                'PPI Affiliate Form'=>"<br>Affiliate <br> <i class='fa fa-file-pdf-o' style='font-size: 100px;'></i>"
+                                                ], 
+                                                ['encode'=>false])
+                                                ->label(""); 
+                                        ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <canvas class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style='border: 1px solid black;min-height: 250px;' id="signaturePanel"></canvas>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center signature-label-text">
-                            <strong>Signature</strong>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 signature-date-label-text">
-                            <?= date("F j, Y"); ?>
-                        </div>
-                        <?= $form->field($model, 'client_signature_image')->hiddenInput(['id' => 'client_signature'])->label("") ?>
-                        <div class="text-center">
-                            <?= Html::button('Reset signature panel', ['id'=>'clearButton','class' => 'btn btn-default', 'data-action' => 'clear']) ?>
-                        </div>
-                        <hr>
                         <div class="form-group">
                             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block', 'id'=>'signed-btn','name' => 'sign-button','data-action' => 'save']) ?>
                         </div>
                     </div>
-                </div>                
-
-
+                </div>
 
 
                 </div>

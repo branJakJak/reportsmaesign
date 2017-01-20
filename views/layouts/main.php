@@ -41,8 +41,8 @@ $this->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Dashboard', 'url' => ['/dashboard/index'],'visible'=>Yii::$app->user->can('admin')],
-            ['label' => Yii::$app->user->can('admin') ? 'Form':'Home', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
-
+            ['label' => Yii::$app->user->can('admin') ? 'PBA Form':'Home', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'PPI Form', 'url' => ['/ppi-lead/form'],'visible'=>!Yii::$app->user->isGuest],
             ['label' => 'PBA Leads', 'url' => ['/lead-esign'],'visible'=>!Yii::$app->user->isGuest],
             ['label' => 'PPI Leads', 'url' => ['/ppi-lead'],'visible'=>!Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ?

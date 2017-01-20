@@ -2,6 +2,7 @@
 /* @var $scenario Codeception\Scenario */
 $faker = Faker\Factory::create();
 $apiBackendUrl = "http://esign.site8.co/api/v1/ppi/non-affiliate";
+$apiBackendUrl = "http://localhost:8080/api/v1/ppi/non-affiliate";
 $I = new ApiTester($scenario);
 $I->wantTo('Test /api/v1/ppi/non-affiliate function');
 $I->amHttpAuthenticated('api', 'RlI1FOWCkuGLKEdNBi9j');

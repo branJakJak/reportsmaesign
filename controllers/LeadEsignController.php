@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
  */
 class LeadEsignController extends Controller
 {
-    public $layout = "dashboard";
+    // public $layout = "dashboard";
     /**
      * @inheritdoc
      */
