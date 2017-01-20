@@ -125,7 +125,7 @@ class LeadEsignController extends Controller
             ->where(['id'=>$id])
             ->one();
         if (!$model) {
-            throw new NotFoundHttpException("Sorry that lead doesnt exists");
+            throw new NotFoundHttpException("Sorry that lead doesn't exists");
         }else {
             $model->on(LeadEsign::LEAD_ESIGN_NEW_LEAD, ['app\models\events\NewLeadEventHandler', 'handle'],$model);
             $model->trigger(LeadEsign::LEAD_ESIGN_NEW_LEAD);

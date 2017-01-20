@@ -8,10 +8,23 @@ use app\models\PPILead;
 /* @var $this yii\web\View */
 /* @var $model app\models\PPILead */
 
-$this->title = $model->id;
+$this->title = sprintf("%s %s %s",$model->salutation , $model->firstname,$model->lastname);
 $this->params['breadcrumbs'][] = ['label' => 'Ppileads', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Success!</strong> <?= Yii::$app->session->getFlash('success') ?>
+        </div>
+    </div>
+</div>
+<?php endif ?>
+
 <div class="ppilead-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -26,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
-        <?= Html::a('Resend Link', ['/lead-esign/resend', 'id' => $model->id], ['class' => 'btn btn-default pull-right ','style'=>'margin: 0px 10px']); ?>
+        <?= Html::a('Resend Link', ['/ppi-lead/resend', 'id' => $model->id], ['class' => 'btn btn-default pull-right ','style'=>'margin: 0px 10px']); ?>
         <?php if (LeadEsign::find()->where(['security_key'=>$model->security_key])->exists()): ?>
             <?= Html::a('<i class="fa fa-file-pdf-o"></i> View PDF', ['/export/pba/'.$model->security_key], ['class' => 'btn btn-default pull-right']) ?>
         <?php endif ?>

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\PPILead;
+use yii\base\Exception;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -33,14 +34,33 @@ class PPILeadController extends Controller implements ViewContextInterface
             ],
         ];
     }
+
     public function getViewPath()
     {
         return \Yii::getAlias("@app/views/ppilead");
     }
+
+    public function actionResend($id)
+    {
+        /**
+         * @var $leadObj PPILead
+         */
+        if (!PPILead::find()->where(['id' => $id])->exists()) {
+            throw new NotFoundHttpException("Sorry that lead doesnt exists");
+        } else {
+            $leadObj = PPILead::find()->where(['id' => $id])->one();
+            $leadObj->on(PPILead::EVENT_NEW_LEAD, ['app\models\events\NewPPILeadEventHandler', 'handle']);
+            $leadObj->trigger(PPILead::EVENT_NEW_LEAD);
+            Yii::$app->session->setFlash('success', 'Confirmation link sent');
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+
+    }
+
     public function actionForm()
     {
         $model = NewPpiLeadFactory::create();
-        $model->pdf_template = 'PPI Form';//defaults to PPI Form
+        $model->pdf_template = 'PPI Form'; //defaults to PPI Form
         if ($model->load(Yii::$app->request->post())) {
             $clientSignaturePpiLeadEventListener = new ClientSignaturePpiLead();
             $clientSignaturePpiLeadEventListener->esignPdfFactory = new PPIPdfFactory();
