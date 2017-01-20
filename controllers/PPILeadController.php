@@ -62,7 +62,7 @@ class PPILeadController extends Controller implements ViewContextInterface
 
             if ($model->save()) {
                 \Yii::$app->session->setFlash('success', "Success!");
-                $model->trigger(LeadEsign::SIGNATURE_FINAL_STEP);
+                $model->trigger(PPILead::SIGNATURE_FINAL_STEP);
                 return $this->redirect("/success");
             }
         }
