@@ -1563,7 +1563,7 @@ $this->title = "Final Step :: Review your information before afixing your signat
                                         ->label('')
                                     ?>
                                     <br>
-                                    <strong style='background-color : lightgray; color: black;padding: 15px; font-size: 20px; margin: 30px 20px; '>Please send us copies of any documents you have from when you took out the payment protection insurance.</strong>                  
+                                    <div style='background-color : lightgray; color: black;padding: 15px; font-size: 20px; margin: 30px 20px; '>Please send us copies of any documents you have from when you took out the payment protection insurance.</div>
                                     <br>
                                     <br>
                                     <h3>finally, tell us why you are now unhappy with the insurance</h3>
