@@ -313,4 +313,15 @@ class PPILead extends \yii\db\ActiveRecord
             $this->client_signature_image = $outputfile;
         }
     }
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression("NOW()"),
+            ],
+        ];
+    }    
 }
